@@ -3295,6 +3295,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fa99c1aa96c73dc40a4d6bd0f55e26c5, type: 3}
       insertIndex: -1
       addedObject: {fileID: 1611622453}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: fa99c1aa96c73dc40a4d6bd0f55e26c5, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 1611622456}
   m_SourcePrefab: {fileID: 100100000, guid: fa99c1aa96c73dc40a4d6bd0f55e26c5, type: 3}
 --- !u!4 &1289534493 stripped
 Transform:
@@ -4729,12 +4732,25 @@ BoxCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 3
   m_Size: {x: 0.01, y: 0.009999999, z: 0.009999998}
   m_Center: {x: 0, y: 0.0000000037252903, z: 0.0000000018626451}
+--- !u!114 &1611622456
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1611622450}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4a3dc414fac1985469d7102ba0f0d8b7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  objectToSpawn: {fileID: 1544995098}
 --- !u!1 &1614038005 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: fa99c1aa96c73dc40a4d6bd0f55e26c5, type: 3}
@@ -5684,7 +5700,7 @@ GameObject:
   - component: {fileID: 1991808921}
   m_Layer: 0
   m_Name: Player
-  m_TagString: Untagged
+  m_TagString: Player
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
