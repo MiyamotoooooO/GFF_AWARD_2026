@@ -17,11 +17,19 @@ public class O2Gauge : MonoBehaviour
     
     void Start()
     {
-        currentO2 = maxO2;        
+        currentO2 = maxO2;
+        UIUpdate();
     }
     void Update()
     {
-        
+        currentO2 -= Time.deltaTime;
+        currentO2 = Mathf.Clamp(currentO2, 0, maxO2);
+
+        UIUpdate();
+        if(currentO2 <= 0)
+        {
+            //ƒQ[ƒ€‚¨[‚Î
+        }
     }
     void UIUpdate()
     {
