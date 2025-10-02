@@ -13,17 +13,18 @@ public class O2Gauge : MonoBehaviour
     [Tooltip("UI")]
     [SerializeField] private Image o2Image;
     [Tooltip("酸素ゲージスプライト")]
-    [SerializeField] private Image i;
-
-    // Start is called before the first frame update
-    //void Start()
-    //{
-    //    currentO2
-    //}
-
-    // Update is called once per frame
+    [SerializeField] private Sprite[] o2Sprite;
+    
+    void Start()
+    {
+        currentO2 = maxO2;        
+    }
     void Update()
     {
         
+    }
+    void UIUpdate()
+    {
+
     }
 }
