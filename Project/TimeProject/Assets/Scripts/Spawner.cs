@@ -22,7 +22,7 @@ public class Spawner : MonoBehaviour
 
             //今の位置の少し上にオブジェクトを出す
             Vector3 spawnPosition = transform.position + Vector3.left;
-            Quaternion spawnRotation = Quaternion.Euler(-90, 0, 180);  // ここで向きを指定
+            Quaternion spawnRotation = Quaternion.Euler(0, 0, 0);  // ここで向きを指定
 
             Instantiate(objectToSpawn, spawnPosition, spawnRotation);
 

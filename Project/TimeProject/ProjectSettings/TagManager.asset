@@ -5,11 +5,15 @@ TagManager:
   serializedVersion: 2
   tags:
   - Goal
+  - Selectable
+  - Ground
+  - TeleZoneB
+  - TeleZoneA
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - 
+  - Idou
   - Water
   - UI
   - 
