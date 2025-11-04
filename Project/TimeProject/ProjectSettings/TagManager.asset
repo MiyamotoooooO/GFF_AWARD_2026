@@ -16,8 +16,8 @@ TagManager:
   - Idou
   - Water
   - UI
-  - 
-  - 
+  - player
+  - Nothing
   - 
   - 
   - 
@@ -45,4 +45,10 @@ TagManager:
   m_SortingLayers:
   - name: Default
     uniqueID: 0
+    locked: 0
+  - name: BG1
+    uniqueID: 3068214569
+    locked: 0
+  - name: BG2
+    uniqueID: 3879646601
     locked: 0
