@@ -4,9 +4,9 @@ using UnityEngine.SceneManagement;
 using UnityEngine.Rendering.PostProcessing;
 using System.Collections;
 
-public class OxygenGaugeController : MonoBehaviour
+public class O2Gauge : MonoBehaviour
 {
-    public static OxygenGaugeController Instance { get; private set; }
+    public static O2Gauge Instance { get; private set; }
     [Header("_‘fƒQ[ƒWİ’è")]
     public float maxOxygen = 300f; // Å‘å_‘f—Ê
     public float oxygenDecreaseRate = 1f; // ‚P•bŠÔ‚ÉŒ¸‚é_‘f—Ê
