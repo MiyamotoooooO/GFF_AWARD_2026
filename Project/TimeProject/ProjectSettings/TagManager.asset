@@ -9,6 +9,7 @@ TagManager:
   - Ground
   - TeleZoneB
   - TeleZoneA
+  - Water
   layers:
   - Default
   - TransparentFX
@@ -18,8 +19,8 @@ TagManager:
   - UI
   - player
   - Nothing
-  - 
-  - 
+  - Vignette
+  - Default
   - 
   - 
   - 

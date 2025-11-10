@@ -8,7 +8,7 @@ public class ObjectController : MonoBehaviour
     public float gridSize = 1f;
     public float maxStepHeight = 2f;
     public float minDistance = 1f;
-    [SerializeField] float UP = 0f;
+    [SerializeField] float UP = 0.5f;
 
     [SerializeField] Sprite[] handGauge;
     [SerializeField] Image[] Gauge;
@@ -44,7 +44,13 @@ public class ObjectController : MonoBehaviour
         }
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, selectableLayer))
+        {
             selectedObject = hit.collider.gameObject;
+
+            Collider col = GetComponent<Collider>();
+            if (col != null)
+                col.isTrigger = true;
+        }
     }
 
     void TryMoveSelectedObject()
@@ -95,10 +101,15 @@ public class ObjectController : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            selectedObject.tag = "Selectable"; // 再び選択可能に
-            selectedObject = null;
+            Collider col = GetComponent<Collider>();
+            if (col != null)
+                col.isTrigger = false;
+
             count++;
             Gauge[count - 1].sprite = handGauge[1];
+
+            selectedObject.tag = "Selectable"; // 再び選択可能に
+            selectedObject = null;
         }
     }
 }

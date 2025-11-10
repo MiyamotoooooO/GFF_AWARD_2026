@@ -1,17 +1,19 @@
 using UnityEngine;
 
-[RequireComponent(typeof(Animator),typeof(Rigidbody),typeof(SpriteRenderer))]
+[RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
     [Tooltip("移動速度")]
-    [SerializeField]private float moveSpeed = 5f;       // 移動速度
+    [SerializeField] private float moveSpeed = 5f;       // 移動速度
 
     [Tooltip("アニメーション用")]
     [SerializeField] private Animator animator;          // Animator コンポーネント
-    
+
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
     private bool isInputEnabled = true;
+    public OxygenGaugeController oxygenGaugeController;
+    private Vector3 lastCheckpointPosition;
 
     void Start()
     {
@@ -42,6 +44,19 @@ public class PlayerController : MonoBehaviour
         if (moveX != 0)
         {
             sr.flipX = moveX < 0; // 左に進んでいるときだけ反転
+        }
+    }
+
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag("Water"))
+        {
+            Debug.Log("Waterに接触！");
+
+            if (oxygenGaugeController != null)
+            {
+                oxygenGaugeController.GameOverUI();
+            }
         }
     }
 

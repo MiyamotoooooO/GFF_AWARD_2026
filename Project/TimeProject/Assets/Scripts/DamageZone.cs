@@ -11,9 +11,9 @@ public class DamageZone : MonoBehaviour
         Debug.Log("Õ“Ë‚ª”­¶‚µ‚Ü‚µ‚½I‘Šè: " + collision.gameObject.name);
         if (collision.gameObject.CompareTag("Player"))
         {
-            if (O2Gauge.Instance != null)
+            if (OxygenGaugeController.Instance != null)
             {
-                O2Gauge.Instance.TakeDamage(damageAmount);
+                OxygenGaugeController.Instance.TakeDamage(damageAmount);
             }
             else
             {
