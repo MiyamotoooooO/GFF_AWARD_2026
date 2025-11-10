@@ -1,3 +1,4 @@
+using System.Diagnostics.CodeAnalysis;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(SpriteRenderer))]
@@ -14,14 +15,23 @@ public class PlayerController : MonoBehaviour
     private bool isInputEnabled = true;
     public OxygenGaugeController oxygenGaugeController;
     private Vector3 lastCheckpointPosition;
+    public Collider planeCollider;
 
     void Start()
     {
         rb = GetComponent<Rigidbody>();
         sr = GetComponent<SpriteRenderer>(); // SpriteRendererを取得
+        Collider playerCollider = GetComponent<Collider>(); // プレイヤーのcolliderを取得
 
         animator = GetComponent<Animator>();
         Application.targetFrameRate = 60;
+
+        GameObject[] planes = GameObject.FindGameObjectsWithTag("Plane");
+        if (planeCollider != null)
+        {
+            Physics.IgnoreCollision(playerCollider, planeCollider, true);
+            Debug.Log("Planeとの衝突を永続的に無視する設定にしました。");
+        }
     }
 
     void Update()
@@ -49,7 +59,14 @@ public class PlayerController : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Water"))
+        if (collision.gameObject.name == "Plane")
+        {
+            Debug.Log("Planeとの衝突を検出しました。");
+            // 衝突点の法線ベクトルに沿ってプレイヤーを押す力をゼロにする
+            Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
+        }
+
+        if (collision.gameObject.name == "Water")
         {
             Debug.Log("Waterに接触！");
 

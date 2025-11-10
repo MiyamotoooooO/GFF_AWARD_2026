@@ -10,6 +10,8 @@ TagManager:
   - TeleZoneB
   - TeleZoneA
   - Water
+  - Plane
+  - Cannon
   layers:
   - Default
   - TransparentFX
@@ -21,7 +23,7 @@ TagManager:
   - Nothing
   - Vignette
   - Default
-  - 
+  - Ground
   - 
   - 
   - 
