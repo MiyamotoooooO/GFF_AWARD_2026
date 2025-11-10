@@ -18,11 +18,11 @@ public class StageManager : MonoBehaviour
     //カメラとプレイヤーの相対位置を保持
     private Vector3 cameraOffset;
 
-    private void Start()
-    {
-        //ゲーム開始時に「カメラがプレイヤーとどのくらい離れているか」を記録
-        cameraOffset = mainCamera.transform.position - player.position;
-    }
+    //private void Start()
+    //{
+    //    //ゲーム開始時に「カメラがプレイヤーとどのくらい離れているか」を記録
+    //    cameraOffset = mainCamera.transform.position - player.position;
+    //}
     // ステージクリア時に呼び出す
     public void OnStageClear()
     {

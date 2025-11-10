@@ -8,7 +8,7 @@ public class ObjectController : MonoBehaviour
     public float gridSize = 1f;
     public float maxStepHeight = 2f;
     public float minDistance = 1f;
-    [SerializeField] float UP = 0.5f;
+    public float UP = 0f;
 
     [SerializeField] Sprite[] handGauge;
     [SerializeField] Image[] Gauge;
