@@ -158,7 +158,7 @@ public class PlayerCannonLauncher : MonoBehaviour
     IEnumerator WaitAndResume()
     {
         // 少し待って本当に止まったか確認
-        yield return new WaitForSeconds(0.1f);
+        //yield return new WaitForSeconds(0f);
 
         float fallSpeed = Mathf.Abs(playerrb.velocity.y);
         if (fallSpeed > 0.1f) yield break; // まだ落下中なら中断

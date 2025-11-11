@@ -82,7 +82,7 @@ public class FallingItem : MonoBehaviour
     [HideInInspector] public string playerTag;
 
     [Header("ínñ ÇÃÉ^ÉOê›íË")]
-    public string groundTag = "Ground";
+    public string groundTag = "Selectable";
 
     void OnCollisionEnter(Collision collision)
     {
