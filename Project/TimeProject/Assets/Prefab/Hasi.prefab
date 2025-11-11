@@ -128,7 +128,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6645345586696047267}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: df60d534a20d1a64180c73b53d1150b6, type: 3}
   m_Name: 
@@ -139,11 +139,9 @@ MonoBehaviour:
   groundLayer:
     serializedVersion: 2
     m_Bits: 16
-  obstacleLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  _colorCode: {r: 0, g: 0, b: 0, a: 0}
-  gravityScale: 15
   gridSize: 1
   maxStepHeight: 2
   minDistance: 1
+  UP: 0
+  handGauge: []
+  Gauge: []

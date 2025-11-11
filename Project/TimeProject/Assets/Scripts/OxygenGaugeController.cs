@@ -194,11 +194,6 @@ public class OxygenGaugeController : MonoBehaviour
                 vignette.color.value = Color.black; // 黒に設定
                 Debug.Log("ランタイムプロファイル設定完了");
             }
-            else
-            {
-                Debug.LogError("クローンプロファイルからvignetteが見つかりません。");
-            }
-
             if (gameOverVignetteVolume != null)
             {
                 gameOverVignetteVolume.weight = 0f; // 初期状態では無効

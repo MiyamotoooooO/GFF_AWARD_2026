@@ -101,15 +101,15 @@ public class ObjectController : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            Collider col = GetComponent<Collider>();
-            if (col != null)
-                col.isTrigger = false;
+            selectedObject.tag = "Selectable"; // 再び選択可能に
+            selectedObject = null;
+
+           Collider col = GetComponent<Collider>();
+           if (col != null)
+               col.isTrigger = false;
 
             count++;
             Gauge[count - 1].sprite = handGauge[1];
-
-            selectedObject.tag = "Selectable"; // 再び選択可能に
-            selectedObject = null;
         }
     }
 }

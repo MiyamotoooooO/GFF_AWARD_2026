@@ -1,6 +1,6 @@
 using UnityEngine;
 
-public class OperatorFollow : MonoBehaviour
+public class TakoController : MonoBehaviour
 {
     [SerializeField] private Transform target;
     [SerializeField] private float moveSpeed = 2f;
