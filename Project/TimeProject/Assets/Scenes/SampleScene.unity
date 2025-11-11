@@ -5140,7 +5140,7 @@ GameObject:
   - component: {fileID: 776498396}
   - component: {fileID: 776498395}
   - component: {fileID: 776498398}
-  m_Layer: 0
+  m_Layer: 13
   m_Name: "\u30A6\u30A4\u30F3\u30CA\u30FC\u661F\u4EBA_0"
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -8190,6 +8190,11 @@ MonoBehaviour:
   UP: 0
   handGauge: []
   Gauge: []
+  takoControllerScript: {fileID: 0}
+  takoTransform: {fileID: 0}
+  takoFollowSpeed: 5
+  takoFollowZOffset: 0
+  takoAnimator: {fileID: 0}
 --- !u!1001 &1340836012
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -11939,9 +11944,9 @@ GameObject:
   - component: {fileID: 1991808917}
   - component: {fileID: 1991808918}
   - component: {fileID: 1991808920}
-  - component: {fileID: 1991808921}
   - component: {fileID: 1991808922}
-  m_Layer: 6
+  - component: {fileID: 1991808923}
+  m_Layer: 12
   m_Name: Player
   m_TagString: Player
   m_Icon: {fileID: 0}
@@ -12080,8 +12085,32 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!65 &1991808921
-BoxCollider:
+--- !u!114 &1991808922
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1991808913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d5c42c263cadca14bbfa4d11e7456f49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cannonBase: {fileID: 2062844711}
+  launchUpSpeed: 20
+  reappearHeight: 10
+  defaultLayer:
+    serializedVersion: 2
+    m_Bits: 1
+  cameraMoveScript: {fileID: 963194230}
+  playerMoveScript: {fileID: 1991808918}
+  takoMoveScript: {fileID: 776498398}
+  launchEffectPrefab: {fileID: 4207009648124120150, guid: 9ccf24186e8f6224f973cff323af7e96, type: 3}
+  effectSpawnPoint: {fileID: 2062844711}
+  landingEffectPrefab: {fileID: 4207009648124120150, guid: 9ccf24186e8f6224f973cff323af7e96, type: 3}
+--- !u!136 &1991808923
+CapsuleCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
@@ -12098,30 +12127,11 @@ BoxCollider:
   m_IsTrigger: 0
   m_ProvidesContacts: 0
   m_Enabled: 1
-  serializedVersion: 3
-  m_Size: {x: 0.44463325, y: 0.1046079, z: 0.29940295}
-  m_Center: {x: -0.043308377, y: -0.3599636, z: 0.003288865}
---- !u!114 &1991808922
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1991808913}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c42c263cadca14bbfa4d11e7456f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cannonBase: {fileID: 1151126061}
-  launchUpSpeed: 20
-  reappearHeight: 10
-  defaultLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  cameraMoveScript: {fileID: 963194230}
-  playerMoveScript: {fileID: 1991808918}
-  takoMoveScript: {fileID: 776498398}
+  serializedVersion: 2
+  m_Radius: 0.14767645
+  m_Height: 0.44
+  m_Direction: 1
+  m_Center: {x: 0.06, y: -0.17187533, z: 0}
 --- !u!1001 &1994621703
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -12572,7 +12582,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 7024463660975172069, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: m_Name
-      value: Soil (18)
+      value: Cannon
       objectReference: {fileID: 0}
     - target: {fileID: 7024463660975172069, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: m_Layer
@@ -12588,7 +12598,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7651678263384798047, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5
+      value: 0.648
       objectReference: {fileID: 0}
     - target: {fileID: 7651678263384798047, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: m_LocalPosition.z
@@ -12625,11 +12635,11 @@ PrefabInstance:
     - target: {fileID: 8825669935272233008, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: 'm_Materials.Array.data[0]'
       value: 
-      objectReference: {fileID: 2100000, guid: 0f2e6d76a09f94b4bbdb907c73173b48, type: 2}
+      objectReference: {fileID: 2100000, guid: cc78c6c59e23c8e428152523849d75ec, type: 2}
     - target: {fileID: 8825669935272233008, guid: 47cf678852fa0554cabbf84d30846b43, type: 3}
       propertyPath: 'm_Materials.Array.data[1]'
       value: 
-      objectReference: {fileID: 2100000, guid: f346b7c3ae362cb499f690cfb0d2e495, type: 2}
+      objectReference: {fileID: 2100000, guid: cc78c6c59e23c8e428152523849d75ec, type: 2}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
     m_AddedGameObjects: []
@@ -13222,6 +13232,26 @@ PrefabInstance:
       value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: petTransform
+      value: 
+      objectReference: {fileID: 776498397}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: takoAnimator
+      value: 
+      objectReference: {fileID: 776498395}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: takoTransform
+      value: 
+      objectReference: {fileID: 776498397}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: petHoverHeight
+      value: 5
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: takoFollowSpeed
+      value: 30
+      objectReference: {fileID: 0}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
       propertyPath: Gauge.Array.size
       value: 4
       objectReference: {fileID: 0}
@@ -13245,6 +13275,10 @@ PrefabInstance:
       propertyPath: handGauge.Array.size
       value: 2
       objectReference: {fileID: 0}
+    - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
+      propertyPath: takoControllerScript
+      value: 
+      objectReference: {fileID: 776498398}
     - target: {fileID: 3343229156625352307, guid: a57c6df63fe2db54da091e2a57a6904e, type: 3}
       propertyPath: 'handGauge.Array.data[0]'
       value: 

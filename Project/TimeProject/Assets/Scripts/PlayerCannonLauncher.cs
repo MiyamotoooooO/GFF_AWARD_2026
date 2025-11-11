@@ -3,14 +3,14 @@ using UnityEngine;
 
 public class PlayerCannonLauncher : MonoBehaviour
 {
-    [Header("砲台を設置した足場の位置（Transform）")]
-    public Transform cannonBase; // 足場を指定
+    [Header("player（Transform）")]
+    public Transform player;
 
     [Header("打ち上げ速度（上方向）")]
     public float launchUpSpeed = 15f;
 
     [Header("落下開始の高さ")]
-    public float reappearHeight = 20f;
+    public float reappearHeight = 10f;
 
     [Header("クリックで狙うレイヤー")]
     public LayerMask defaultLayer;
@@ -19,33 +19,39 @@ public class PlayerCannonLauncher : MonoBehaviour
     public MonoBehaviour cameraMoveScript;
 
     [Header("プレイヤーの移動スクリプト（無効化対象）")]
-    public MonoBehaviour playerMoveScript; // ← ★ここにプレイヤー移動スクリプトを入れる
+    public MonoBehaviour playerMoveScript;
 
     [Header("TAKOのスクリプトオフ(無効化対象)")]
     public MonoBehaviour takoMoveScript;
 
-    private Rigidbody rb;
+    [Header("発射エフェクトのプレハブ")]
+    [SerializeField] private GameObject launchEffectPrefab;
+
+    [Header("発射エフェクトの出現位置")]
+    [SerializeField] private Transform effectSpawnPoint;
+
+    [Header("着地地点用エフェクト")]
+    [SerializeField] private GameObject landingEffectPrefab;
+
+    private Rigidbody playerrb;
     private bool isInCannon = false;
     private bool isOnCannon = false;
     private bool isFlyingUp = false;
     private bool isFalling = false;
     private Vector3 targetPosition;
-    private float standOffsetY = 1.0f;
 
     void Start()
     {
-        rb = GetComponent<Rigidbody>();
+        playerrb = player.GetComponent<Rigidbody>();
     }
 
     void Update()
     {
-        // 砲台の上でスペースキーを押すと砲台に入る
+        // 砲台に乗ってスペース → 入る
         if (isOnCannon && Input.GetKeyDown(KeyCode.Space) && !isInCannon)
-        {
             EnterCannon();
-        }
 
-        // 砲台に入った状態でクリックしたら打ち上げ
+        // 大砲の中でクリック → 発射
         if (isInCannon && Input.GetMouseButtonDown(0))
         {
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
@@ -53,135 +59,141 @@ public class PlayerCannonLauncher : MonoBehaviour
             {
                 targetPosition = hit.point;
                 LaunchUpward();
-                Debug.Log(ray);
             }
         }
 
-        // 上昇中に一定高さを超えたら再出現
-        if (isFlyingUp && transform.position.y > reappearHeight)
+        // 上昇中 → 一定高さ超えたら落下開始
+        if (isFlyingUp && player.position.y > reappearHeight)
         {
             StartCoroutine(ReappearAndFall());
             isFlyingUp = false;
         }
+
+        // 💡 砲台側で「プレイヤーの着地」を監視
+        if (isFalling)
+        {
+            CheckLanding();
+        }
     }
 
-    // 砲台に入る
     void EnterCannon()
     {
-        Vector3 fixedPosition = cannonBase.position;
-        fixedPosition.y += standOffsetY; // 足場の上に配置
+        playerrb.velocity = Vector3.zero;
+        playerrb.angularVelocity = Vector3.zero;
+        playerrb.isKinematic = true;
 
-        rb.velocity = Vector3.zero;
-        rb.angularVelocity = Vector3.zero;
-        rb.isKinematic = true;
-
-        transform.position = fixedPosition;
+        player.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
 
         isInCannon = true;
 
-        // 🎮 プレイヤー移動スクリプトをオフ
-        if (playerMoveScript != null)
-        {
-            playerMoveScript.enabled = false;
-            Debug.Log("プレイヤー移動スクリプト停止（砲台に入った）");
-        }
-        // 🐾 ペット追従スクリプトをオフ
-        if (takoMoveScript != null)
-        {
-            takoMoveScript.enabled = false;
-            Debug.Log("ペット追従スクリプトを停止");
-        }
+        if (playerMoveScript) playerMoveScript.enabled = false;
+        if (takoMoveScript) takoMoveScript.enabled = false;
 
-        Debug.Log("砲台に入りました（足場基準）");
+        Debug.Log("砲台に入りました");
     }
 
-    // 上方向に打ち上げ
     void LaunchUpward()
     {
-        rb.isKinematic = false;
+        playerrb.isKinematic = false;
         isInCannon = false;
         isFlyingUp = true;
 
-        rb.velocity = Vector3.up * launchUpSpeed;
-
-        // 🎥 カメラスクリプトを停止
-        if (cameraMoveScript != null)
+        playerrb.velocity = Vector3.up * launchUpSpeed;
+        // 🔥 発射アニメーション（Animator付きPrefab）再生
+        if (launchEffectPrefab != null && effectSpawnPoint != null)
         {
-            cameraMoveScript.enabled = false;
-            Debug.Log("カメラ移動スクリプト停止");
+            // ここで高さを +0.5f に調整（お好みで）
+            Vector3 spawnPos = effectSpawnPoint.position + new Vector3(0, 1.4f, 0);
+
+            GameObject effect = Instantiate(launchEffectPrefab, spawnPos, Quaternion.identity);
+
+            // アニメーションが終わる想定時間後に削除
+            Destroy(effect, 0.6f);
         }
+
+        if (cameraMoveScript) cameraMoveScript.enabled = false;
 
         Debug.Log("上方向に打ち上げ！");
     }
 
-    // 上空から再出現して落下
     IEnumerator ReappearAndFall()
     {
-        rb.isKinematic = true;
-        rb.velocity = Vector3.zero;
+        playerrb.isKinematic = true;
+        playerrb.velocity = Vector3.zero;
 
-        // クリック地点の真上から落下開始
-        Vector3 fallStart = targetPosition + Vector3.up * reappearHeight;
-        transform.position = fallStart;
+        Vector3 fallStartPos = new Vector3(targetPosition.x, reappearHeight, targetPosition.z);
+        player.position = fallStartPos;
 
         yield return new WaitForSeconds(0.5f);
 
-        rb.isKinematic = false;
-        rb.velocity = Vector3.zero;
+        playerrb.isKinematic = false;
+        playerrb.velocity = Vector3.zero;
         isFalling = true;
 
-        Debug.Log("上から落下開始");   
+        Debug.Log("上から落下開始");
+    }
+
+    void CheckLanding()
+    {
+        // プレイヤーの足元にRayを飛ばして地面をチェック
+        if (Physics.Raycast(player.position, Vector3.down, out RaycastHit hit, 1.1f, defaultLayer))
+        {
+            float distanceToTarget = Vector3.Distance(
+                new Vector3(player.position.x, 0, player.position.z),
+                new Vector3(targetPosition.x, 0, targetPosition.z)
+            );
+
+            //落下速度をチェック
+            float fallSpeed = Mathf.Abs(playerrb.velocity.y);
+            Debug.Log($"地面ヒット！距離 {distanceToTarget}");
+
+            // 地面が近く、落下が止まり、ターゲット付近なら着地判定
+            if (distanceToTarget < 3.0f && fallSpeed < 0.1f)
+            {
+                StartCoroutine(WaitAndResume());
+            }
+
+        }
+    }
+    IEnumerator WaitAndResume()
+    {
+        // 少し待って本当に止まったか確認
+        yield return new WaitForSeconds(0.1f);
+
+        float fallSpeed = Mathf.Abs(playerrb.velocity.y);
+        if (fallSpeed > 0.1f) yield break; // まだ落下中なら中断
+
+        Debug.Log("✅ 着地完了！スクリプト再開");
+
+        // 着地エフェクト
+        if (landingEffectPrefab)
+        {
+            Vector3 spawnPos = new Vector3(targetPosition.x, player.position.y + 0.2f, targetPosition.z);
+            GameObject effect = Instantiate(landingEffectPrefab, spawnPos, Quaternion.identity);
+            Destroy(effect, 0.6f);
+        }
+
+        isFalling = false;
+
+        if (cameraMoveScript) cameraMoveScript.enabled = true;
+        if (playerMoveScript) playerMoveScript.enabled = true;
+        if (takoMoveScript) takoMoveScript.enabled = true;
     }
 
     void OnCollisionEnter(Collision collision)
     {
-        // 足場(砲台)判定
-        if (collision.gameObject.name == "Cannon")
+        if (collision.gameObject.name == "Player")
         {
             isOnCannon = true;
-            Debug.Log("砲台の上にいます");
-        }
-
-        // 落下→着地検知
-        if (isFalling)
-        {
-            float distanceToTarget = Vector3.Distance(
-                new Vector3(transform.position.x, 0, transform.position.z),
-                new Vector3(targetPosition.x, 0, targetPosition.z)
-            );
-
-            if (distanceToTarget < 1.5f)
-            {
-                if (cameraMoveScript != null)
-                {
-                    cameraMoveScript.enabled = true;
-                    Debug.Log("着地！カメラ再開");
-                }
-
-                // 🎮 プレイヤー移動スクリプトを再開
-                if (playerMoveScript != null)
-                {
-                    playerMoveScript.enabled = true;
-                    Debug.Log("プレイヤー移動スクリプト再開");
-                }
-                if (takoMoveScript != null)
-                {
-                    takoMoveScript.enabled = true;
-                    Debug.Log("ペット追従スクリプトを再開");
-                }
-                isFalling = false;
-            }
         }
     }
 
     void OnCollisionExit(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Cannon"))
+        if (collision.gameObject.name == "Player")
         {
             isOnCannon = false;
-            Debug.Log("砲台から離れました");
         }
     }
 }
-
 
