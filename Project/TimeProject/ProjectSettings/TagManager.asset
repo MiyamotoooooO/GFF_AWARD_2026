@@ -12,6 +12,8 @@ TagManager:
   - Water
   - Plane
   - Cannon
+  - before
+  - after
   layers:
   - Default
   - TransparentFX
@@ -27,8 +29,8 @@ TagManager:
   - Efeect
   - player
   - Pet
-  - 
-  - 
+  - item
+  - craft
   - 
   - 
   - 
