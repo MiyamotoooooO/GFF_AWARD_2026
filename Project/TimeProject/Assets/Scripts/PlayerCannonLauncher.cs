@@ -4,7 +4,7 @@ using UnityEngine;
 public class PlayerCannonLauncher : MonoBehaviour
 {
     [Header("player（Transform）")]
-    public Transform player;
+    public Transform player_;
 
     [Header("打ち上げ速度（上方向）")]
     public float launchUpSpeed = 15f;
@@ -42,7 +42,7 @@ public class PlayerCannonLauncher : MonoBehaviour
 
     void Start()
     {
-        playerrb = player.GetComponent<Rigidbody>();
+        playerrb = player_.GetComponent<Rigidbody>();
     }
 
     void Update()
@@ -63,7 +63,7 @@ public class PlayerCannonLauncher : MonoBehaviour
         }
 
         // 上昇中 → 一定高さ超えたら落下開始
-        if (isFlyingUp && player.position.y > reappearHeight)
+        if (isFlyingUp && player_.position.y > reappearHeight)
         {
             StartCoroutine(ReappearAndFall());
             isFlyingUp = false;
@@ -82,7 +82,7 @@ public class PlayerCannonLauncher : MonoBehaviour
         playerrb.angularVelocity = Vector3.zero;
         playerrb.isKinematic = true;
 
-        player.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
+        player_.position = new Vector3(transform.position.x, transform.position.y + 1.0f, transform.position.z);
 
         isInCannon = true;
 
@@ -108,7 +108,7 @@ public class PlayerCannonLauncher : MonoBehaviour
             GameObject effect = Instantiate(launchEffectPrefab, spawnPos, Quaternion.identity);
 
             // アニメーションが終わる想定時間後に削除
-            Destroy(effect, 0.6f);
+            Destroy(effect, 0.4f);
         }
 
         if (cameraMoveScript) cameraMoveScript.enabled = false;
@@ -122,7 +122,7 @@ public class PlayerCannonLauncher : MonoBehaviour
         playerrb.velocity = Vector3.zero;
 
         Vector3 fallStartPos = new Vector3(targetPosition.x, reappearHeight, targetPosition.z);
-        player.position = fallStartPos;
+        player_.position = fallStartPos;
 
         yield return new WaitForSeconds(0.5f);
 
@@ -136,10 +136,10 @@ public class PlayerCannonLauncher : MonoBehaviour
     void CheckLanding()
     {
         // プレイヤーの足元にRayを飛ばして地面をチェック
-        if (Physics.Raycast(player.position, Vector3.down, out RaycastHit hit, 1.1f, defaultLayer))
+        if (Physics.Raycast(player_.position, Vector3.down, out RaycastHit hit, 1.1f, defaultLayer))
         {
             float distanceToTarget = Vector3.Distance(
-                new Vector3(player.position.x, 0, player.position.z),
+                new Vector3(player_.position.x, 0, player_.position.z),
                 new Vector3(targetPosition.x, 0, targetPosition.z)
             );
 
@@ -168,7 +168,7 @@ public class PlayerCannonLauncher : MonoBehaviour
         // 着地エフェクト
         if (landingEffectPrefab)
         {
-            Vector3 spawnPos = new Vector3(targetPosition.x, player.position.y + 0.2f, targetPosition.z);
+            Vector3 spawnPos = new Vector3(targetPosition.x, player_.position.y + 0.2f, targetPosition.z);
             GameObject effect = Instantiate(landingEffectPrefab, spawnPos, Quaternion.identity);
             Destroy(effect, 0.6f);
         }

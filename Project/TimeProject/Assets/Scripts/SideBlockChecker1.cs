@@ -6,16 +6,16 @@ public class SideBlockChecker : MonoBehaviour
     public enum CheckAxis
     {
         ForwardBack, // 奥 手前（Z軸）
-        LeftRight,   // 左  右（X軸）
-        UpDown       // 上  下（Y軸）
+        LeftRight,   // 左 右（X軸）
+        UpDown       // 上 下（Y軸）
     }
 
     [Header("ブロックを置ける方向を指定")]
     public CheckAxis checkAxis = CheckAxis.ForwardBack;
 
     [Header("両側のブロックの名前を指定")]
-    public string sideAName = "FrontBlock"; // 片側（例: 手前 or 左 or 下）
-    public string sideBName = "BackBlock";  // 反対側（例: 奥 or 右 or 上）
+    public string sideAName = "FrontBlock"; // 手前 or 左 or 下
+    public string sideBName = "BackBlock";  // 奥 or 右 or 上
 
     [Header("くっついていると判定する距離")]
     public float contactDistance = 1.1f;
@@ -25,6 +25,13 @@ public class SideBlockChecker : MonoBehaviour
 
     [Header("くっついたときに変更するタグ")]
     public string newTagOnConnect = "Player";
+
+    [Header("Rigidbodyをつけておく時間(秒)")]
+    public float rigidbodyDuration = 0.05f;
+
+    [Header("Rigidbody設定")]
+    public bool useGravity = false;
+    public bool isKinematic = true;
 
     private bool isCurrentlyConnected = false;
     private string originalTag;
@@ -43,7 +50,7 @@ public class SideBlockChecker : MonoBehaviour
 
     void Update()
     {
-        // ---- 向きに応じた方向ベクトルを決定 ----
+        // ---- 向きに応じた方向ベクトル ----
         Vector3 dirA, dirB;
         switch (checkAxis)
         {
@@ -65,35 +72,30 @@ public class SideBlockChecker : MonoBehaviour
         Transform blockA = FindNearbyBlock(dirA, sideAName);
         Transform blockB = FindNearbyBlock(dirB, sideBName);
 
-        bool isAConnected = blockA != null;
-        bool isBConnected = blockB != null;
-        bool nowConnected = isAConnected && isBConnected;
+        bool nowConnected = (blockA != null && blockB != null);
 
-        // ---- 状態変化の瞬間 ----
-
-        // くっついた瞬間
+        // ---- くっついた瞬間のみ ----
         if (nowConnected && !isCurrentlyConnected)
         {
             Debug.Log("指定したブロックがくっつきました！");
 
-            // BoxColliderのリセット
             if (boxCollider != null)
                 StartCoroutine(ResetCollider());
 
             // タグ変更
             if (!string.IsNullOrEmpty(newTagOnConnect))
             {
-                Debug.Log($"タグを '{originalTag}' から '{newTagOnConnect}' に変更しました。");
                 gameObject.tag = newTagOnConnect;
+                Debug.Log($"タグを '{originalTag}' から '{newTagOnConnect}' に変更しました。");
             }
+
+            // Rigidbodyを一瞬だけつける
+            StartCoroutine(AddRigidbodyTemporarily());
         }
 
-        // 離れた瞬間
+        // ---- 離れた瞬間 ----
         if (!nowConnected && isCurrentlyConnected)
         {
-            Debug.Log("ブロックが離れました！");
-
-            // タグを元に戻す
             gameObject.tag = originalTag;
             Debug.Log($"タグを '{newTagOnConnect}' から '{originalTag}' に戻しました。");
         }
@@ -101,7 +103,6 @@ public class SideBlockChecker : MonoBehaviour
         isCurrentlyConnected = nowConnected;
     }
 
-    // 指定方向に特定の名前のブロックがあるかを調べる
     Transform FindNearbyBlock(Vector3 direction, string targetName)
     {
         RaycastHit hit;
@@ -113,16 +114,28 @@ public class SideBlockChecker : MonoBehaviour
         return null;
     }
 
-    // BoxColliderを一瞬だけオフ→オン
     IEnumerator ResetCollider()
     {
         boxCollider.enabled = false;
         yield return new WaitForSeconds(resetDelay);
         boxCollider.enabled = true;
-        Debug.Log("BoxColliderをリセットしました。");
     }
 
-    // Sceneビューで可視化
+    // Rigidbodyを一瞬だけ追加して削除
+    IEnumerator AddRigidbodyTemporarily()
+    {
+        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
+        rb.useGravity = useGravity;
+        rb.isKinematic = isKinematic;
+
+        Debug.Log("Rigidbodyを一時的に追加しました。");
+
+        yield return new WaitForSeconds(rigidbodyDuration);
+
+        Destroy(rb);
+        Debug.Log("Rigidbodyを削除しました。");
+    }
+
     void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
@@ -148,5 +161,4 @@ public class SideBlockChecker : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + dirB * contactDistance);
     }
 }
-
 

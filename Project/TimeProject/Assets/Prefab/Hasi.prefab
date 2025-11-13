@@ -91,9 +91,6 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 8388492060765185435}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
-      insertIndex: -1
-      addedObject: {fileID: 3336169348998035980}
   m_SourcePrefab: {fileID: 100100000, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
 --- !u!1 &6645345586696047267 stripped
 GameObject:
@@ -121,39 +118,3 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &3336169348998035980
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 6645345586696047267}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: df60d534a20d1a64180c73b53d1150b6, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  selectableLayer:
-    serializedVersion: 2
-    m_Bits: 8
-  groundLayer:
-    serializedVersion: 2
-    m_Bits: 16
-  gridSize: 1
-  maxStepHeight: 2
-  minDistance: 1
-  UP: 0
-  handGauge:
-  - {fileID: 1388182303, guid: 6e80203a0252e1e4fb8d29eafd970b2d, type: 3}
-  - {fileID: 1592804908, guid: 6e80203a0252e1e4fb8d29eafd970b2d, type: 3}
-  Gauge:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  takoControllerScript: {fileID: 0}
-  takoTransform: {fileID: 0}
-  takoFollowSpeed: 50
-  takoFollowYOffset: 0.85
-  takoFollowZOffset: 0
-  takoAnimator: {fileID: 0}
