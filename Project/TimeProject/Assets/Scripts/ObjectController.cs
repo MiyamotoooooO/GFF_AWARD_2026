@@ -4,11 +4,11 @@ using System.Collections.Generic;
 
 public class ObjectManager : MonoBehaviour
 {
-    public LayerMask selectableLayer, groundLayer;
-    public float gridSize = 1f;
-    public float maxStepHeight = 2f;
-    public float minDistance = 1f;
-    public float UP = 0f;
+    [SerializeField] private LayerMask selectableLayer, groundLayer, itemLayer;
+    [SerializeField] private float gridSize = 1f;
+    [SerializeField] private float maxStepHeight = 2f;
+    [SerializeField] private float minDistance = 1f;
+    [SerializeField] private float UP = 0f;
 
     [SerializeField] private Sprite[] handGauge;
     [SerializeField] private Image[] Gauge;
@@ -21,6 +21,13 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] private float takoFollowZOffset = 0f;
     [SerializeField] private Animator takoAnimator;
 
+
+    [Header("カーソル表示設定")]
+    [SerializeField] private Sprite cursorSpriteDefault;
+    [SerializeField] private Sprite cursorSpriteActive;
+    [SerializeField] private SpriteRenderer cursorRenderer;
+
+
     private GameObject selectedObject;
     private int count = 0;
 
@@ -29,7 +36,60 @@ public class ObjectManager : MonoBehaviour
         if (Input.GetMouseButtonDown(0)) TrySelectObject();
         if (selectedObject && Input.GetMouseButton(0)) TryMoveSelectedObject();
         if (Input.GetMouseButtonDown(1)) ConfirmPlacement();
+
+        UpdateCursorSprite();
     }
+
+
+
+
+
+    void UpdateCursorSprite()
+    {
+        Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        {
+            // カーソル位置を更新
+            //Vector3 cursorPos = hit.point;
+            //cursorPos.y = hit.point.y + 0.5f;
+            //cursorRenderer.transform.position = cursorPos;
+
+            Vector3 gridPos = new Vector3(
+             Mathf.Round(hit.point.x / gridSize) * gridSize,
+             0,
+             Mathf.Round(hit.point.z / gridSize) * gridSize
+         );
+
+            if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out RaycastHit groundHit, 10f, groundLayer))
+            {
+                Vector3 pos = new Vector3(gridPos.x, Mathf.Max(groundHit.point.y, 1), gridPos.z);
+                cursorRenderer.transform.position = pos;
+            }
+
+
+                // 移動可能オブジェクトがあるか判定
+            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0)
+            {
+                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+            }
+            else if (((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
+            {
+                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+            }
+            else
+            {
+                cursorRenderer.sprite = cursorSpriteDefault; // 通常
+            }
+        }
+        else
+        {
+            cursorRenderer.sprite = cursorSpriteDefault; // Rayが何も当たらない場合
+        }
+    }
+
+
+
+
 
     void TrySelectObject()
     {
@@ -112,16 +172,6 @@ public class ObjectManager : MonoBehaviour
     {
         if (selectedObject != null)
         {
-            selectedObject.tag = "Selectable";
-            selectedObject = null;
-
-            if (takoControllerScript != null)
-                takoControllerScript.enabled = true;
-
-            if (takoAnimator != null)
-                takoAnimator.SetBool("isLifting", false);
-            count++;
-            Gauge[count - 1].sprite = handGauge[1];
             Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
             if (Physics.Raycast(ray, out RaycastHit hit, 100f, selectableLayer))
             {
@@ -130,6 +180,19 @@ public class ObjectManager : MonoBehaviour
                 if (col != null)
                     col.isTrigger = false;
             }
+
+            if (takoControllerScript != null)
+                takoControllerScript.enabled = true;
+
+            if (takoAnimator != null)
+                takoAnimator.SetBool("isLifting", false);
+
+            selectedObject.tag = "Selectable";
+            selectedObject = null;
+
+            Gauge[count].sprite = handGauge[1];
+            count++;
+
         }
     }
 }

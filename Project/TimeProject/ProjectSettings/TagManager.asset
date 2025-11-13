@@ -57,3 +57,12 @@ TagManager:
   - name: BG2
     uniqueID: 3879646601
     locked: 0
+  - name: BG3
+    uniqueID: 1217471211
+    locked: 0
+  - name: Pet
+    uniqueID: 3706080899
+    locked: 0
+  - name: Player
+    uniqueID: 2231148893
+    locked: 0
