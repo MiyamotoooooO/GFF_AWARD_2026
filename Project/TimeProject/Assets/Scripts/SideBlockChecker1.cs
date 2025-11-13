@@ -1,56 +1,50 @@
 using UnityEngine;
-using System.Collections;
 
 public class SideBlockChecker : MonoBehaviour
 {
     public enum CheckAxis
     {
-        ForwardBack, // 奥 手前（Z軸）
-        LeftRight,   // 左 右（X軸）
-        UpDown       // 上 下（Y軸）
+        ForwardBack,
+        LeftRight,
+        UpDown
     }
 
     [Header("ブロックを置ける方向を指定")]
     public CheckAxis checkAxis = CheckAxis.ForwardBack;
 
     [Header("両側のブロックの名前を指定")]
-    public string sideAName = "FrontBlock"; // 手前 or 左 or 下
-    public string sideBName = "BackBlock";  // 奥 or 右 or 上
+    public string sideAName = "FrontBlock";
+    public string sideBName = "BackBlock";
 
     [Header("くっついていると判定する距離")]
     public float contactDistance = 1.1f;
 
-    [Header("Colliderを再有効化するまでの時間(秒)")]
-    public float resetDelay = 0.05f;
+    [Header("くっついた瞬間にONにするスクリプトがあるオブジェクト")]
+    public GameObject targetObject;
 
-    [Header("くっついたときに変更するタグ")]
-    public string newTagOnConnect = "Player";
+    [Header("ONにするスクリプト（targetObject上のスクリプトコンポーネントを直接指定）")]
+    public MonoBehaviour targetScript;
 
-    [Header("Rigidbodyをつけておく時間(秒)")]
-    public float rigidbodyDuration = 0.05f;
-
-    [Header("Rigidbody設定")]
-    public bool useGravity = false;
-    public bool isKinematic = true;
+    [Header("見た目の変更設定（マテリアル指定）")]
+    public Material offMaterial;
+    public Material onMaterial;
 
     private bool isCurrentlyConnected = false;
-    private string originalTag;
-    private BoxCollider boxCollider;
+    private Renderer targetRenderer;
 
     void Start()
     {
-        boxCollider = GetComponent<BoxCollider>();
-        if (boxCollider == null)
+        if (targetObject != null)
         {
-            Debug.LogWarning("BoxColliderが見つかりません。このオブジェクトにBoxColliderを追加してください。");
-        }
+            targetRenderer = targetObject.GetComponent<Renderer>();
 
-        originalTag = gameObject.tag;
+            if (targetRenderer != null && offMaterial != null)
+                targetRenderer.material = offMaterial;
+        }
     }
 
     void Update()
     {
-        // ---- 向きに応じた方向ベクトル ----
         Vector3 dirA, dirB;
         switch (checkAxis)
         {
@@ -68,36 +62,28 @@ public class SideBlockChecker : MonoBehaviour
                 break;
         }
 
-        // ---- 両側のブロックを検出 ----
         Transform blockA = FindNearbyBlock(dirA, sideAName);
         Transform blockB = FindNearbyBlock(dirB, sideBName);
 
         bool nowConnected = (blockA != null && blockB != null);
 
-        // ---- くっついた瞬間のみ ----
         if (nowConnected && !isCurrentlyConnected)
         {
             Debug.Log("指定したブロックがくっつきました！");
 
-            if (boxCollider != null)
-                StartCoroutine(ResetCollider());
-
-            // タグ変更
-            if (!string.IsNullOrEmpty(newTagOnConnect))
+            if (targetScript != null)
             {
-                gameObject.tag = newTagOnConnect;
-                Debug.Log($"タグを '{originalTag}' から '{newTagOnConnect}' に変更しました。");
+                targetScript.enabled = true;
+                Debug.Log($"'{targetObject.name}' の '{targetScript.GetType().Name}' をONにしました。");
             }
 
-            // Rigidbodyを一瞬だけつける
-            StartCoroutine(AddRigidbodyTemporarily());
+            if (targetRenderer != null && onMaterial != null)
+                targetRenderer.material = onMaterial;
         }
 
-        // ---- 離れた瞬間 ----
         if (!nowConnected && isCurrentlyConnected)
         {
-            gameObject.tag = originalTag;
-            Debug.Log($"タグを '{newTagOnConnect}' から '{originalTag}' に戻しました。");
+            Debug.Log("ブロックが離れました。");
         }
 
         isCurrentlyConnected = nowConnected;
@@ -105,35 +91,12 @@ public class SideBlockChecker : MonoBehaviour
 
     Transform FindNearbyBlock(Vector3 direction, string targetName)
     {
-        RaycastHit hit;
-        if (Physics.Raycast(transform.position, direction, out hit, contactDistance))
+        if (Physics.Raycast(transform.position, direction, out RaycastHit hit, contactDistance))
         {
             if (hit.collider.name == targetName)
                 return hit.transform;
         }
         return null;
-    }
-
-    IEnumerator ResetCollider()
-    {
-        boxCollider.enabled = false;
-        yield return new WaitForSeconds(resetDelay);
-        boxCollider.enabled = true;
-    }
-
-    // Rigidbodyを一瞬だけ追加して削除
-    IEnumerator AddRigidbodyTemporarily()
-    {
-        Rigidbody rb = gameObject.AddComponent<Rigidbody>();
-        rb.useGravity = useGravity;
-        rb.isKinematic = isKinematic;
-
-        Debug.Log("Rigidbodyを一時的に追加しました。");
-
-        yield return new WaitForSeconds(rigidbodyDuration);
-
-        Destroy(rb);
-        Debug.Log("Rigidbodyを削除しました。");
     }
 
     void OnDrawGizmos()

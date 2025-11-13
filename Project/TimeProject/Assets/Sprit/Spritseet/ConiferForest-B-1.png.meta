@@ -127,7 +127,7 @@ TextureImporter:
         width: 32
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -148,7 +148,7 @@ TextureImporter:
         width: 16
         height: 14
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -165,11 +165,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 96
-        y: 496
-        width: 16
-        height: 14
+        y: 481
+        width: 32
+        height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -188,9 +188,9 @@ TextureImporter:
         x: 128
         y: 482
         width: 32
-        height: 17
+        height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -206,10 +206,10 @@ TextureImporter:
       name: ConiferForest-B-1_4
       rect:
         serializedVersion: 2
-        x: 137
-        y: 497
-        width: 16
-        height: 14
+        x: 354
+        y: 482
+        width: 30
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -232,7 +232,7 @@ TextureImporter:
         width: 27
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -253,7 +253,7 @@ TextureImporter:
         width: 28
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -274,7 +274,7 @@ TextureImporter:
         width: 31
         height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -291,11 +291,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 256
-        y: 448
+        y: 480
         width: 32
-        height: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -311,12 +311,12 @@ TextureImporter:
       name: ConiferForest-B-1_9
       rect:
         serializedVersion: 2
-        x: 288
-        y: 384
-        width: 83
-        height: 128
+        x: 354
+        y: 450
+        width: 30
+        height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -332,12 +332,12 @@ TextureImporter:
       name: ConiferForest-B-1_10
       rect:
         serializedVersion: 2
-        x: 354
+        x: 352
         y: 352
-        width: 126
-        height: 159
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -358,7 +358,7 @@ TextureImporter:
         width: 31
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -379,7 +379,7 @@ TextureImporter:
         width: 14
         height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -395,10 +395,10 @@ TextureImporter:
       name: ConiferForest-B-1_13
       rect:
         serializedVersion: 2
-        x: 112
-        y: 482
-        width: 16
-        height: 14
+        x: 320
+        y: 321
+        width: 64
+        height: 31
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -421,7 +421,7 @@ TextureImporter:
         width: 125
         height: 190
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -442,7 +442,7 @@ TextureImporter:
         width: 28
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -463,7 +463,7 @@ TextureImporter:
         width: 32
         height: 69
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -484,7 +484,7 @@ TextureImporter:
         width: 26
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -505,7 +505,7 @@ TextureImporter:
         width: 32
         height: 19
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -521,12 +521,12 @@ TextureImporter:
       name: ConiferForest-B-1_22
       rect:
         serializedVersion: 2
-        x: 289
-        y: 369
-        width: 13
-        height: 11
+        x: 385
+        y: 388
+        width: 28
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -542,12 +542,12 @@ TextureImporter:
       name: ConiferForest-B-1_23
       rect:
         serializedVersion: 2
-        x: 291
+        x: 318
         y: 256
-        width: 93
-        height: 128
+        width: 66
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -568,7 +568,7 @@ TextureImporter:
         width: 27
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -584,12 +584,12 @@ TextureImporter:
       name: ConiferForest-B-1_25
       rect:
         serializedVersion: 2
-        x: 290
-        y: 355
-        width: 15
-        height: 13
+        x: 448
+        y: 384
+        width: 32
+        height: 83
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -610,7 +610,7 @@ TextureImporter:
         width: 29
         height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -629,9 +629,9 @@ TextureImporter:
         x: 204
         y: 224
         width: 43
-        height: 64
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -652,7 +652,7 @@ TextureImporter:
         width: 27
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -669,11 +669,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 290
-        y: 256
+        y: 257
         width: 24
         height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -694,7 +694,7 @@ TextureImporter:
         width: 30
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -710,12 +710,12 @@ TextureImporter:
       name: ConiferForest-B-1_38
       rect:
         serializedVersion: 2
-        x: 39
-        y: 229
-        width: 18
-        height: 17
+        x: 33
+        y: 163
+        width: 29
+        height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -731,12 +731,12 @@ TextureImporter:
       name: ConiferForest-B-1_39
       rect:
         serializedVersion: 2
-        x: 47
-        y: 234
-        width: 14
-        height: 16
+        x: 32
+        y: 256
+        width: 32
+        height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -754,10 +754,10 @@ TextureImporter:
         serializedVersion: 2
         x: 65
         y: 230
-        width: 37
+        width: 31
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -773,12 +773,12 @@ TextureImporter:
       name: ConiferForest-B-1_41
       rect:
         serializedVersion: 2
-        x: 98
-        y: 244
-        width: 20
-        height: 5
+        x: 64
+        y: 256
+        width: 33
+        height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -797,9 +797,9 @@ TextureImporter:
         x: 99
         y: 231
         width: 29
-        height: 16
+        height: 18
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -815,10 +815,10 @@ TextureImporter:
       name: ConiferForest-B-1_50
       rect:
         serializedVersion: 2
-        x: 468
-        y: 241
-        width: 8
-        height: 6
+        x: 290
+        y: 354
+        width: 29
+        height: 28
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -837,11 +837,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 482
-        y: 244
-        width: 9
-        height: 5
+        y: 227
+        width: 27
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -854,36 +854,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ConiferForest-B-1_52
-      rect:
-        serializedVersion: 2
-        x: 492
-        y: 243
-        width: 14
-        height: 10
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: febb03c3672c1a1409e2141460834fbc
-      internalID: -321186229
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ConiferForest-B-1_53
       rect:
         serializedVersion: 2
-        x: 37
-        y: 232
+        x: 154
+        y: 221
         width: 5
         height: 5
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -899,12 +878,12 @@ TextureImporter:
       name: ConiferForest-B-1_54
       rect:
         serializedVersion: 2
-        x: 457
-        y: 235
-        width: 9
-        height: 5
+        x: 280
+        y: 9
+        width: 56
+        height: 55
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -912,90 +891,6 @@ TextureImporter:
       bones: []
       spriteID: 2f8a686224f5b0c4da6aa174632846f5
       internalID: -287460937
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_55
-      rect:
-        serializedVersion: 2
-        x: 471
-        y: 234
-        width: 7
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: a35f0750f32933148abbe18f77d56624
-      internalID: -489437254
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_56
-      rect:
-        serializedVersion: 2
-        x: 483
-        y: 234
-        width: 8
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 2f8e67b00d2866d45882493bff670549
-      internalID: -1819009260
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_57
-      rect:
-        serializedVersion: 2
-        x: 490
-        y: 236
-        width: 11
-        height: 7
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 6363cdb557b92ab4a93bdb57f44be034
-      internalID: -48958818
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_58
-      rect:
-        serializedVersion: 2
-        x: 503
-        y: 234
-        width: 7
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: bbb7863257594c54ba338c3a6ff6d3d2
-      internalID: -566721053
       vertices: []
       indices: 
       edges: []
@@ -1009,7 +904,7 @@ TextureImporter:
         width: 26
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1030,7 +925,7 @@ TextureImporter:
         width: 29
         height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1051,7 +946,7 @@ TextureImporter:
         width: 29
         height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1072,7 +967,7 @@ TextureImporter:
         width: 28
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1093,7 +988,7 @@ TextureImporter:
         width: 28
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1106,36 +1001,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ConiferForest-B-1_71
+      name: ConiferForest-B-1_72
       rect:
         serializedVersion: 2
         x: 451
         y: 195
-        width: 12
-        height: 11
+        width: 29
+        height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 796b6c87cf1c42c47abeece6adc4d53f
-      internalID: -1124713082
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_72
-      rect:
-        serializedVersion: 2
-        x: 453
-        y: 206
-        width: 24
-        height: 17
-      alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1151,12 +1025,12 @@ TextureImporter:
       name: ConiferForest-B-1_73
       rect:
         serializedVersion: 2
-        x: 468
-        y: 196
-        width: 12
-        height: 11
+        x: 160
+        y: 96
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1177,7 +1051,7 @@ TextureImporter:
         width: 31
         height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1193,12 +1067,12 @@ TextureImporter:
       name: ConiferForest-B-1_80
       rect:
         serializedVersion: 2
-        x: 119
-        y: 181
-        width: 8
-        height: 8
+        x: 128
+        y: 162
+        width: 31
+        height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1215,11 +1089,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 225
-        y: 162
+        y: 197
         width: 31
-        height: 29
+        height: 20
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1236,11 +1110,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 384
-        y: 166
-        width: 23
-        height: 23
+        y: 162
+        width: 32
+        height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1261,7 +1135,7 @@ TextureImporter:
         width: 26
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1282,7 +1156,7 @@ TextureImporter:
         width: 31
         height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1298,12 +1172,12 @@ TextureImporter:
       name: ConiferForest-B-1_87
       rect:
         serializedVersion: 2
-        x: 401
-        y: 162
-        width: 15
-        height: 12
+        x: 416
+        y: 5
+        width: 31
+        height: 37
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1324,7 +1198,7 @@ TextureImporter:
         width: 32
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1345,7 +1219,7 @@ TextureImporter:
         width: 31
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1366,7 +1240,7 @@ TextureImporter:
         width: 31
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1387,7 +1261,7 @@ TextureImporter:
         width: 31
         height: 25
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1408,7 +1282,7 @@ TextureImporter:
         width: 95
         height: 180
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1429,7 +1303,7 @@ TextureImporter:
         width: 25
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1450,7 +1324,7 @@ TextureImporter:
         width: 15
         height: 80
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1467,11 +1341,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 385
-        y: 224
+        y: 256
         width: 31
-        height: 118
+        height: 86
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1492,7 +1366,7 @@ TextureImporter:
         width: 32
         height: 120
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1513,7 +1387,7 @@ TextureImporter:
         width: 31
         height: 90
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1534,7 +1408,7 @@ TextureImporter:
         width: 31
         height: 89
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1552,10 +1426,10 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 256
-        width: 96
+        width: 32
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1576,7 +1450,7 @@ TextureImporter:
         width: 26
         height: 21
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1597,7 +1471,7 @@ TextureImporter:
         width: 29
         height: 31
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1618,7 +1492,7 @@ TextureImporter:
         width: 29
         height: 24
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1639,7 +1513,7 @@ TextureImporter:
         width: 31
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1655,12 +1529,12 @@ TextureImporter:
       name: ConiferForest-B-1_45
       rect:
         serializedVersion: 2
-        x: 226
+        x: 256
         y: 134
-        width: 94
+        width: 64
         height: 116
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1681,7 +1555,7 @@ TextureImporter:
         width: 32
         height: 30
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1702,7 +1576,7 @@ TextureImporter:
         width: 24
         height: 23
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1718,10 +1592,10 @@ TextureImporter:
       name: ConiferForest-B-1_48
       rect:
         serializedVersion: 2
-        x: 450
-        y: 241
-        width: 9
-        height: 6
+        x: 416
+        y: 389
+        width: 32
+        height: 59
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -1739,12 +1613,12 @@ TextureImporter:
       name: ConiferForest-B-1_49
       rect:
         serializedVersion: 2
-        x: 457
-        y: 246
-        width: 11
-        height: 7
+        x: 450
+        y: 227
+        width: 28
+        height: 26
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1752,111 +1626,6 @@ TextureImporter:
       bones: []
       spriteID: a2f16b769e81d3f46ac47e03dc575487
       internalID: 407243930
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_59
-      rect:
-        serializedVersion: 2
-        x: 450
-        y: 229
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: f62a1d67a4c48084485ce64327ff44f8
-      internalID: -1492182247
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_60
-      rect:
-        serializedVersion: 2
-        x: 461
-        y: 227
-        width: 9
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 3bece461e70547549b0c374805ae2f16
-      internalID: -1345660613
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_61
-      rect:
-        serializedVersion: 2
-        x: 484
-        y: 228
-        width: 7
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: e3246125c73803840a903becf7eb7590
-      internalID: 1503297802
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_62
-      rect:
-        serializedVersion: 2
-        x: 492
-        y: 227
-        width: 8
-        height: 6
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: d7998a9dc5bdf8347872b4bf42ffdd42
-      internalID: -1808797448
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
-      name: ConiferForest-B-1_63
-      rect:
-        serializedVersion: 2
-        x: 502
-        y: 227
-        width: 7
-        height: 5
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: c0bac37cc16b3e9489110d94ffab6e37
-      internalID: 1736729495
       vertices: []
       indices: 
       edges: []
@@ -1870,7 +1639,7 @@ TextureImporter:
         width: 29
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1891,7 +1660,7 @@ TextureImporter:
         width: 19
         height: 27
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1912,7 +1681,7 @@ TextureImporter:
         width: 32
         height: 45
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1925,36 +1694,15 @@ TextureImporter:
       edges: []
       weights: []
     - serializedVersion: 2
-      name: ConiferForest-B-1_76
-      rect:
-        serializedVersion: 2
-        x: 480
-        y: 194
-        width: 6
-        height: 4
-      alignment: 0
-      pivot: {x: 0, y: 0}
-      border: {x: 0, y: 0, z: 0, w: 0}
-      outline: []
-      physicsShape: []
-      tessellationDetail: 0
-      bones: []
-      spriteID: 06a4f3578c7debe4c80f1befd1b2e2f6
-      internalID: 1543060696
-      vertices: []
-      indices: 
-      edges: []
-      weights: []
-    - serializedVersion: 2
       name: ConiferForest-B-1_77
       rect:
         serializedVersion: 2
-        x: 0
-        y: 0
-        width: 256
-        height: 188
+        x: 192
+        y: 128
+        width: 30
+        height: 60
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1971,11 +1719,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 64
-        y: 178
-        width: 16
-        height: 14
+        y: 160
+        width: 32
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -1991,12 +1739,12 @@ TextureImporter:
       name: ConiferForest-B-1_79
       rect:
         serializedVersion: 2
-        x: 100
-        y: 180
-        width: 11
-        height: 10
+        x: 99
+        y: 162
+        width: 28
+        height: 28
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2017,7 +1765,7 @@ TextureImporter:
         width: 30
         height: 29
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2038,7 +1786,7 @@ TextureImporter:
         width: 15
         height: 12
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2054,12 +1802,12 @@ TextureImporter:
       name: ConiferForest-B-1_91
       rect:
         serializedVersion: 2
-        x: 423
-        y: 65
-        width: 80
-        height: 95
+        x: 204
+        y: 256
+        width: 43
+        height: 32
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2076,11 +1824,11 @@ TextureImporter:
       rect:
         serializedVersion: 2
         x: 268
-        y: 8
-        width: 71
-        height: 115
+        y: 64
+        width: 44
+        height: 59
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2101,7 +1849,7 @@ TextureImporter:
         width: 30
         height: 55
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2122,7 +1870,7 @@ TextureImporter:
         width: 60
         height: 47
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2138,12 +1886,12 @@ TextureImporter:
       name: ConiferForest-B-1_95
       rect:
         serializedVersion: 2
-        x: 353
+        x: 355
         y: 2
-        width: 95
+        width: 59
         height: 43
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []
@@ -2164,7 +1912,7 @@ TextureImporter:
         width: 28
         height: 22
       alignment: 0
-      pivot: {x: 0, y: 0}
+      pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline: []
       physicsShape: []

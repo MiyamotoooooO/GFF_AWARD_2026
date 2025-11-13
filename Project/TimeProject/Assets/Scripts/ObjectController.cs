@@ -49,43 +49,44 @@ public class ObjectManager : MonoBehaviour
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         if (Physics.Raycast(ray, out RaycastHit hit, 100f))
         {
-            // カーソル位置を更新
-            //Vector3 cursorPos = hit.point;
-            //cursorPos.y = hit.point.y + 0.5f;
-            //cursorRenderer.transform.position = cursorPos;
+            Vector3 cursorPos;
 
-            Vector3 gridPos = new Vector3(
-             Mathf.Round(hit.point.x / gridSize) * gridSize,
-             0,
-             Mathf.Round(hit.point.z / gridSize) * gridSize
-         );
-
-            if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out RaycastHit groundHit, 10f, groundLayer))
+            // マウス先にオブジェクトがある場合
+            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0 ||
+                ((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
             {
-                Vector3 pos = new Vector3(gridPos.x, Mathf.Max(groundHit.point.y, 1), gridPos.z);
-                cursorRenderer.transform.position = pos;
-            }
-
-
-                // 移動可能オブジェクトがあるか判定
-            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0)
-            {
-                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
-            }
-            else if (((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
-            {
-                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+                cursorPos = hit.collider.bounds.center;
+                cursorPos.y = hit.collider.bounds.max.y + 0f; // オブジェクトの上にカーソル
             }
             else
             {
-                cursorRenderer.sprite = cursorSpriteDefault; // 通常
+                // 通常のグリッド位置
+                Vector3 gridPos = new Vector3(
+                    Mathf.Round(hit.point.x / gridSize) * gridSize,
+                    hit.point.y / gridSize,
+                    Mathf.Round(hit.point.z / gridSize) * gridSize
+                );
+
+                if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out RaycastHit groundHit, 10f, groundLayer))
+                    cursorPos = new Vector3(gridPos.x, Mathf.Max(groundHit.point.y, 1f), gridPos.z);
+                else
+                    cursorPos = hit.point;
             }
+
+            // カーソル位置更新
+            cursorRenderer.transform.position = cursorPos;
+
+            // スプライト切り替え
+            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0 ||
+                ((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
+                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+            else
+                cursorRenderer.sprite = cursorSpriteDefault; // 通常
         }
         else
-        {
             cursorRenderer.sprite = cursorSpriteDefault; // Rayが何も当たらない場合
-        }
     }
+
 
 
 
@@ -167,7 +168,7 @@ public class ObjectManager : MonoBehaviour
             }
         }
     }
-
+    
     void ConfirmPlacement()
     {
         if (selectedObject != null)

@@ -12,7 +12,6 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
-    private bool isInputEnabled = true;
     public OxygenGaugeController oxygenGaugeController;
     private Vector3 lastCheckpointPosition;
     public Collider planeCollider;
@@ -77,8 +76,4 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    public void DisableInput()
-    {
-        isInputEnabled = false;
-    }
 }
