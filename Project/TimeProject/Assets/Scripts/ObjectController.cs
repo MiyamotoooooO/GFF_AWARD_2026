@@ -192,6 +192,18 @@ public class ObjectManager : MonoBehaviour
             selectedObject = null;
 
             Gauge[count].sprite = handGauge[1];
+
+            if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
+            {
+                int bottleIndex = count - 1;
+                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+                {
+                    // ボトルを取得済みとしてマーク
+                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+                }
+            }
+
+
             count++;
 
         }

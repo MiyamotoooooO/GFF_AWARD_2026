@@ -97,6 +97,7 @@ public class ItemTransformer : MonoBehaviour
                 // エフェクト生成
                 if (effectPrefab != null)
                 {
+
                     Vector3 effectPos = spawnPoint.position + new Vector3(0, effectHeightOffset, 0);
                     GameObject fx = Instantiate(effectPrefab, effectPos, Quaternion.identity);
                     Debug.Log($"{gameObject.name} がエフェクト {effectPrefab.name} を生成しました ({effectPos})");

@@ -18,22 +18,52 @@ public class WindTile : MonoBehaviour
     public string playerTag = "Player";
 
     [Header("風の設定")]
-    public DirectionType directionType = DirectionType.Forward; // Inspectorで方向を選択
-    public Vector3 customDirection = Vector3.forward;            // Custom選択時のみ使用
-    public float windForce = 10f;                                // 風の強さ
-    public float windRange = 5f;                                 // 風の届く距離
-    public float windWidth = 3f;                                 // 風の横幅
-    public float windHeight = 2f;                                // 高さ
-    public float windDuration = 3f;                              // 風の持続時間
+    public DirectionType directionType = DirectionType.Forward;
+    public Vector3 customDirection = Vector3.forward;
+    public float windForce = 10f;
+    public float windRange = 5f;
+    public float windWidth = 3f;
+    public float windHeight = 2f;
+    public float windDuration = 3f;
 
     [Header("再使用設定")]
-    public bool singleUse = true;                                // 一度きりかどうか
-    public float cooldown = 2f;                                  // 再使用までの時間
+    public bool singleUse = true;
+    public float cooldown = 2f;
 
-    bool canActivate = true;
-    bool windActive = false;
+    [Header("風のエフェクトプレハブ（ParticleSystem入り）")]
+    public GameObject windEffectPrefab;
 
-    // isTriggerがOFFなのでOnTriggerEnterは使わず、OnCollisionEnterで判定
+    [Header("生成したエフェクトの大きさ")]
+    public Vector3 effectScaleMultiplier = Vector3.one;
+
+    // 内部変数
+    private GameObject windEffectObj;
+    private ParticleSystem windEffect;
+    private BoxCollider effectTriggerBox;
+
+    private bool canActivate = true;
+    private bool windActive = false;
+    private Rigidbody lastRbInside;
+
+    void Start()
+    {
+        if (windEffectPrefab != null)
+        {
+            windEffectObj = Instantiate(windEffectPrefab, transform);
+            windEffectObj.name = "WindEffect";
+
+            windEffect = windEffectObj.GetComponentInChildren<ParticleSystem>();
+            if (windEffect == null)
+            {
+                Debug.LogError("windEffectPrefab に ParticleSystem が入っていません。");
+            }
+        }
+
+        effectTriggerBox = new GameObject("WindEffectTrigger").AddComponent<BoxCollider>();
+        effectTriggerBox.isTrigger = true;
+        effectTriggerBox.transform.SetParent(transform);
+    }
+
     private void OnCollisionEnter(Collision collision)
     {
         if (!canActivate || windActive) return;
@@ -50,7 +80,9 @@ public class WindTile : MonoBehaviour
     IEnumerator WindRoutine()
     {
         windActive = true;
-        Debug.Log(" 強風発生！");
+
+        AdjustWindEffectTransform();
+        if (windEffect != null) windEffect.Play();
 
         float timer = 0f;
         while (timer < windDuration)
@@ -61,7 +93,7 @@ public class WindTile : MonoBehaviour
         }
 
         windActive = false;
-        Debug.Log(" 風が止んだ");
+        if (windEffect != null) windEffect.Stop();
     }
 
     IEnumerator CooldownRoutine()
@@ -74,7 +106,7 @@ public class WindTile : MonoBehaviour
     void BlowWind()
     {
         Vector3 dir = GetWindDirection().normalized;
-        Vector3 center = transform.position + dir * (windRange / 2);
+        Vector3 center = transform.position + dir * (windRange / 2f);
 
         Collider[] hit = Physics.OverlapBox(
             center,
@@ -82,13 +114,46 @@ public class WindTile : MonoBehaviour
             Quaternion.LookRotation(dir)
         );
 
+        bool playerInside = false;
+
         foreach (Collider col in hit)
         {
             Rigidbody rb = col.attachedRigidbody;
+
             if (rb != null)
             {
                 rb.AddForce(dir * windForce * Time.deltaTime, ForceMode.VelocityChange);
+
+                if (col.CompareTag(playerTag))
+                {
+                    lastRbInside = rb;
+                    playerInside = true;
+                }
             }
+        }
+
+        if (!playerInside && lastRbInside != null)
+        {
+            StopPlayerWindVelocity(dir);
+        }
+    }
+
+    void StopPlayerWindVelocity(Vector3 dir)
+    {
+        if (lastRbInside == null) return;
+
+        Vector3 v = lastRbInside.velocity;
+        float alongWind = Vector3.Dot(v, dir);
+
+        float ease = 5f;
+
+        float newAlong = Mathf.Lerp(alongWind, 0, Time.deltaTime * ease);
+
+        lastRbInside.velocity = v + dir * (newAlong - alongWind);
+
+        if (Mathf.Abs(newAlong) < 0.01f)
+        {
+            lastRbInside = null;
         }
     }
 
@@ -96,37 +161,56 @@ public class WindTile : MonoBehaviour
     {
         switch (directionType)
         {
-            case DirectionType.Forward:
-                return transform.forward;
-            case DirectionType.Backward:
-                return -transform.forward;
-            case DirectionType.Left:
-                return -transform.right;
-            case DirectionType.Right:
-                return transform.right;
-            case DirectionType.Up:
-                return Vector3.up;
-            case DirectionType.Down:
-                return Vector3.down;
-            case DirectionType.Custom:
-                return customDirection.normalized;
-            default:
-                return transform.forward;
+            case DirectionType.Forward: return transform.forward;
+            case DirectionType.Backward: return -transform.forward;
+            case DirectionType.Left: return -transform.right;
+            case DirectionType.Right: return transform.right;
+            case DirectionType.Up: return Vector3.up;
+            case DirectionType.Down: return Vector3.down;
+            case DirectionType.Custom: return customDirection.normalized;
+            default: return transform.forward;
         }
+    }
+
+    void AdjustWindEffectTransform()
+    {
+        if (windEffectObj == null || windEffect == null) return;
+
+        Vector3 dir = GetWindDirection().normalized;
+        Vector3 center = transform.position + dir * (windRange / 2);
+
+        windEffectObj.transform.position = center;
+        windEffectObj.transform.rotation = Quaternion.LookRotation(dir);
+        windEffectObj.transform.localScale = effectScaleMultiplier;
+
+        var shape = windEffect.shape;
+        shape.shapeType = ParticleSystemShapeType.Box;
+        shape.scale = new Vector3(windWidth, windHeight, windRange);
+
+        effectTriggerBox.transform.position = center;
+        effectTriggerBox.transform.rotation = Quaternion.LookRotation(dir);
+        effectTriggerBox.size = new Vector3(windWidth, windHeight, windRange);
+
+        var trigger = windEffect.trigger;
+        trigger.enabled = true;
+        trigger.SetCollider(0, effectTriggerBox);
+        trigger.inside = ParticleSystemOverlapAction.Ignore;
+        trigger.outside = ParticleSystemOverlapAction.Kill;
+        trigger.exit = ParticleSystemOverlapAction.Kill;
     }
 
     void OnDrawGizmosSelected()
     {
         Vector3 dir = GetWindDirection().normalized;
-        Vector3 center = transform.position + dir * (windRange / 2);
+        Vector3 center = transform.position + dir * (windRange / 2f);
 
         Gizmos.color = Color.cyan;
         Gizmos.matrix = Matrix4x4.TRS(center, Quaternion.LookRotation(dir), Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(windWidth, windHeight, windRange));
 
         Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + dir * (windRange * 0.6f));
-        Gizmos.DrawSphere(transform.position + dir * (windRange * 0.6f), 0.2f);
+        Gizmos.DrawLine(transform.position, transform.position + dir * windRange);
     }
 }
+
 

@@ -49,44 +49,50 @@ public class BlockTopBlocker : MonoBehaviour
         GameObject top = new GameObject(blockerName);
         top.transform.parent = transform;
 
+        // ワールド空間での大きさを算出
         float sizeX = Mathf.Max(0.01f, blockBounds.size.x - inset.x * 2f);
         float sizeZ = Mathf.Max(0.01f, blockBounds.size.z - inset.y * 2f);
         float sizeY = Mathf.Max(0.01f, thickness);
 
-        Vector3 topCenterWorld = blockBounds.center + Vector3.up * (blockBounds.extents.y + sizeY * 0.5f + verticalOffset);
+        // 位置（ワールド座標）
+        Vector3 topCenterWorld = blockBounds.center +
+            Vector3.up * (blockBounds.extents.y + sizeY * 0.5f + verticalOffset);
 
         top.transform.position = topCenterWorld;
         top.transform.rotation = transform.rotation;
 
+        // ★ 重要：lossyScale で割らず、直接ワールド寸法を入れる！
         BoxCollider box = top.AddComponent<BoxCollider>();
-        Vector3 localSize = new Vector3(sizeX / transform.lossyScale.x, sizeY / transform.lossyScale.y, sizeZ / transform.lossyScale.z);
-        box.size = localSize;
+        box.size = new Vector3(sizeX, sizeY, sizeZ);
         box.center = Vector3.zero;
         box.isTrigger = false;
 
+        // 動かない物理オブジェクトとして設定
         Rigidbody rb = top.AddComponent<Rigidbody>();
         rb.isKinematic = true;
         rb.useGravity = false;
     }
 
-    // --- Gizmos 表示部分 ---
+    // --- Gizmos 表示 ---
     void OnDrawGizmosSelected()
     {
         Collider col = GetComponent<Collider>();
         if (col == null) return;
 
         Bounds b = col.bounds;
+
         float sizeX = Mathf.Max(0.01f, b.size.x - inset.x * 2f);
         float sizeZ = Mathf.Max(0.01f, b.size.z - inset.y * 2f);
         float sizeY = Mathf.Max(0.01f, thickness);
 
-        Vector3 topCenterWorld = b.center + Vector3.up * (b.extents.y + sizeY * 0.5f + verticalOffset);
+        Vector3 topCenterWorld = b.center +
+            Vector3.up * (b.extents.y + sizeY * 0.5f + verticalOffset);
 
-        // 半透明の赤い箱で表示
+        // 半透明の赤い箱
         Gizmos.color = new Color(1f, 0f, 0f, 0.3f);
         Gizmos.DrawCube(topCenterWorld, new Vector3(sizeX, sizeY, sizeZ));
 
-        // 枠線（濃い赤）で表示
+        // 枠線（濃い赤）
         Gizmos.color = new Color(1f, 0f, 0f, 1f);
         Gizmos.DrawWireCube(topCenterWorld, new Vector3(sizeX, sizeY, sizeZ));
     }

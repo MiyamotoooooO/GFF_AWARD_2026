@@ -25,6 +25,14 @@ public class SaveManager : MonoBehaviour
         LoadGame();
     }
 
+    public void NotifyDataChanged()
+    {
+    #if UNITY_EDITOR
+        UnityEditor.EditorUtility.SetDirty(this);
+    #endif
+    }
+
+
     public void SaveGame()
     {
         string json = JsonUtility.ToJson(currentData, true);
@@ -62,6 +70,12 @@ public class SaveManager : MonoBehaviour
 
         Debug.Log("新規データを作成しました。");
     }
+
+    public SaveData CurrentData
+    {
+        get { return currentData; }
+    }
+
 
     // ゲーム中にキー入力を監視してデータをリセットする
     void Update()

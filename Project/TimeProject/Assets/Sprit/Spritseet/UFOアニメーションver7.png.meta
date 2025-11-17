@@ -1,0 +1,796 @@
+fileFormatVersion: 2
+guid: c40a5bf47b270e0429bed006621cd39b
+TextureImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 12
+  mipmaps:
+    mipMapMode: 0
+    enableMipMap: 0
+    sRGBTexture: 1
+    linearTexture: 0
+    fadeOut: 0
+    borderMipMap: 0
+    mipMapsPreserveCoverage: 0
+    alphaTestReferenceValue: 0.5
+    mipMapFadeDistanceStart: 1
+    mipMapFadeDistanceEnd: 3
+  bumpmap:
+    convertToNormalMap: 0
+    externalNormalMap: 0
+    heightScale: 0.25
+    normalMapFilter: 0
+    flipGreenChannel: 0
+  isReadable: 0
+  streamingMipmaps: 0
+  streamingMipmapsPriority: 0
+  vTOnly: 0
+  ignoreMipmapLimit: 0
+  grayScaleToAlpha: 0
+  generateCubemap: 6
+  cubemapConvolution: 0
+  seamlessCubemap: 0
+  textureFormat: 1
+  maxTextureSize: 2048
+  textureSettings:
+    serializedVersion: 2
+    filterMode: 0
+    aniso: 1
+    mipBias: 0
+    wrapU: 1
+    wrapV: 1
+    wrapW: 0
+  nPOTScale: 0
+  lightmap: 0
+  compressionQuality: 50
+  spriteMode: 2
+  spriteExtrude: 1
+  spriteMeshType: 1
+  alignment: 0
+  spritePivot: {x: 0.5, y: 0.5}
+  spritePixelsToUnits: 32
+  spriteBorder: {x: 0, y: 0, z: 0, w: 0}
+  spriteGenerateFallbackPhysicsShape: 1
+  alphaUsage: 1
+  alphaIsTransparency: 1
+  spriteTessellationDetail: -1
+  textureType: 8
+  textureShape: 1
+  singleChannelComponent: 0
+  flipbookRows: 1
+  flipbookColumns: 1
+  maxTextureSizeSet: 0
+  compressionQualitySet: 0
+  textureFormatSet: 0
+  ignorePngGamma: 0
+  applyGammaDecoding: 0
+  swizzle: 50462976
+  cookieLightType: 0
+  platformSettings:
+  - serializedVersion: 3
+    buildTarget: DefaultTexturePlatform
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 0
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Standalone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: Android
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  - serializedVersion: 3
+    buildTarget: iPhone
+    maxTextureSize: 2048
+    resizeAlgorithm: 0
+    textureFormat: -1
+    textureCompression: 1
+    compressionQuality: 50
+    crunchedCompression: 0
+    allowsAlphaSplitting: 0
+    overridden: 0
+    androidETC2FallbackOverride: 0
+    forceMaximumCompressionQuality_BC6H_BC7: 0
+  spriteSheet:
+    serializedVersion: 2
+    sprites:
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_0"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 1008
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b21d44d248fe431438a971ab8592b38e
+      internalID: 147711332
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_1"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 1008
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8babbead2ab42f14aa6cadf41a6f0dd5
+      internalID: -81832807
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_2"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 1008
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 67e2f3d552bbecd4381b35facac16154
+      internalID: -836857152
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_3"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 896
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 53f2143567accfc4eaca6811bad2fbf2
+      internalID: 1515760666
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_4"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 896
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 61f569028407f8440b6fd807afc13019
+      internalID: -1151697428
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_5"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 896
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0607d142979e68d44b2cda1a0f94b43a
+      internalID: -873623475
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_6"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 784
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e5d88f1b54fa05f4c8857739f82b1c6b
+      internalID: -1290596448
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_7"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 784
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: e9e608d18315cf54a9159cf3975b4a67
+      internalID: -759177227
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_8"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 784
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8459cc46abd301249963243f87a6997c
+      internalID: -1013930449
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_9"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 672
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a6d65e7e3238f794c9c7c720a44a67e7
+      internalID: -1533988905
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_10"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 672
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f7dc03ee1839c1a47ac47ea79fbc5420
+      internalID: -1025658640
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_11"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 672
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 547f8707e5b6d7848b711b95ee25801a
+      internalID: 933206401
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_12"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 560
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: a4015852a8cf2534b82f5c6293ae25ce
+      internalID: 997890942
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_13"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 560
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7e3d1a2b35891e94687a0f785bbd4934
+      internalID: -1989534781
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_14"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 560
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c5ad851dbc4be17409e65190e426c3b7
+      internalID: -243250719
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_15"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 448
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: f48385fec537f06499d40feab3804a02
+      internalID: -741651975
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_16"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 448
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 68bf1b4ef1f86af4596c26b03d9a6f55
+      internalID: -219917253
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_17"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 448
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 7577f8268920d244b8c715055a2c55c5
+      internalID: -1942821751
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_18"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 336
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 3b15f6a5c7cc7954b934444d679314f4
+      internalID: -2119078382
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_19"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 336
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: b36761d1d8339bb499fb2430e643da2d
+      internalID: 1267417433
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_20"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 336
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 59f77183ad1fd704ca01397c0564ebd0
+      internalID: 1246492887
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_21"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 224
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: bce4f445b9f38e64f991ed37a12eaa38
+      internalID: 83795333
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_22"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 224
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: aeae729d4fbc0dd4eaf1acc00c5c637d
+      internalID: 172085040
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_23"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 224
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 00772725df751f349b3151e9a4e8f5a8
+      internalID: -2063345622
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_24"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 112
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: d56c1b277583a024a881aad4db17ad4a
+      internalID: -644064559
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_25"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 112
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 091b15c45f8ecd844baff49882dd2a5c
+      internalID: -162343431
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_26"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 112
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 211de2b92d3236d44a4491221789b87f
+      internalID: -477731523
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_27"
+      rect:
+        serializedVersion: 2
+        x: 0
+        y: 0
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 8c508cc009261634eae90836cc5878d2
+      internalID: -850073422
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_28"
+      rect:
+        serializedVersion: 2
+        x: 96
+        y: 0
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: c8398612eb2aa664689660d3ffe12206
+      internalID: 1280491891
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_29"
+      rect:
+        serializedVersion: 2
+        x: 192
+        y: 0
+        width: 96
+        height: 112
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      outline: []
+      physicsShape: []
+      tessellationDetail: 0
+      bones: []
+      spriteID: 0c29cf15f3aa2d04aa49cc57064ac335
+      internalID: 46055653
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    outline: []
+    physicsShape: []
+    bones: []
+    spriteID: c1cbe033c51bd8243861a6924c59a9cb
+    internalID: 0
+    vertices: []
+    indices: 
+    edges: []
+    weights: []
+    secondaryTextures: []
+    nameFileIdTable:
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_0": 147711332
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_1": -81832807
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_10": -1025658640
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_11": 933206401
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_12": 997890942
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_13": -1989534781
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_14": -243250719
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_15": -741651975
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_16": -219917253
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_17": -1942821751
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_18": -2119078382
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_19": 1267417433
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_2": -836857152
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_20": 1246492887
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_21": 83795333
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_22": 172085040
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_23": -2063345622
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_24": -644064559
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_25": -162343431
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_26": -477731523
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_27": -850073422
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_28": 1280491891
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_29": 46055653
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_3": 1515760666
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_4": -1151697428
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_5": -873623475
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_6": -1290596448
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_7": -759177227
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_8": -1013930449
+      "UFO\u30A2\u30CB\u30E1\u30FC\u30B7\u30E7\u30F3ver7_9": -1533988905
+  mipmapLimitGroupName: 
+  pSDRemoveMatte: 0
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
