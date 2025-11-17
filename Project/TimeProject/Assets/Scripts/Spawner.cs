@@ -8,6 +8,16 @@ public class Spawner : MonoBehaviour
     public GameObject objectToSpawn;
 
     public Vector3 spawnOffset = Vector3.left;
+
+    [Header("サウンド設定（任意のオブジェクトのAudioSourceを使用）")]
+    public AudioClip spawnSound;          // 再生したい音
+    [Range(0f, 5f)]
+    public float Volume = 0f;    // ★ 発射音の音量調整
+
+
+
+
+
     private bool hasSpawned = false;
 
     private void OnCollisionEnter(Collision collision)
@@ -26,22 +36,21 @@ public class Spawner : MonoBehaviour
             Vector3 spawnPosition = transform.position + spawnOffset;
             Quaternion spawnRotation = Quaternion.Euler(0, 0, 0);  // ここで向きを指定
 
+
             Instantiate(objectToSpawn, spawnPosition, spawnRotation);
 
             hasSpawned = true;  // 出現済みにする
+
             Debug.Log("スポーン完了");
+
+            // ---- マス生成音を BGM と完全に独立して再生 ----
+            if (spawnSound != null)
+            {
+                AudioSource.PlayClipAtPoint(spawnSound, spawnPosition, Volume);
+            }
         }
     }
-    // Start is called before the first frame update
-    void Start()
-    {
 
-    }
 
-    // Update is called once per frame
-    void Update()
-    {
-
-    }
 }
 
