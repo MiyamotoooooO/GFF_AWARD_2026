@@ -203,9 +203,11 @@ public class ObjectManager : MonoBehaviour
                 }
             }
 
-
             count++;
 
         }
+
+        // ƒf[ƒ^‚ğ•Û‘¶
+        SaveManager.Instance.SaveGame();
     }
 }

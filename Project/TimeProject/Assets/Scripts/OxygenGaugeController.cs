@@ -476,6 +476,12 @@ public class OxygenGaugeController : MonoBehaviour
 
         // UI‚ğXV
         UpdateOxygenUI();
+
+        if (currentOxygen <= 0)
+        {
+            GameOverUI();
+        }
+
     }
 
     public void RecoverOxygen(float amount)

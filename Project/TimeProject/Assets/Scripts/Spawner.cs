@@ -6,6 +6,8 @@ public class Spawner : MonoBehaviour
 {
     //出現させたいプレハブ
     public GameObject objectToSpawn;
+
+    public Vector3 spawnOffset = Vector3.left;
     private bool hasSpawned = false;
 
     private void OnCollisionEnter(Collision collision)
@@ -21,7 +23,7 @@ public class Spawner : MonoBehaviour
 
 
             //今の位置の少し上にオブジェクトを出す
-            Vector3 spawnPosition = transform.position + Vector3.left;
+            Vector3 spawnPosition = transform.position + spawnOffset;
             Quaternion spawnRotation = Quaternion.Euler(0, 0, 0);  // ここで向きを指定
 
             Instantiate(objectToSpawn, spawnPosition, spawnRotation);
@@ -42,3 +44,4 @@ public class Spawner : MonoBehaviour
 
     }
 }
+

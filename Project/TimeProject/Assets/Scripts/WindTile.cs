@@ -30,11 +30,14 @@ public class WindTile : MonoBehaviour
     public bool singleUse = true;
     public float cooldown = 2f;
 
-    [Header("風のエフェクトプレハブ（ParticleSystem入り）")]
+    [Header("風エフェクトプレハブ（ParticleSystem入り）")]
     public GameObject windEffectPrefab;
 
-    [Header("生成したエフェクトの大きさ")]
+    [Header("エフェクトの大きさ")]
     public Vector3 effectScaleMultiplier = Vector3.one;
+
+    [Header("エフェクトの出る座標のオフセット")]
+    public Vector3 windEffectOffset = Vector3.zero;
 
     // 内部変数
     private GameObject windEffectObj;
@@ -52,11 +55,7 @@ public class WindTile : MonoBehaviour
             windEffectObj = Instantiate(windEffectPrefab, transform);
             windEffectObj.name = "WindEffect";
 
-            windEffect = windEffectObj.GetComponentInChildren<ParticleSystem>();
-            if (windEffect == null)
-            {
-                Debug.LogError("windEffectPrefab に ParticleSystem が入っていません。");
-            }
+            windEffect = windEffectObj.GetComponentInChildren<ParticleSystem>();           
         }
 
         effectTriggerBox = new GameObject("WindEffectTrigger").AddComponent<BoxCollider>();
@@ -67,9 +66,11 @@ public class WindTile : MonoBehaviour
     private void OnCollisionEnter(Collision collision)
     {
         if (!canActivate || windActive) return;
+
         if (collision.collider.CompareTag(playerTag))
         {
             StartCoroutine(WindRoutine());
+
             if (singleUse)
                 canActivate = false;
             else
@@ -144,9 +145,7 @@ public class WindTile : MonoBehaviour
 
         Vector3 v = lastRbInside.velocity;
         float alongWind = Vector3.Dot(v, dir);
-
         float ease = 5f;
-
         float newAlong = Mathf.Lerp(alongWind, 0, Time.deltaTime * ease);
 
         lastRbInside.velocity = v + dir * (newAlong - alongWind);
@@ -177,9 +176,12 @@ public class WindTile : MonoBehaviour
         if (windEffectObj == null || windEffect == null) return;
 
         Vector3 dir = GetWindDirection().normalized;
-        Vector3 center = transform.position + dir * (windRange / 2);
 
-        windEffectObj.transform.position = center;
+        // ★ エフェクト出現位置
+        Vector3 center = transform.position + dir * (windRange / 2);
+        Vector3 effectPos = center + windEffectOffset;
+
+        windEffectObj.transform.position = effectPos;
         windEffectObj.transform.rotation = Quaternion.LookRotation(dir);
         windEffectObj.transform.localScale = effectScaleMultiplier;
 
@@ -187,7 +189,7 @@ public class WindTile : MonoBehaviour
         shape.shapeType = ParticleSystemShapeType.Box;
         shape.scale = new Vector3(windWidth, windHeight, windRange);
 
-        effectTriggerBox.transform.position = center;
+        effectTriggerBox.transform.position = effectPos;
         effectTriggerBox.transform.rotation = Quaternion.LookRotation(dir);
         effectTriggerBox.size = new Vector3(windWidth, windHeight, windRange);
 
@@ -208,9 +210,8 @@ public class WindTile : MonoBehaviour
         Gizmos.matrix = Matrix4x4.TRS(center, Quaternion.LookRotation(dir), Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(windWidth, windHeight, windRange));
 
-        Gizmos.color = Color.blue;
-        Gizmos.DrawLine(transform.position, transform.position + dir * windRange);
+        Gizmos.color = Color.yellow;
+        Gizmos.DrawSphere(center + windEffectOffset, 0.1f);
     }
 }
-
 

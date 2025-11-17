@@ -17,6 +17,9 @@ public class rakka : MonoBehaviour
     public float overlapCheckRadius = 0.6f; // preventOverlap の判定半径
     public LayerMask overlapLayer = ~0;     // チェックするレイヤー（デフォルト全て）
 
+
+    private OxygenGaugeController oxygenGauge;
+    private GameObject HpGauge;
     bool canSpawn = true;
 
     // OnTriggerEnter は使わない（削除）
@@ -84,6 +87,15 @@ public class FallingItem : MonoBehaviour
     [Header("地面のタグ設定")]
     public string groundTag = "Selectable";
 
+
+    OxygenGaugeController oxygenGauge;
+    public GameObject HpGauge;
+
+    private void Start()
+    {
+        HpGauge = GameObject.Find("HpGauge");
+        oxygenGauge = HpGauge.GetComponent<OxygenGaugeController>();
+    }
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag(playerTag))
@@ -95,6 +107,13 @@ public class FallingItem : MonoBehaviour
                 rb.angularVelocity = Vector3.zero;
                 Destroy(rb);
             }
+
+            if (oxygenGauge != null)
+            {
+                oxygenGauge.oxygenDecreaseRate = 10000;
+                //oxygenGauge.maxOxygen = 0;
+                Debug.Log("岩に" + playerTag + "が当たった");
+            }
             return;
         }
 
@@ -104,5 +123,6 @@ public class FallingItem : MonoBehaviour
         }
     }
 }
+
 
 
