@@ -20,6 +20,7 @@ public class GoalCamera : MonoBehaviour
 
     // 🔸 プレイヤー追尾カメラスクリプトへの参照
     private MonoBehaviour followCameraScript;
+    private MonoBehaviour ControllerScript;
 
     void Start()
     {
@@ -30,6 +31,8 @@ public class GoalCamera : MonoBehaviour
 
         // 🔹 カメラにアタッチされている追尾スクリプト（例：FollowCamera）を自動取得
         followCameraScript = mainCamera.GetComponent<MonoBehaviour>();
+        ControllerScript = player.GetComponent<MonoBehaviour>();
+
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -52,6 +55,8 @@ public class GoalCamera : MonoBehaviour
         // 🔸 追尾カメラを一時停止
         if (followCameraScript != null) followCameraScript.enabled = false;
 
+        if (ControllerScript != null) ControllerScript.enabled = false;
+
         // カメラの元位置
         Vector3 startPos = mainCamera.transform.position;
 
@@ -73,7 +78,9 @@ public class GoalCamera : MonoBehaviour
         // 🔹 再び追尾カメラをオンに戻す
         if (followCameraScript != null) followCameraScript.enabled = true;
 
-        hasCleared = false;
+        if (ControllerScript != null) ControllerScript.enabled = true;
+
+
     }
 
     /// <summary>
@@ -92,5 +99,7 @@ public class GoalCamera : MonoBehaviour
         }
         mainCamera.transform.position = to;
     }
+
 }
+
 

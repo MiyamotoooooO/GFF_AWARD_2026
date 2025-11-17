@@ -12,6 +12,8 @@ public class PlayerController : MonoBehaviour
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
+    private AudioSource footstepAudio;   // ← 足音用
+
     public OxygenGaugeController oxygenGaugeController;
     private Vector3 lastCheckpointPosition;
     public Collider planeCollider;
@@ -23,6 +25,13 @@ public class PlayerController : MonoBehaviour
         Collider playerCollider = GetComponent<Collider>(); // プレイヤーのcolliderを取得
 
         animator = GetComponent<Animator>();
+
+
+        // 足音用 AudioSource（Playerについているやつ）
+        footstepAudio = GetComponent<AudioSource>();
+        footstepAudio.loop = true;       // 足音をループ再生
+        footstepAudio.playOnAwake = false;
+
         Application.targetFrameRate = 60;
 
         GameObject[] planes = GameObject.FindGameObjectsWithTag("Plane");
@@ -49,10 +58,27 @@ public class PlayerController : MonoBehaviour
         float speed = moveDir.magnitude;         // 入力の強さ
         animator.SetFloat("Speed", speed);       // "Speed" に渡す
 
+        // 足音制御（歩いてるときだけ再生）
+        HandleFootsteps(speed);
         // 向き変更（左右だけ反転）
         if (moveX != 0)
         {
             sr.flipX = moveX < 0; // 左に進んでいるときだけ反転
+        }
+    }
+    private void HandleFootsteps(float speed)
+    {
+        // 歩いている & 足音が再生されていない → 再生
+        if (speed > 0.1f)
+        {
+            if (!footstepAudio.isPlaying)
+                footstepAudio.Play();
+        }
+        else
+        {
+            // 止まっている → 足音停止
+            if (footstepAudio.isPlaying)
+                footstepAudio.Stop();
         }
     }
 
@@ -77,3 +103,4 @@ public class PlayerController : MonoBehaviour
     }
 
 }
+

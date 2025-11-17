@@ -18,8 +18,12 @@ public class GameOverUIController : MonoBehaviour
     // 落下アニメーションが始まったかどうかのフラグ
     private bool isDropping = false;
 
+    private AudioSource gameoverAudio;   // ← 足音用
     // UIを初期設定で非表示にする（Canvas UIの場合はSetActive(false)など）
-
+    private void Start()
+    {
+        gameoverAudio = GetComponent<AudioSource>();
+    }
     // ゲームオーバー時に外部から呼び出す関数
     public void StartDropAnimation()
     {
@@ -31,6 +35,12 @@ public class GameOverUIController : MonoBehaviour
         transform.position = startPosition;
 
         isDropping = true;
+
+        // ★★ ゲームオーバー音再生 ★★
+        if (gameoverAudio != null)
+        {
+            gameoverAudio.Play();
+        }
 
         Debug.Log("落下のアニメーションを開始しました！");
     }
@@ -59,4 +69,5 @@ public class GameOverUIController : MonoBehaviour
         }
     }
 }
+
 

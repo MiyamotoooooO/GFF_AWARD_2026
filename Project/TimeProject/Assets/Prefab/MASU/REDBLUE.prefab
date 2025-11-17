@@ -74,7 +74,7 @@ PrefabInstance:
       objectReference: {fileID: 2100000, guid: f346b7c3ae362cb499f690cfb0d2e495, type: 2}
     - target: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_Name
-      value: REDBLUE 1
+      value: REDBLUE
       objectReference: {fileID: 0}
     - target: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_IsActive
@@ -91,6 +91,9 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       insertIndex: -1
       addedObject: {fileID: 2101343270048946677}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 745029360116857070}
   m_SourcePrefab: {fileID: 100100000, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
 --- !u!1 &3475612445035276425 stripped
 GameObject:
@@ -118,3 +121,23 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &745029360116857070
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3475612445035276425}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 523fcaef11d4a0d48b8e92d4fd44695b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkAxis: 0
+  sideAName: FrontBlock
+  sideBName: BackBlock
+  contactDistance: 1.1
+  targetObject: {fileID: 0}
+  targetScript: {fileID: 0}
+  offMaterial: {fileID: 0}
+  onMaterial: {fileID: 0}
