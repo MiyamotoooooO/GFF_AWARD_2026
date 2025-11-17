@@ -33,6 +33,21 @@ public class PlayerCannonLauncher : MonoBehaviour
     [Header("着地地点用エフェクト")]
     [SerializeField] private GameObject landingEffectPrefab;
 
+    [Header("発射サウンド")]
+    [SerializeField] public AudioClip launchSound;
+
+    [Range(0f, 3f)]
+    public float launchVolume = 1f;    // ★ 発射音の音量調整
+
+    [Header("着地サウンド")]
+    [SerializeField] public AudioClip landingSound;
+
+    [Range(0f, 3f)]
+    public float landingVolume = 1f;    // ★ 発射音の音量調整
+
+    [Header("サウンド再生用 AudioSource")]
+    public AudioSource audioSource;
+
     private Rigidbody playerrb;
     private bool isInCannon = false;
     private bool isOnCannon = false;
@@ -111,6 +126,13 @@ public class PlayerCannonLauncher : MonoBehaviour
             Destroy(effect, 0.4f);
         }
 
+        //発射サウンド再生
+        if (audioSource && launchSound)
+        {
+            audioSource.PlayOneShot(launchSound, launchVolume);
+            Debug.Log("発射サウンド再生");
+        }
+
         if (cameraMoveScript) cameraMoveScript.enabled = false;
 
         Debug.Log("上方向に打ち上げ！");
@@ -173,6 +195,13 @@ public class PlayerCannonLauncher : MonoBehaviour
             Destroy(effect, 0.6f);
         }
 
+        //着地サウンド再生
+        if (audioSource && landingSound)
+        {
+            audioSource.PlayOneShot(landingSound, landingVolume);
+            Debug.Log("着地サウンド再生");
+        }
+
         isFalling = false;
 
         if (cameraMoveScript) cameraMoveScript.enabled = true;
@@ -196,4 +225,5 @@ public class PlayerCannonLauncher : MonoBehaviour
         }
     }
 }
+
 

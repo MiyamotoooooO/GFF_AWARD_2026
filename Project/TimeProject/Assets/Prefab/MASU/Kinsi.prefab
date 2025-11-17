@@ -112,7 +112,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e1766d70bf6013941af00698ffeb5204, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  thickness: 4.18
+  thickness: 0.5
   verticalOffset: 0
   inset: {x: -0.04, y: -0.04}
   blockerName: TopBlocker
