@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1001 &4960122652695396023
+--- !u!1001 &4715636654652207855
 PrefabInstance:
   m_ObjectHideFlags: 0
   serializedVersion: 2
@@ -22,15 +22,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_LocalPosition.x
-      value: -3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_LocalPosition.y
-      value: 0.5000001
+      value: 0.49999803
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2
+      value: -27
       objectReference: {fileID: 0}
     - target: {fileID: -8679921383154817045, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       propertyPath: m_LocalRotation.w
@@ -86,20 +86,29 @@ PrefabInstance:
     m_AddedComponents:
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 3922883780556729123}
+      addedObject: {fileID: 3278737032759232401}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 6607265503220940159}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 5065474596397866457}
+    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
+      insertIndex: -1
+      addedObject: {fileID: 7435228646163882576}
   m_SourcePrefab: {fileID: 100100000, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
---- !u!1 &5193930838358344678 stripped
+--- !u!1 &5598017614763134910 stripped
 GameObject:
   m_CorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
-  m_PrefabInstance: {fileID: 4960122652695396023}
+  m_PrefabInstance: {fileID: 4715636654652207855}
   m_PrefabAsset: {fileID: 0}
---- !u!65 &3922883780556729123
+--- !u!65 &3278737032759232401
 BoxCollider:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5193930838358344678}
+  m_GameObject: {fileID: 5598017614763134910}
   m_Material: {fileID: 0}
   m_IncludeLayers:
     serializedVersion: 2
@@ -114,3 +123,51 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &6607265503220940159
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598017614763134910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a7398d87c8f978a41bc67d4782f44045, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  platformsToActivate: []
+  activeTime: 100
+  interval: 1
+--- !u!114 &5065474596397866457
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598017614763134910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 4d80c6cd00a219b468481a7b796fea3f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  checkpointID: 0
+--- !u!114 &7435228646163882576
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5598017614763134910}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99c53068060f32546a4966db700145a9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  mainCamera: {fileID: 0}
+  player: {fileID: 0}
+  nextStagePoint: {fileID: 0}
+  moveDistance: 0
+  moveDuration: 3
+  showTime: 2
+  backXOffset: 0
+  backZOffset: -7.29

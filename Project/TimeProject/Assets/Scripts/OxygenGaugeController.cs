@@ -68,6 +68,7 @@ public class OxygenGaugeController : MonoBehaviour
     public Transform playerTransform;
     [Header("BGMを参照")]
     public AudioSource bgmAudioSource;
+    public BottleUIManager bottleUIManager;    
 
     // private参照
     private bool isWarningActive = false;
@@ -473,6 +474,17 @@ public class OxygenGaugeController : MonoBehaviour
         }
         // UI表示の開始後、リスタートフラグを立てる
         canRestart = true;
+    }
+    public void ResetToMaxOxygen()
+    {
+        currentOxygen = maxOxygen;
+        UpdateOxygenUI();
+        Debug.Log($"【酸素ゲージ】チェックポイント到達、酸素ゲージ{maxOxygen}にリセットした！");
+
+        if (bottleUIManager != null)
+        {
+            bottleUIManager.SignalBottleRecovered();
+        }
     }
 
     public void TakeDamage(int damageAmount)
