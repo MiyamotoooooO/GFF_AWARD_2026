@@ -2,12 +2,11 @@ using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System;
-using Unity.VisualScripting;
 
 public class BottleUIManager : MonoBehaviour
 {
     public Image[] bottleUIImages;
-    public static BottleUIManager Instance { get; private set; }
+
     // 黄色のボトルのスプライト
     public Sprite fullBottleSprite;
     // 空のボトルのスプライト
@@ -16,25 +15,7 @@ public class BottleUIManager : MonoBehaviour
     private BottleUIManager bottleUIManager;
     private SaveData currentSaveData; // セーブデータの参照
     public ObjectManager takoController;
-    public GameObject interactTextUI; // ガイド用Text
-
-    public void ShowInteractUI()
-    {
-        if (interactTextUI != null)
-        {
-            interactTextUI.SetActive(true);
-            Debug.Log("interactUIを表示しました。");
-        }
-    }
-
-    public void HideInteractUI()
-    {
-        if (interactTextUI != null)
-        {
-            interactTextUI.SetActive(false);
-            Debug.Log("interactUIを非表示にしました。");
-        }
-    }
+    private int BottleCount => currentSaveData.bottleStates.Count(state => state); // 現在の黄色ボトルの本数
 
     void Start()
     {
@@ -43,7 +24,6 @@ public class BottleUIManager : MonoBehaviour
             currentSaveData = new SaveData();
         }
 
-        HideInteractUI();
         UpdateBottleUI();
         //CheckTakoInteraction();
     }
@@ -51,8 +31,6 @@ public class BottleUIManager : MonoBehaviour
     // UIの表示を現在のSaveDataに基づいてUIを更新する
     public void UpdateBottleUI()
     {
-        SaveManager.Instance.SaveGame();
-
         SaveData bottleSaveData = currentSaveData;
 
         // UIが設定されていない場合はエラーを出す
@@ -94,14 +72,7 @@ public class BottleUIManager : MonoBehaviour
         }
     }
 
-    public void ResetBottleToFull()
-    {
-        Debug.Log("タコのcountとボトルをリセット");
 
-        SignalBottleRecovered();
-
-        Debug.Log("チェックポイント到達、ボトルをリセットしました！");
-    }
 
     // アイテム拾得時: ボトルを追加。右から優先
     public bool TryAddBottle()

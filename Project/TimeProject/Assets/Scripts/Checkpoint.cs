@@ -3,6 +3,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     public int checkpointID; // 各チェックポイントにユニークなIDを設定
+    //public OxygenGaugeController oxygenGaugeController;
 
     private void OnCollisionEnter(Collision collision)
     {
@@ -20,10 +21,17 @@ public class Checkpoint : MonoBehaviour
                 save.currentData.respawnPosition[1] = pos.y;
                 save.currentData.respawnPosition[2] = pos.z;
 
+                if (OxygenGaugeController.Instance != null)
+                {
+                    // 酸素の最大値をリセット
+                    OxygenGaugeController.Instance.ResetToMaxOxygen();
+                }
+
                 save.SaveGame();
                 Debug.Log($"チェックポイント {checkpointID} を更新！");
             }
         }
     }
 }
+
 
