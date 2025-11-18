@@ -31,9 +31,10 @@ public class SideBlockChecker : MonoBehaviour
 
     private bool isCurrentlyConnected = false;
     private Renderer targetRenderer;
-
+    private AudioSource chainAudio; //鎖音
     void Start()
     {
+        chainAudio = GetComponent<AudioSource>();
         if (targetObject != null)
         {
             targetRenderer = targetObject.GetComponent<Renderer>();
@@ -77,8 +78,16 @@ public class SideBlockChecker : MonoBehaviour
                 Debug.Log($"'{targetObject.name}' の '{targetScript.GetType().Name}' をONにしました。");
             }
 
+            // 鎖生成音（このオブジェクトから鳴らす）
+            if (chainAudio != null)
+            {
+                chainAudio.Play();
+            }
             if (targetRenderer != null && onMaterial != null)
+            {
+
                 targetRenderer.material = onMaterial;
+            }
         }
 
         if (!nowConnected && isCurrentlyConnected)
@@ -124,4 +133,5 @@ public class SideBlockChecker : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + dirB * contactDistance);
     }
 }
+
 

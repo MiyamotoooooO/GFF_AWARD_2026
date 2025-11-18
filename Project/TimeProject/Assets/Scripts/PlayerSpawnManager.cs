@@ -10,7 +10,7 @@ public class PlayerSpawnManager : MonoBehaviour
         var data = SaveManager.Instance.currentData;
         Vector3 spawnPos = new Vector3(
         data.respawnPosition[0],
-        data.respawnPosition[1] + 0.7f,
+        data.respawnPosition[1] + 1.68f,
         data.respawnPosition[2]
         );
 

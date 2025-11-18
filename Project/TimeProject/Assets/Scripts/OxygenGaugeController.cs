@@ -86,6 +86,7 @@ public class OxygenGaugeController : MonoBehaviour
     private PostProcessLayer postProcessLayer;
     private Vignette vignette; // 制御するVignetteエフェクト
     private PostProcessProfile runtimeProfile; // ランタイム用のプロファイルインスタンス
+    private AudioSource gameoverAudio;   // ← 足音用
     private void Awake()
     {
         // シングルトンの初期化
@@ -121,6 +122,7 @@ public class OxygenGaugeController : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
+        gameoverAudio = GetComponent<AudioSource>();
         // 初期化
         currentOxygen = maxOxygen;
         //nextLogThreshold = maxOxygen - 50f;
@@ -319,6 +321,11 @@ public class OxygenGaugeController : MonoBehaviour
     {
         if (isGameOver) return;
         isGameOver = true;
+        // ★★ 最優先で音を再生 ★★
+        if (gameoverAudio != null)
+        {
+            gameoverAudio.Play();
+        }
 
         if (mainCanvasGroup != null)
         {
@@ -352,7 +359,7 @@ public class OxygenGaugeController : MonoBehaviour
             }
         }
 
-        if(bgmAudioSource != null && bgmAudioSource.isPlaying)
+        if (bgmAudioSource != null && bgmAudioSource.isPlaying)
         {
             bgmAudioSource.Stop();
         }
@@ -503,9 +510,9 @@ public class OxygenGaugeController : MonoBehaviour
         // プレイヤーを最新のチェックポイントへ移動させる
         //if (playerController != null)
         //{
-            //Vector3 checkpointPos = playerController.GetLastCheckpointPosition();
+        //Vector3 checkpointPos = playerController.GetLastCheckpointPosition();
 
-            //playerController.transform.position = checkpointPos;
+        //playerController.transform.position = checkpointPos;
         //}
 
         if (restartTextMeshPro != null)
@@ -513,7 +520,7 @@ public class OxygenGaugeController : MonoBehaviour
             restartTextMeshPro.enabled = false;
         }
 
-        if(bgmAudioSource != null && !bgmAudioSource.isPlaying)
+        if (bgmAudioSource != null && !bgmAudioSource.isPlaying)
         {
             bgmAudioSource.Play();
         }

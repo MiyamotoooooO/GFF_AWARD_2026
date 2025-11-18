@@ -160,10 +160,24 @@ public class ObjectController1 : MonoBehaviour
 
             // 他オブジェクトとの距離チェック
             GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Selectable");
+            GameObject[] allObjectsIve = GameObject.FindGameObjectsWithTag("Ivent");
             foreach (GameObject obj in allObjects)
             {
                 if (obj == selectedObject) continue;
                 BoxCollider col = obj.GetComponent<BoxCollider>();
+                if (col == null) continue;
+                float distance = Vector3.Distance(newCenter, col.bounds.center);
+                if (distance < minDistance)
+                {
+                    Debug.Log("他のオブジェクトと近すぎるため移動できません");
+                    return;
+                }
+            }
+
+            foreach (GameObject objIve in allObjectsIve)
+            {
+                if (objIve == selectedObject) continue;
+                BoxCollider col = objIve.GetComponent<BoxCollider>();
                 if (col == null) continue;
                 float distance = Vector3.Distance(newCenter, col.bounds.center);
                 if (distance < minDistance)
