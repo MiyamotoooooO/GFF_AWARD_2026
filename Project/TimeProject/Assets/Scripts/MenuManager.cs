@@ -6,15 +6,15 @@ using UnityEngine.SceneManagement;
 public class MenuController : MonoBehaviour
 {
     [Header("ÉÅÉjÉÖÅ[ê›íË")]
-    private GameObject backGroundUI;
+    [SerializeField]private GameObject backGroundUI;
     private int count = 0;
     private bool isMenu = true;
 
 
     private void Start()
     {
-        backGroundUI = GameObject.Find("MenuManager");
-        //backGroundUI.SetActive(false);
+        //backGroundUI = GameObject.Find("MenuManager");
+        backGroundUI.SetActive(false);
     }
     private void Update()
     {
@@ -65,9 +65,23 @@ public class MenuController : MonoBehaviour
         Debug.Log("menu");
     }
 
-    public void homeButton()
+    public void menuButton2()
     {
-        SceneManager.LoadScene("MASUGame");
+        Debug.Log("is Button down");
+        //isMenu = true;
+        if (isMenu)
+        {
+            Debug.Log($"isMenu : {isMenu}");
+            Time.timeScale = 1f;
+            backGroundUI.SetActive(false);
+            isMenu = true;
+        }
+        //else
+        //{
+        //    Debug.Log($"isMenu : {isMenu}");
+        //    Time.timeScale = 0f;
+        //    backGroundUI.SetActive(true);
+        //    isMenu = false;
+        //}
     }
-
 }
