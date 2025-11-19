@@ -12,10 +12,15 @@ public class BottleUIManager : MonoBehaviour
     // 空のボトルのスプライト
     public Sprite emptyBottleSprite;
 
+    public static BottleUIManager Instance { get; private set; }
+
     private BottleUIManager bottleUIManager;
     private SaveData currentSaveData; // セーブデータの参照
-    public ObjectManager takoController;
+    public ObjectController1 takoController;
+
     private int BottleCount => currentSaveData.bottleStates.Count(state => state); // 現在の黄色ボトルの本数
+
+
 
     void Start()
     {
@@ -24,14 +29,20 @@ public class BottleUIManager : MonoBehaviour
             currentSaveData = new SaveData();
         }
 
+
+
         UpdateBottleUI();
         //CheckTakoInteraction();
     }
+
+
 
     // UIの表示を現在のSaveDataに基づいてUIを更新する
     public void UpdateBottleUI()
     {
         SaveData bottleSaveData = currentSaveData;
+
+
 
         // UIが設定されていない場合はエラーを出す
         if (bottleUIImages.Length != currentSaveData.bottleStates.Length)
@@ -40,29 +51,43 @@ public class BottleUIManager : MonoBehaviour
             return;
         }
 
+
+
         // SaveDataのboolの配列に基づいてUIを更新
         for (int i = 0; i < currentSaveData.bottleStates.Length; i++)
         {
             bottleUIImages[i].sprite = currentSaveData.bottleStates[i] ? fullBottleSprite : emptyBottleSprite;
         }
 
+
+
         // セーブ処理を呼び出す
         SaveManager.Instance.SaveGame();
+
+
 
         // タコへの信号
         CheckTakoInteraction();
 
+
+
     }
+
+
 
     private void CheckTakoInteraction()
     {
         bool canInteract = currentSaveData.bottleStates.Count(state => state) > 0;
 
+
+
         if (takoController != null)
         {
-            takoController.ConfirmPlacement();
+            takoController.ConfirmObjectPlacement();
         }
     }
+
+
 
     public void SignalBottleRecovered()
     {
@@ -71,6 +96,8 @@ public class BottleUIManager : MonoBehaviour
             takoController.RecoverCountAndGauge();
         }
     }
+
+
 
 
 
@@ -86,12 +113,34 @@ public class BottleUIManager : MonoBehaviour
                 currentSaveData.bottleStates[i] = true; // 黄色ボトルに切り替え
                 UpdateBottleUI();
 
+
+
                 return true; // 追加成功
             }
         }
         // 空ボトルが見つからなかった場合
         return false; // 追加失敗
     }
+
+    public void ResetBottlesToFull()
+    {
+        if (SaveManager.Instance == null || SaveManager.Instance.currentData == null)
+        {
+            Debug.LogError("SaveManagerが見つからない。ボトルをリセットできないよ");
+            return;
+        }
+        bool[] states = SaveManager.Instance.currentData.bottleStates;
+
+        // 全てのボトルを満タンに設定
+        for (int i = 0; i < states.Length; i++)
+        {
+            states[i] = true;
+        }
+        UpdateBottleUI();
+        Debug.Log("全てのボトルが満タンにリセットされました。");
+    }
+
+
 
     public bool ConsumeOneBottle()
     {
@@ -108,6 +157,8 @@ public class BottleUIManager : MonoBehaviour
             }
         }
 
+
+
         // 満タンのボトルが見つかった場合(消費可能)
         if (indexToEmpty != -1)
         {
@@ -115,21 +166,35 @@ public class BottleUIManager : MonoBehaviour
             // 状態を空に設定
             //states[indexToEmpty] = false;
 
+
+
             // UIを更新
             UpdateBottleUI();
+
+
 
             // データを保存
             SaveManager.Instance.SaveGame();
 
+
+
             //SaveManager.Instance.NotifyDataChanged();
+
+
 
             Debug.Log($"ボトル[{indexToEmpty}]を空にしました。");
 
+
+
             //OnBottleConsumed?.Invoke();
+
+
 
             return true; // 消費成功
         }
         SaveManager.Instance.SaveGame();
+
+
 
         return false; // 消費失敗
     }

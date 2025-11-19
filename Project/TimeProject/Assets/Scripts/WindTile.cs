@@ -26,6 +26,8 @@ public class WindTile : MonoBehaviour
     public float windHeight = 2f;
     public float windDuration = 3f;
 
+    // windRangeOffset は使わないので削除しました
+
     [Header("再使用設定")]
     public bool singleUse = true;
     public float cooldown = 2f;
@@ -55,12 +57,16 @@ public class WindTile : MonoBehaviour
             windEffectObj = Instantiate(windEffectPrefab, transform);
             windEffectObj.name = "WindEffect";
 
-            windEffect = windEffectObj.GetComponentInChildren<ParticleSystem>();           
+            windEffect = windEffectObj.GetComponentInChildren<ParticleSystem>();
+            // プレイヤーが踏むまでは非表示
+            windEffectObj.SetActive(false);
         }
 
         effectTriggerBox = new GameObject("WindEffectTrigger").AddComponent<BoxCollider>();
         effectTriggerBox.isTrigger = true;
         effectTriggerBox.transform.SetParent(transform);
+
+        Debug.Log(windEffect == null ? "ParticleSystem null" : "ParticleSystem found");
     }
 
     private void OnCollisionEnter(Collision collision)
@@ -82,6 +88,8 @@ public class WindTile : MonoBehaviour
     {
         windActive = true;
 
+        windEffectObj.SetActive(true);
+
         AdjustWindEffectTransform();
         if (windEffect != null) windEffect.Play();
 
@@ -95,6 +103,8 @@ public class WindTile : MonoBehaviour
 
         windActive = false;
         if (windEffect != null) windEffect.Stop();
+
+        windEffectObj.SetActive(false);
     }
 
     IEnumerator CooldownRoutine()
@@ -107,7 +117,7 @@ public class WindTile : MonoBehaviour
     void BlowWind()
     {
         Vector3 dir = GetWindDirection().normalized;
-        Vector3 center = transform.position + dir * (windRange / 2f);
+        Vector3 center = transform.position + dir * (windRange / 2f); // windRangeOffset 削除
 
         Collider[] hit = Physics.OverlapBox(
             center,
@@ -177,8 +187,7 @@ public class WindTile : MonoBehaviour
 
         Vector3 dir = GetWindDirection().normalized;
 
-        // ★ エフェクト出現位置
-        Vector3 center = transform.position + dir * (windRange / 2);
+        Vector3 center = transform.position + dir * (windRange / 2); // windRangeOffset 削除
         Vector3 effectPos = center + windEffectOffset;
 
         windEffectObj.transform.position = effectPos;
@@ -204,14 +213,25 @@ public class WindTile : MonoBehaviour
     void OnDrawGizmosSelected()
     {
         Vector3 dir = GetWindDirection().normalized;
-        Vector3 center = transform.position + dir * (windRange / 2f);
+        Vector3 center = transform.position + dir * (windRange / 2f); // windRangeOffset 削除
+        Vector3 effectPos = center + windEffectOffset;
 
+        // 風の範囲の枠
         Gizmos.color = Color.cyan;
         Gizmos.matrix = Matrix4x4.TRS(center, Quaternion.LookRotation(dir), Vector3.one);
         Gizmos.DrawWireCube(Vector3.zero, new Vector3(windWidth, windHeight, windRange));
 
+        // 風エフェクトの出る場所
         Gizmos.color = Color.yellow;
-        Gizmos.DrawSphere(center + windEffectOffset, 0.1f);
+        Gizmos.DrawSphere(effectPos, 0.15f);
+
+        // もし windEffectObj があればその位置も表示（オプション）
+        if (windEffectObj != null)
+        {
+            Gizmos.color = Color.magenta;
+            Gizmos.DrawWireSphere(windEffectObj.transform.position, 0.2f);
+        }
     }
 }
+
 

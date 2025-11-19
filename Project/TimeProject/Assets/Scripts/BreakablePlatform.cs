@@ -24,8 +24,14 @@ public class BreakablePlatform : MonoBehaviour
 
     private MeshRenderer meshRenderer;
 
+    private AudioSource breakAudio; //確定音
+
+
+
     void Start()
     {
+        breakAudio = GetComponent<AudioSource>();
+
         meshRenderer = GetComponent<MeshRenderer>();
 
         if (meshRenderer == null)
@@ -47,6 +53,11 @@ public class BreakablePlatform : MonoBehaviour
 
         Debug.Log("gameObjectが踏まれた");
 
+        // 崩壊音（このオブジェクトから鳴らす(踏むたび)）
+        if (breakAudio != null)
+        {
+            breakAudio.Play();
+        }
         //スプライトを変更
         UpdateMaterial();
 
@@ -54,7 +65,13 @@ public class BreakablePlatform : MonoBehaviour
         if (currentCount >= breakCount)
         {
             StartCoroutine(BreakPlatform());
+            // 壊れる瞬間の音
+            Debug.Log("壊れた音再生");
+            if (breakAudio != null)
+                breakAudio.Play();
         }
+
+
     }
     private void UpdateMaterial()
     {
@@ -74,6 +91,7 @@ public class BreakablePlatform : MonoBehaviour
     {
         isBreaking = true;
 
+
         //崩れる演出を入れたい場合はここ(例えば点滅など)
         yield return new WaitForSeconds(breakDelay);
 
@@ -82,10 +100,12 @@ public class BreakablePlatform : MonoBehaviour
         //消える処理
         Debug.Log("gameObjectは削除されました");
         Destroy(gameObject);
+
     }
 
 
 
 
 }
+
 

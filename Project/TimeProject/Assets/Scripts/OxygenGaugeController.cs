@@ -475,7 +475,7 @@ public class OxygenGaugeController : MonoBehaviour
         // UI表示の開始後、リスタートフラグを立てる
         canRestart = true;
     }
-    public void ResetToMaxOxygen()
+    public void RecoverFullOxygen()
     {
         currentOxygen = maxOxygen;
         UpdateOxygenUI();

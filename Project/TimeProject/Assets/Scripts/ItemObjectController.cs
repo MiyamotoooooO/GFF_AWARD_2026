@@ -1,9 +1,11 @@
 using UnityEngine;
 using UnityEngine.UI;
 using System.Collections.Generic;
+using System.Linq;
 
 public class ObjectController1 : MonoBehaviour
 {
+    public static ObjectController1 Instance { get; private set; }
     [Header("Layers")]
     [SerializeField] private LayerMask selectableLayer;
     [SerializeField] private LayerMask itemLayer;
@@ -44,6 +46,19 @@ public class ObjectController1 : MonoBehaviour
     private Vector3 offset;
     private int count = 0;
     private float objectZ;
+    private BottleUIManager bottleUIManager;
+
+    private void Awake()
+    {
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Update()
     {
@@ -199,10 +214,53 @@ public class ObjectController1 : MonoBehaviour
         }
     }
 
-    void ConfirmObjectPlacement()
+    public void RecoverCountAndGauge()
+    {
+        if (count > 0)
+        {
+            count--;
+            Debug.Log($"ボトルの回収に伴い、countが {count + 1} から {count} に回復しました。");
+
+            //int gaugeIndexToReset = count;
+
+            for (int i = 0; i < Gauge.Length; i++)
+            {
+                if (i < count)
+                {
+                    Gauge[i].sprite = handGauge[0];
+                }
+            }
+
+            //if(gaugeIndexToReset >= 0 && gaugeIndexToReset < Gauge.Length)
+            //{
+            //   Gauge[gaugeIndexToReset].sprite = handGauge[0];
+            //}
+            count = 0;
+        }
+        SaveManager.Instance.SaveGame();
+        //}
+    }
+
+    public void ResetTakoCountAndGauge()
+    {
+        // ゲージUIの見た目をすべて満タンにもどす
+        for (int i = 0; i < Gauge.Length; i++)
+        {
+            if (Gauge[i] != null)
+            {
+                Gauge[i].sprite = handGauge[0];
+            }
+        }
+        count = 0;
+        Debug.Log($"【タコ制御】チェックポイントによりタコのcountを{count}に完全にリセットした。");
+    }
+
+    public void ConfirmObjectPlacement()
     {
         if (selectedObject != null)
         {
+            int currentBottleCount = GetCurrentBottleCount();
+
             Collider col = selectedObject.GetComponent<Collider>();
             if (col != null) col.isTrigger = false;
 
@@ -214,9 +272,34 @@ public class ObjectController1 : MonoBehaviour
             selectedObject.tag = "Selectable";
             selectedObject = null;
 
+            //count++;
+            Gauge[count].sprite = handGauge[1];
+
+            if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
+            {
+                Debug.Log("【タコ】ボトル消費の開始");
+
+                int bottleIndex = count;
+                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+                {
+                    // ボトルを取得済みとしてマーク
+                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+                    Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
+                }
+            }
+
             count++;
-            Gauge[count - 1].sprite = handGauge[1];
+            SaveManager.Instance.SaveGame();
         }
+    }
+
+    private int GetCurrentBottleCount()
+    {
+        if (bottleUIManager != null && SaveManager.Instance.currentData != null)
+        {
+            SaveManager.Instance.currentData.bottleStates.Count(state => state);
+        }
+        return 0;
     }
 
     // ---------------- アイテム関連 ----------------

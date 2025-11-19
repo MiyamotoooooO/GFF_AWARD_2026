@@ -89,9 +89,6 @@ PrefabInstance:
       addedObject: {fileID: 3278737032759232401}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       insertIndex: -1
-      addedObject: {fileID: 6607265503220940159}
-    - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
-      insertIndex: -1
       addedObject: {fileID: 5065474596397866457}
     - targetCorrespondingSourceObject: {fileID: 919132149155446097, guid: 682348edd159c5c4f8f5ba630e5544f9, type: 3}
       insertIndex: -1
@@ -123,21 +120,6 @@ BoxCollider:
   serializedVersion: 3
   m_Size: {x: 1, y: 1, z: 1.0000001}
   m_Center: {x: 0, y: 0, z: 0}
---- !u!114 &6607265503220940159
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 5598017614763134910}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a7398d87c8f978a41bc67d4782f44045, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  platformsToActivate: []
-  activeTime: 100
-  interval: 1
 --- !u!114 &5065474596397866457
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -151,6 +133,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointID: 0
+  platformsToActivate: []
+  activeTime: 3
+  interval: 1
 --- !u!114 &7435228646163882576
 MonoBehaviour:
   m_ObjectHideFlags: 0
