@@ -47,7 +47,12 @@ public class ObjectController1 : MonoBehaviour
     private int count = 0;
     private float objectZ;
     private BottleUIManager bottleUIManager;
+    private AudioSource mausuAudio;
 
+    private void Start()
+    {
+        mausuAudio = GetComponent<AudioSource>();
+    }
     private void Awake()
     {
         if (Instance == null)
@@ -151,6 +156,10 @@ public class ObjectController1 : MonoBehaviour
 
             if (takoControllerScript != null) takoControllerScript.enabled = false;
             if (takoAnimator != null) takoAnimator.SetBool("isLifting", true);
+            if(mausuAudio != null)
+            {
+                mausuAudio.Play();
+            }
         }
     }
 
@@ -290,6 +299,11 @@ public class ObjectController1 : MonoBehaviour
 
             count++;
             SaveManager.Instance.SaveGame();
+
+            if(mausuAudio != null)
+            {
+                mausuAudio.Play();
+            }
         }
     }
 

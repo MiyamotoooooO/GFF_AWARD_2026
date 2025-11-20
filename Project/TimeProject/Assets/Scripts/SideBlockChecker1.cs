@@ -1,4 +1,4 @@
-using UnityEngine;
+ï»¿using UnityEngine;
 
 public class SideBlockChecker : MonoBehaviour
 {
@@ -9,36 +9,36 @@ public class SideBlockChecker : MonoBehaviour
         UpDown
     }
 
-    [Header("ƒuƒƒbƒN‚ğ’u‚¯‚é•ûŒü‚ğw’è")]
+    [Header("ãƒ–ãƒ­ãƒƒã‚¯ã‚’ç½®ã‘ã‚‹æ–¹å‘ã‚’æŒ‡å®š")]
     public CheckAxis checkAxis = CheckAxis.ForwardBack;
 
-    [Header("—¼‘¤‚ÌƒuƒƒbƒN‚Ì–¼‘O‚ğw’è")]
+    [Header("ä¸¡å´ã®ãƒ–ãƒ­ãƒƒã‚¯ã®åå‰ã‚’æŒ‡å®š")]
     public string sideAName = "FrontBlock";
     public string sideBName = "BackBlock";
 
-    [Header("‚­‚Á‚Â‚¢‚Ä‚¢‚é‚Æ”»’è‚·‚é‹——£")]
+    [Header("ãã£ã¤ã„ã¦ã„ã‚‹ã¨åˆ¤å®šã™ã‚‹è·é›¢")]
     public float contactDistance = 1.1f;
 
-    [Header("‚­‚Á‚Â‚¢‚½uŠÔ‚ÉON‚É‚·‚éƒXƒNƒŠƒvƒg‚ª‚ ‚éƒIƒuƒWƒFƒNƒg")]
+    [Header("ãã£ã¤ã„ãŸç¬é–“ã«ONã«ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆãŒã‚ã‚‹ã‚ªãƒ–ã‚¸ã‚§ã‚¯ãƒˆ")]
     public GameObject targetObject;
 
-    [Header("ON‚É‚·‚éƒXƒNƒŠƒvƒgitargetObjectã‚ÌƒXƒNƒŠƒvƒgƒRƒ“ƒ|[ƒlƒ“ƒg‚ğ’¼Úw’èj")]
+    [Header("ONã«ã™ã‚‹ã‚¹ã‚¯ãƒªãƒ—ãƒˆï¼ˆtargetObjectä¸Šã®ã‚¹ã‚¯ãƒªãƒ—ãƒˆã‚³ãƒ³ãƒãƒ¼ãƒãƒ³ãƒˆã‚’ç›´æ¥æŒ‡å®šï¼‰")]
     public MonoBehaviour targetScript;
 
-    [Header("Œ©‚½–Ú‚Ì•ÏXİ’èiƒ}ƒeƒŠƒAƒ‹w’èj")]
+    [Header("è¦‹ãŸç›®ã®å¤‰æ›´è¨­å®šï¼ˆãƒãƒ†ãƒªã‚¢ãƒ«æŒ‡å®šï¼‰")]
     public Material offMaterial;
     public Material onMaterial;
 
     private bool isCurrentlyConnected = false;
     private Renderer targetRenderer;
-    private AudioSource chainAudio; //½‰¹
+    private AudioSource chainAudio;
+
     void Start()
     {
         chainAudio = GetComponent<AudioSource>();
         if (targetObject != null)
         {
             targetRenderer = targetObject.GetComponent<Renderer>();
-
             if (targetRenderer != null && offMaterial != null)
                 targetRenderer.material = offMaterial;
         }
@@ -70,29 +70,36 @@ public class SideBlockChecker : MonoBehaviour
 
         if (nowConnected && !isCurrentlyConnected)
         {
-            Debug.Log("w’è‚µ‚½ƒuƒƒbƒN‚ª‚­‚Á‚Â‚«‚Ü‚µ‚½I");
+            Debug.Log("æŒ‡å®šã—ãŸãƒ–ãƒ­ãƒƒã‚¯ãŒãã£ã¤ãã¾ã—ãŸï¼");
 
             if (targetScript != null)
             {
                 targetScript.enabled = true;
-                Debug.Log($"'{targetObject.name}' ‚Ì '{targetScript.GetType().Name}' ‚ğON‚É‚µ‚Ü‚µ‚½B");
+                Debug.Log($"'{targetObject.name}' ã® '{targetScript.GetType().Name}' ã‚’ONã«ã—ã¾ã—ãŸã€‚");
             }
 
-            // ½¶¬‰¹i‚±‚ÌƒIƒuƒWƒFƒNƒg‚©‚ç–Â‚ç‚·j
+            // ğŸ”½ ã‚¿ã‚°ã‚’ "Ivent" ã«å¤‰æ›´ï¼ˆè¿½åŠ éƒ¨åˆ†ï¼‰
+            if (targetObject != null)
+            {
+                targetObject.tag = "Ivent";
+                Debug.Log($"'{targetObject.name}' ã®ã‚¿ã‚°ã‚’ 'Ivent' ã«å¤‰æ›´ã—ã¾ã—ãŸã€‚");
+            }
+
+            // é–éŸ³
             if (chainAudio != null)
             {
                 chainAudio.Play();
             }
+
             if (targetRenderer != null && onMaterial != null)
             {
-
                 targetRenderer.material = onMaterial;
             }
         }
 
         if (!nowConnected && isCurrentlyConnected)
         {
-            Debug.Log("ƒuƒƒbƒN‚ª—£‚ê‚Ü‚µ‚½B");
+            Debug.Log("ãƒ–ãƒ­ãƒƒã‚¯ãŒé›¢ã‚Œã¾ã—ãŸã€‚");
         }
 
         isCurrentlyConnected = nowConnected;
@@ -133,5 +140,3 @@ public class SideBlockChecker : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + dirB * contactDistance);
     }
 }
-
-
