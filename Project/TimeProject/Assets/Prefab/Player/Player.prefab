@@ -11,9 +11,7 @@ GameObject:
   - component: {fileID: 2295125422898667480}
   - component: {fileID: 5877149552481984230}
   - component: {fileID: 8602654681825541361}
-  - component: {fileID: 2021019184176203956}
   - component: {fileID: 2033331082993322203}
-  - component: {fileID: 3184886089882834716}
   - component: {fileID: 7468940030275016797}
   m_Layer: 12
   m_Name: Player
@@ -76,7 +74,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -2063818403
-  m_SortingLayer: 4
+  m_SortingLayer: 5
   m_SortingOrder: 0
   m_Sprite: {fileID: -1399035948, guid: 6cfe7520758781e42a668daa7569f152, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
@@ -116,22 +114,6 @@ Rigidbody:
   m_Interpolate: 0
   m_Constraints: 112
   m_CollisionDetection: 0
---- !u!114 &2021019184176203956
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8163714493692205399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3876d24203b28f441bb83907cbc64f43, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveSpeed: 2.44
-  animator: {fileID: 2033331082993322203}
-  oxygenGaugeController: {fileID: 0}
-  planeCollider: {fileID: 0}
 --- !u!95 &2033331082993322203
 Animator:
   serializedVersion: 7
@@ -154,30 +136,6 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
---- !u!114 &3184886089882834716
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8163714493692205399}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d5c42c263cadca14bbfa4d11e7456f49, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  player_: {fileID: 0}
-  launchUpSpeed: 20
-  reappearHeight: 10
-  defaultLayer:
-    serializedVersion: 2
-    m_Bits: 1
-  cameraMoveScript: {fileID: 0}
-  playerMoveScript: {fileID: 2021019184176203956}
-  takoMoveScript: {fileID: 0}
-  launchEffectPrefab: {fileID: 4207009648124120150, guid: 9ccf24186e8f6224f973cff323af7e96, type: 3}
-  effectSpawnPoint: {fileID: 0}
-  landingEffectPrefab: {fileID: 4207009648124120150, guid: 9ccf24186e8f6224f973cff323af7e96, type: 3}
 --- !u!136 &7468940030275016797
 CapsuleCollider:
   m_ObjectHideFlags: 0

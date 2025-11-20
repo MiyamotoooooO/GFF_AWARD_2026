@@ -13,6 +13,7 @@ public class PlayerController : MonoBehaviour
     [Header("UI設定")]
     [SerializeField] private GameObject spaceUI;
     private GameObject spawonUI;
+    private GameObject targetObject;
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
@@ -69,6 +70,14 @@ public class PlayerController : MonoBehaviour
         {
             sr.flipX = moveX < 0; // 左に進んでいるときだけ反転
         }
+
+
+        if (targetObject == null && spawonUI != null || Input.GetKeyDown(KeyCode.Space))
+        {
+            Destroy(spawonUI);
+            spawonUI = null;
+        }
+
     }
     private void HandleFootsteps(float speed)
     {
@@ -105,21 +114,29 @@ public class PlayerController : MonoBehaviour
             }
         }
 
-        if(collision.gameObject.tag == "Ivent")
+        if (collision.gameObject.tag == "Ivent")
         {
+
             spawonUI = Instantiate(spaceUI);
+            targetObject = collision.gameObject;
+
             Vector3 spawonPos = spawonUI.transform.position;
             spawonPos.x = collision.transform.position.x;
             spawonPos.y = collision.transform.position.y + 1.5f;
             spawonPos.z = collision.transform.position.z;
             spawonUI.transform.localPosition = spawonPos;
+
+            Debug.Log("Ivent接触");
+
+
         }
     }
 
     private void OnCollisionExit(Collision collision)
     {
-        if(collision.gameObject.tag == "Ivent")
+        if (collision.gameObject.tag == "Ivent")
         {
+            Debug.Log("Iventから離れた");
             Destroy(spawonUI);
         }
     }

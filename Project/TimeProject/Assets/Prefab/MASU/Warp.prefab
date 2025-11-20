@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   partnerTeleporter: {fileID: 0}
-  coolDownTime: 7
+  coolDownTime: 1
 --- !u!82 &935261632142572435
 AudioSource:
   m_ObjectHideFlags: 0
@@ -144,8 +144,8 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 0}
-  m_PlayOnAwake: 1
+  m_audioClip: {fileID: 8300000, guid: 275cba283d10d564ca593f665d7b56fd, type: 3}
+  m_PlayOnAwake: 0
   m_Volume: 1
   m_Pitch: 1
   Loop: 0

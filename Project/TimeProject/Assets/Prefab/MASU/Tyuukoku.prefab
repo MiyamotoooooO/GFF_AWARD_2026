@@ -113,7 +113,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerTag: Player
-  newTilePrefab: {fileID: 0}
+  newTilePrefab: {fileID: 3242030547403416585, guid: 8a69930e74f276644b9ecc0bf2f3f905, type: 3}
   spawnOffset: {x: 0, y: 0, z: 0}
   destroyOldTile: 1
   triggerOnce: 1

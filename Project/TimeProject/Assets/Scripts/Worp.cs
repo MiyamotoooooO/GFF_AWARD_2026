@@ -11,7 +11,12 @@ public class CollisionTeleporter : MonoBehaviour
 
     private bool isCoolingDown = false;
     private bool isPlayerOnTeleporter = false; // ← プレイヤーが乗っているか判定用
+    private AudioSource worpaudio; //マス音
 
+    private void Start()
+    {
+        worpaudio = GetComponent<AudioSource>();
+    }
     private void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
@@ -39,6 +44,11 @@ public class CollisionTeleporter : MonoBehaviour
 
     private void TeleportPlayer()
     {
+        // マス生成音（このオブジェクトから鳴らす）
+        if (worpaudio != null)
+        {
+            worpaudio.Play();
+        }
         if (partnerTeleporter == null) return;
 
         // プレイヤーを取得
