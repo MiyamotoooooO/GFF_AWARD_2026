@@ -36,6 +36,7 @@ public class SideBlockChecker : MonoBehaviour
     void Start()
     {
         chainAudio = GetComponent<AudioSource>();
+
         if (targetObject != null)
         {
             targetRenderer = targetObject.GetComponent<Renderer>();
@@ -46,6 +47,7 @@ public class SideBlockChecker : MonoBehaviour
 
     void Update()
     {
+        // 方向設定
         Vector3 dirA, dirB;
         switch (checkAxis)
         {
@@ -63,40 +65,59 @@ public class SideBlockChecker : MonoBehaviour
                 break;
         }
 
+        // 両サイドのブロックを Raycast で取得
         Transform blockA = FindNearbyBlock(dirA, sideAName);
         Transform blockB = FindNearbyBlock(dirB, sideBName);
 
+        // 両方あったら接続判定
         bool nowConnected = (blockA != null && blockB != null);
 
+        // ==========================
+        // 接続した瞬間の処理
+        // ==========================
         if (nowConnected && !isCurrentlyConnected)
         {
             Debug.Log("指定したブロックがくっつきました！");
 
+            // スクリプトON
             if (targetScript != null)
             {
                 targetScript.enabled = true;
-                Debug.Log($"'{targetObject.name}' の '{targetScript.GetType().Name}' をONにしました。");
+                Debug.Log($"'{targetObject.name}' の '{targetScript.GetType().Name}' を ON にしました。");
             }
 
-            // 🔽 タグを "Ivent" に変更（追加部分）
+            // タグ変更
             if (targetObject != null)
             {
                 targetObject.tag = "Ivent";
                 Debug.Log($"'{targetObject.name}' のタグを 'Ivent' に変更しました。");
             }
 
-            // 鎖音
+            // 音
             if (chainAudio != null)
-            {
                 chainAudio.Play();
+
+            // 見た目変更
+            if (targetRenderer != null && onMaterial != null)
+                targetRenderer.material = onMaterial;
+
+            // ==========================
+            // 🔽 追加：両側のブロックのレイヤーを Default に戻す
+            // ==========================
+            if (blockA != null)
+            {
+                blockA.gameObject.layer = 0; // Default
+                Debug.Log($"{blockA.name} のレイヤーを Default に変更しました。");
             }
 
-            if (targetRenderer != null && onMaterial != null)
+            if (blockB != null)
             {
-                targetRenderer.material = onMaterial;
+                blockB.gameObject.layer = 0; // Default
+                Debug.Log($"{blockB.name} のレイヤーを Default に変更しました。");
             }
         }
 
+        // 離れた瞬間
         if (!nowConnected && isCurrentlyConnected)
         {
             Debug.Log("ブロックが離れました。");
@@ -105,6 +126,7 @@ public class SideBlockChecker : MonoBehaviour
         isCurrentlyConnected = nowConnected;
     }
 
+    // 方向へ Raycast して指定名のブロックを探す
     Transform FindNearbyBlock(Vector3 direction, string targetName)
     {
         if (Physics.Raycast(transform.position, direction, out RaycastHit hit, contactDistance))
@@ -115,6 +137,7 @@ public class SideBlockChecker : MonoBehaviour
         return null;
     }
 
+    // Sceneビューに Ray を表示
     void OnDrawGizmos()
     {
         Gizmos.color = Color.cyan;
@@ -140,3 +163,4 @@ public class SideBlockChecker : MonoBehaviour
         Gizmos.DrawLine(transform.position, transform.position + dirB * contactDistance);
     }
 }
+

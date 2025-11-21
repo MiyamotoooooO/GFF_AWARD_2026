@@ -1,5 +1,5 @@
 using UnityEngine;
-
+using System.Collections;
 public class ItemTransformer : MonoBehaviour
 {
     [Header("プレイヤーのタグ")]
@@ -40,9 +40,12 @@ public class ItemTransformer : MonoBehaviour
 
     private float lastTransformTime = -10f;
     private bool playerInRange = false; // プレイヤーが範囲内にいるか
-
+    [Header("サウンド時間")]
+    public float craftSoundDuration = 0f; // ← 再生したい時間（秒）
+    private AudioSource craftAudio;
     void Start()
     {
+        craftAudio = GetComponent<AudioSource>();
         if (spawnPoint == null) spawnPoint = transform;
     }
 
@@ -55,9 +58,21 @@ public class ItemTransformer : MonoBehaviour
         if (playerInRange && Input.GetKeyDown(craftKey))
         {
             TryTransform();
+            if (craftAudio != null)
+            {
+                StartCoroutine(PlayCraftSoundLimited());
+            }
         }
     }
+    private IEnumerator PlayCraftSoundLimited()
+    {
+        craftAudio.time = 0f;   // 先頭から再生
+        craftAudio.Play();
 
+        yield return new WaitForSeconds(craftSoundDuration);
+
+        craftAudio.Stop();
+    }
     void CheckPlayerInRange()
     {
         playerInRange = false;
@@ -70,6 +85,7 @@ public class ItemTransformer : MonoBehaviour
                 playerInRange = true;
                 break;
             }
+
         }
     }
 
@@ -93,7 +109,10 @@ public class ItemTransformer : MonoBehaviour
 
                 // アイテム生成
                 Instantiate(resultPrefab, spawnPos, spawnPoint.rotation);
-
+                if (craftAudio != null)
+                {
+                    craftAudio.Stop();
+                }
                 // エフェクト生成
                 if (effectPrefab != null)
                 {
@@ -111,6 +130,7 @@ public class ItemTransformer : MonoBehaviour
                 lastTransformTime = Time.time;
                 break;
             }
+
         }
     }
 
@@ -126,5 +146,7 @@ public class ItemTransformer : MonoBehaviour
         Gizmos.DrawWireSphere(transform.position, detectRadius);
     }
 }
+
+
 
 

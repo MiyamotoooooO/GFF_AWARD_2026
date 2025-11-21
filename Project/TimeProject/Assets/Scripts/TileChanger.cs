@@ -18,8 +18,20 @@ public class TileChanger : MonoBehaviour
     public bool triggerOnce = true;
 
     private bool triggered = false;
-
+    private AudioSource keikokuAudio;
     // プレイヤーがこのマスから離れたときに反応（isTriggerがOFFでも可）
+    private void Start()
+    {
+        keikokuAudio = GetComponent<AudioSource>();
+    }
+    void OnCollisionEnter(Collision collision)
+    {
+        if (collision.gameObject.CompareTag(playerTag))
+            if (keikokuAudio != null)
+            {
+                keikokuAudio.Play();
+            }
+    }
     private void OnCollisionExit(Collision collision)
     {
         if (triggerOnce && triggered) return;
@@ -27,6 +39,7 @@ public class TileChanger : MonoBehaviour
 
         triggered = true;
         ChangeTile();
+
     }
 
     void ChangeTile()
@@ -48,5 +61,6 @@ public class TileChanger : MonoBehaviour
         }
     }
 }
+
 
 
