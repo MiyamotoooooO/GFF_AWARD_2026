@@ -170,7 +170,7 @@ public class PlayerController : MonoBehaviour
         LastTouchedObjectName = collision.gameObject.name;
     }
 
-    private void OnCollisionExit(Collision collision)
+     void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Ivent")
         {
