@@ -14,9 +14,6 @@ public class PlayerController : MonoBehaviour
     [Tooltip("アニメーション用")]
     [SerializeField] private Animator animator;          // Animator コンポーネント
 
-    [Header("UI設定")]
-    [SerializeField] private GameObject spaceUI;
-    private GameObject spawonUI;
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
@@ -157,30 +154,7 @@ public class PlayerController : MonoBehaviour
             LastTouchedObjectName = hitName;
         }
 
-        if (collision.gameObject.tag == "Ivent")
-        {
-            spawonUI = Instantiate(spaceUI);
-            Vector3 spawonPos = spawonUI.transform.position;
-            spawonPos.x = collision.transform.position.x;
-            spawonPos.y = collision.transform.position.y + 1.5f;
-            spawonPos.z = collision.transform.position.z;
-            spawonUI.transform.localPosition = spawonPos;
-        }
-
-        LastTouchedObjectName = collision.gameObject.name;
-    }
-
-     void OnCollisionExit(Collision collision)
-    {
-        if (collision.gameObject.tag == "Ivent")
-        {
-            Destroy(spawonUI);
-        }
-
-        //if(collision.gameObject.name == "falling")
-        //{
-        //  isOnfalling = false;
-        //}
+                LastTouchedObjectName = collision.gameObject.name;
     }
 
     private void OnTriggerEnter(Collider other)
