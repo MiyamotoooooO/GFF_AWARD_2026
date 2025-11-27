@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6278352657108597160}
   - component: {fileID: -4351054726553409805}
   m_Layer: 0
-  m_Name: "\u30B9\u30D7\u30E9\u30A4\u30C8-\u77F3"
+  m_Name: stone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

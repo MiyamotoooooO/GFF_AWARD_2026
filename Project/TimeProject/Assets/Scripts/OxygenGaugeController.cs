@@ -68,7 +68,7 @@ public class OxygenGaugeController : MonoBehaviour
     public Transform playerTransform;
     [Header("BGM‚ğQÆ")]
     public AudioSource bgmAudioSource;
-    public BottleUIManager bottleUIManager;    
+    public BottleUIManager bottleUIManager;
 
     // privateQÆ
     private bool isWarningActive = false;
@@ -228,6 +228,12 @@ public class OxygenGaugeController : MonoBehaviour
             // _‘f‚ª‚O‚É‚È‚Á‚½ê‡
             if (currentOxygen <= 0)
             {
+                PlayerController.SetNonContactDeathCause("OxygenGauge");
+                /*if(ObjectController1.Instance != null)
+                {
+                    ObjectController1.Instance.ShowGameOverScreen();
+                }*/
+
                 GameOverUI();
                 return;
             }
@@ -467,6 +473,8 @@ public class OxygenGaugeController : MonoBehaviour
         }
 
         yield return new WaitForSeconds(1.5f);
+
+        ObjectController1.Instance.ShowGameOverScreen();
 
         if (restartTextMeshPro != null)
         {

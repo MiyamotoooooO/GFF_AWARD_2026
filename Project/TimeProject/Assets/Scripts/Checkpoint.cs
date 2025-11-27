@@ -2,9 +2,25 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-
 public class Checkpoint : MonoBehaviour
 {
+    // ★ 今どのチェックポイントが有効かを共通で管理する変数
+    public static int currentIndex = 0;
+
+    [Header("このチェックポイントの順番（0 から）")]
+    public int checkpointID;
+
+    [Header("チェックポイントのスプライト（Prefab）")]
+    public GameObject spritePrefab;
+
+    [Header("スプライトの高さオフセット")]
+    public Vector3 spriteOffset = new Vector3(0, 1.5f, 0);
+
+    private GameObject spawnedSprite;
+
+    private bool isPlayerOnTile = false;
+    private bool hasActivated = false;
+
     [Header("出現する足場を指定")]
     public GameObject[] platformsToActivate;
 
@@ -14,85 +30,115 @@ public class Checkpoint : MonoBehaviour
     [Header("次の足場を出すまでの時間")]
     public float interval = 1f;
 
-    private bool hasActivated = false;
-    private bool isPlayerOnTile = false;   // ← プレイヤーがマスに乗っているか判定
 
-    public int checkpointID; // 各チェックポイントにユニークなIDを設定
+
+    private void Start()
+    {
+        // ★ スプライト生成
+        if (spritePrefab != null)
+        {
+            spawnedSprite = Instantiate(
+                spritePrefab,
+                transform.position + spriteOffset,
+                Quaternion.identity
+            );
+
+            spawnedSprite.transform.SetParent(transform);
+        }
+
+        // ★ currentIndex に応じてスプライトを表示・非表示
+        UpdateSpriteVisibility();
+    }
+
+
+
+    private void UpdateSpriteVisibility()
+    {
+        if (spawnedSprite != null)
+        {
+            // ★ 現在のチェックポイントIDなら表示、それ以外は非表示
+            spawnedSprite.SetActive(checkpointID == currentIndex);
+        }
+    }
 
 
 
     private void OnCollisionEnter(Collision collision)
     {
-        // プレイヤータグをもつか判定
+        // プレイヤー判定
         if (collision.gameObject.CompareTag("Player") ||
             collision.transform.root.CompareTag("Player"))
         {
             isPlayerOnTile = true;
         }
 
+        // プレイヤーオブジェクト名 "Player" のときにセーブ処理などを行う
         if (collision.gameObject.name == "Player")
         {
             SaveManager save = SaveManager.Instance;
 
-
-
+            // ★ セーブデータ更新（初めて踏んだ時だけ）
             if (!save.currentData.checkpointReached[checkpointID])
             {
-                // 初めて踏んだときのみ更新
                 save.currentData.checkpointReached[checkpointID] = true;
-
-
 
                 Vector3 pos = transform.position;
                 save.currentData.respawnPosition[0] = pos.x;
                 save.currentData.respawnPosition[1] = pos.y;
                 save.currentData.respawnPosition[2] = pos.z;
 
-
-
-                if (OxygenGaugeController.Instance != null)
-                {
-                    OxygenGaugeController.Instance.RecoverFullOxygen();
-                }
-
-                if (BottleUIManager.Instance != null)
-                {
-                    BottleUIManager.Instance.ResetBottlesToFull();
-                }
-
-                if (ObjectController1.Instance != null)
-                {
-                    ObjectController1.Instance.ResetTakoCountAndGauge();
-                }
+                // ★ 酸素・ボトル・タコ回復
+                OxygenGaugeController.Instance?.RecoverFullOxygen();
+                BottleUIManager.Instance?.ResetBottlesToFull();
+                ObjectController1.Instance?.ResetTakoCountAndGauge();
 
                 save.SaveGame();
                 Debug.Log($"チェックポイント {checkpointID} を更新！");
             }
 
-        }
+            // ★ チェックポイントインデックスの更新（スプライト制御）
+            if (checkpointID == currentIndex)
+            {
+                if (spawnedSprite != null)
+                    spawnedSprite.SetActive(false);
 
+                currentIndex++;
+
+                // 全チェックポイントに「表示更新」させる
+                Checkpoint[] cps = FindObjectsOfType<Checkpoint>();
+                foreach (var cp in cps)
+                {
+                    cp.UpdateSpriteVisibility();
+                }
+            }
+        }
     }
+
+
+
     private void OnCollisionExit(Collision collision)
     {
-        // マスから降りたら false に戻す
         if (collision.gameObject.CompareTag("Player") ||
             collision.transform.root.CompareTag("Player"))
         {
             isPlayerOnTile = false;
         }
     }
+
+
+
     private void Update()
     {
-        // すでに発動済みなら無視
-        if (hasActivated) return;
-
-        // 条件：マスに乗っている & スペースキーが押された
-        if (isPlayerOnTile)
+        // プレイヤーが乗っていて、まだ発動していないなら足場開始
+        if (!hasActivated && isPlayerOnTile)
         {
             hasActivated = true;
             StartCoroutine(ActivatePlatformsSequentially());
         }
     }
+
+
+
     private IEnumerator ActivatePlatformsSequentially()
     {
         for (int i = 0; i < platformsToActivate.Length; i++)
@@ -102,13 +148,15 @@ public class Checkpoint : MonoBehaviour
             // 足場を出現
             platform.SetActive(true);
 
-            // 一定時間後に消える
+            // 数秒後に消える
             StartCoroutine(DeactivateAfterTime(platform, activeTime));
 
-            // 次の足場を出すまで待つ
+            // 次の足場まで待つ
             yield return new WaitForSeconds(interval);
         }
     }
+
+
 
     private IEnumerator DeactivateAfterTime(GameObject platform, float time)
     {
@@ -116,6 +164,4 @@ public class Checkpoint : MonoBehaviour
         platform.SetActive(false);
     }
 }
-
-
 

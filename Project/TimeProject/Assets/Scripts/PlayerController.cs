@@ -1,9 +1,13 @@
 using System.Diagnostics.CodeAnalysis;
+using UnityEditor.Experimental.GraphView;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(SpriteRenderer))]
 public class PlayerController : MonoBehaviour
 {
+    public static PlayerController Instance { get; private set; }
+    public static bool IsDead { get; private set; } = false;
+
     [Tooltip("移動速度")]
     [SerializeField] private float moveSpeed = 5f;       // 移動速度
 
@@ -13,7 +17,6 @@ public class PlayerController : MonoBehaviour
     [Header("UI設定")]
     [SerializeField] private GameObject spaceUI;
     private GameObject spawonUI;
-    private GameObject targetObject;
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
@@ -22,6 +25,11 @@ public class PlayerController : MonoBehaviour
     public OxygenGaugeController oxygenGaugeController;
     private Vector3 lastCheckpointPosition;
     public Collider planeCollider;
+    public static string LastTouchedObjectName { get; private set; } = "UnknownCause";
+
+    private bool hasTouchedfalling = false;
+    private bool isOnfalling = false;
+    private bool isGameEnded = false;
 
     void Start()
     {
@@ -70,14 +78,6 @@ public class PlayerController : MonoBehaviour
         {
             sr.flipX = moveX < 0; // 左に進んでいるときだけ反転
         }
-
-
-        if (targetObject == null && spawonUI != null || Input.GetKeyDown(KeyCode.Space))
-        {
-            Destroy(spawonUI);
-            spawonUI = null;
-        }
-
     }
     private void HandleFootsteps(float speed)
     {
@@ -104,42 +104,96 @@ public class PlayerController : MonoBehaviour
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
         }
 
-        if (collision.gameObject.name == "Water")
-        {
-            Debug.Log("Waterに接触！");
+        if (isGameEnded == true) return;
+        string hitName = collision.gameObject.name;
 
-            if (oxygenGaugeController != null)
+        FallingItem DeathCauser = collision.gameObject.GetComponent<FallingItem>();
+        if (DeathCauser != null)
+        {
+            string prefabName = DeathCauser.GetDeathCauseName();
+
+            string finalCauseName = prefabName.Replace("(clone)", "").Trim();
+
+            hasTouchedfalling = false;
+            //HandleDeath(finalCauseName);
+
+            return;
+        }
+        else if (hitName == "stone")
+        {
+            if (OxygenGaugeController.Instance != null)
             {
+                SetNonContactDeathCause("stone");
+                Debug.Log("stoneを取得しました。");
+                OxygenGaugeController.Instance.GameOverUI();
+            }
+        }
+        else if (hitName == "falling")
+        {
+            Debug.Log("fallingに乗りました。");
+            isOnfalling = true;
+        }
+        else if (hitName == "Water")
+        {
+            if (isOnfalling == true)
+            {
+                isGameEnded = true;
+                SetNonContactDeathCause("falling");
+                Debug.Log("fallingに乗ってから落ちました。");
+                OxygenGaugeController.Instance.GameOverUI();
+                return;
+            }
+            else if (oxygenGaugeController != null)
+            {
+                isGameEnded = true;
+                if (LastTouchedObjectName == "falling") return;
+                Debug.Log("Waterが呼ばれました。");
+                SetNonContactDeathCause("Water");
                 oxygenGaugeController.GameOverUI();
             }
+        }
+        else
+        {
+            LastTouchedObjectName = hitName;
         }
 
         if (collision.gameObject.tag == "Ivent")
         {
-
             spawonUI = Instantiate(spaceUI);
-            targetObject = collision.gameObject;
-
             Vector3 spawonPos = spawonUI.transform.position;
             spawonPos.x = collision.transform.position.x;
             spawonPos.y = collision.transform.position.y + 1.5f;
             spawonPos.z = collision.transform.position.z;
             spawonUI.transform.localPosition = spawonPos;
-
-            Debug.Log("Ivent接触");
-
-
         }
+
+        LastTouchedObjectName = collision.gameObject.name;
     }
 
     private void OnCollisionExit(Collision collision)
     {
         if (collision.gameObject.tag == "Ivent")
         {
-            Debug.Log("Iventから離れた");
             Destroy(spawonUI);
         }
+
+        //if(collision.gameObject.name == "falling")
+        //{
+        //  isOnfalling = false;
+        //}
+    }
+
+    private void OnTriggerEnter(Collider other)
+    {
+        LastTouchedObjectName = other.gameObject.name;
+
+    }
+
+    public static void SetNonContactDeathCause(string causeName)
+    {
+        LastTouchedObjectName = causeName;
     }
 
 }
+
 

@@ -41,18 +41,15 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private Sprite cursorSpriteActive;
     [SerializeField] private SpriteRenderer cursorRenderer;
 
+    [SerializeField] private GameObject deathCauseParent;
+    [SerializeField] private GameObject gameOverRootPanel;
     private GameObject selectedObject;
     private GameObject selectedItem;
     private Vector3 offset;
     private int count = 0;
     private float objectZ;
     private BottleUIManager bottleUIManager;
-    private AudioSource mausuAudio;
 
-    private void Start()
-    {
-        mausuAudio = GetComponent<AudioSource>();
-    }
     private void Awake()
     {
         if (Instance == null)
@@ -62,6 +59,15 @@ public class ObjectController1 : MonoBehaviour
         else
         {
             Destroy(gameObject);
+        }
+    }
+
+    private void Start()
+    {
+        // ゲーム開始時は非表示
+        if (gameOverRootPanel != null)
+        {
+            gameOverRootPanel.SetActive(false);
         }
     }
 
@@ -156,10 +162,6 @@ public class ObjectController1 : MonoBehaviour
 
             if (takoControllerScript != null) takoControllerScript.enabled = false;
             if (takoAnimator != null) takoAnimator.SetBool("isLifting", true);
-            if(mausuAudio != null)
-            {
-                mausuAudio.Play();
-            }
         }
     }
 
@@ -223,32 +225,73 @@ public class ObjectController1 : MonoBehaviour
         }
     }
 
+    public void ShowGameOverScreen()
+    {
+        if (gameOverRootPanel != null)
+        {
+            gameOverRootPanel.SetActive(true);
+            Debug.Log("ゲームオーバー画面全体を表示しました。");
+        }
+        else
+        {
+            Debug.LogError("【設定ミス】GameOverRootPanelがインスペクターで設定されていません。");
+            return;
+        }
+
+        if (deathCauseParent == null)
+        {
+            Debug.LogError("【設定ミス】DeathCauseParentがインスペクターで設定されていません。");
+            return;
+        }
+
+        // 記録された死因名を取得
+        string targetName = PlayerController.LastTouchedObjectName;
+        Debug.Log($"UI検索を開始: '{targetName}' という名前のテキストを探し中");
+
+        bool found = false;
+
+        foreach (Transform child in deathCauseParent.transform)
+        {
+            child.gameObject.SetActive(false);
+
+            if (child.gameObject.name.Trim() == targetName.Trim())
+            {
+                child.gameObject.SetActive(true);
+                found = true;
+                Debug.Log($"死因テキストを発見！表示します: {child.gameObject.name}");
+            }
+        }
+
+        if (!found)
+        {
+            string allChildrenNames = "";
+            foreach (Transform child in deathCauseParent.transform)
+            {
+                allChildrenNames += $"[{child.gameObject.name}], ";
+            }
+            Debug.LogError($"表示失敗！{targetName}と一致するテキストが見つかりませんでした。");
+        }
+    }
+
     public void RecoverCountAndGauge()
     {
-        if (count > 0)
+        if (count <= 0)
         {
-            count--;
+            return;
+        }
+        count--;
+
+        //int gaugeIndexToReset = count;
+
+        if (count >= 0 && count < Gauge.Length)
+        {
+            Gauge[count].sprite = handGauge[0];
+
             Debug.Log($"ボトルの回収に伴い、countが {count + 1} から {count} に回復しました。");
-
-            //int gaugeIndexToReset = count;
-
-            for (int i = 0; i < Gauge.Length; i++)
-            {
-                if (i < count)
-                {
-                    Gauge[i].sprite = handGauge[0];
-                }
-            }
-
-            //if(gaugeIndexToReset >= 0 && gaugeIndexToReset < Gauge.Length)
-            //{
-            //   Gauge[gaugeIndexToReset].sprite = handGauge[0];
-            //}
-            count = 0;
         }
         SaveManager.Instance.SaveGame();
-        //}
     }
+
 
     public void ResetTakoCountAndGauge()
     {
@@ -299,11 +342,6 @@ public class ObjectController1 : MonoBehaviour
 
             count++;
             SaveManager.Instance.SaveGame();
-
-            if(mausuAudio != null)
-            {
-                mausuAudio.Play();
-            }
         }
     }
 
@@ -405,3 +443,4 @@ public class ObjectController1 : MonoBehaviour
         }
     }
 }
+

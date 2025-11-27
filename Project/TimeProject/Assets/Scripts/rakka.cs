@@ -1,4 +1,5 @@
 using System.Collections;
+using JetBrains.Annotations;
 using UnityEngine;
 
 public class rakka : MonoBehaviour
@@ -22,44 +23,17 @@ public class rakka : MonoBehaviour
     private GameObject HpGauge;
     bool canSpawn = true;
 
-    [Header("サウンド時間")]
-    public float rakkaSoundDuration = 0f; // ← 再生したい時間（秒）
-    public float soundDelay = 0.5f; // ← ここで遅れて鳴らす秒数を設定
-    private AudioSource rakkaAudio;
     // OnTriggerEnter は使わない（削除）
     // void OnTriggerEnter(Collider other) { ... }
 
-    private void Start()
-    {
-        rakkaAudio = GetComponent<AudioSource>();
-    }
     // isTrigger OFF の物理衝突のみで判定
     void OnCollisionEnter(Collision collision)
     {
         if (!canSpawn) return;
         if (collision.collider.CompareTag(playerTag))
-        {
-            if (rakkaAudio != null)
-            {
-
-                StartCoroutine(PlaySoundDelayed()); // ← 遅れて鳴らすコルーチン
-            }
-
             StartCoroutine(DoSpawn());
-        }
-
-
     }
 
-    private IEnumerator PlaySoundDelayed()
-    {
-        yield return new WaitForSeconds(soundDelay);
-
-        rakkaAudio.time = 0f;   // 先頭から再生
-        rakkaAudio.Play();
-        yield return new WaitForSeconds(rakkaSoundDuration);
-        rakkaAudio.Stop();
-    }
     IEnumerator DoSpawn()
     {
         canSpawn = false;
@@ -123,6 +97,12 @@ public class FallingItem : MonoBehaviour
         HpGauge = GameObject.Find("HpGauge");
         oxygenGauge = HpGauge.GetComponent<OxygenGaugeController>();
     }
+
+    public string GetDeathCauseName()
+    {
+        return gameObject.name;
+    }
+
     void OnCollisionEnter(Collision collision)
     {
         if (collision.collider.CompareTag(playerTag))
@@ -135,12 +115,21 @@ public class FallingItem : MonoBehaviour
                 Destroy(rb);
             }
 
-            if (oxygenGauge != null)
+            if (OxygenGaugeController.Instance != null)
             {
+                PlayerController.SetNonContactDeathCause("stone");
+                Debug.Log("stoneを取得しました。");
+                OxygenGaugeController.Instance.GameOverUI();
+            }
+
+            /*if (oxygenGauge != null)
+            {
+                //PlayerController.SetNonContactDeathCause("stone");
+                OxygenGaugeController.Instance.GameOverUI();
                 oxygenGauge.oxygenDecreaseRate = 10000;
                 //oxygenGauge.maxOxygen = 0;
                 Debug.Log("岩に" + playerTag + "が当たった");
-            }
+            }*/
             return;
         }
 
