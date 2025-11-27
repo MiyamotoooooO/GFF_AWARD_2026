@@ -13,23 +13,13 @@ public class UIManager : MonoBehaviour
     private GameObject _spawonUI;
     private GameObject _newActiveUI;
 
-    private void Update()
-    {
-        if ( Input.GetKeyDown(KeyCode.Space))
-        {
-            Destroy(_spawonUI);
-            Destroy(_newActiveUI);
-            _spawonUI = null;
-        }
-    }
-
     void OnCollisionEnter(Collision collision)
     {
         if (collision.gameObject.CompareTag("Player"))
         {
             //UI生成
             _spawonUI = Instantiate(spaceUI);
-
+            _spawonUI.transform.SetParent(this.transform); // 親をこのスクリプトのGameObjectに設定
             Debug.Log("UI表示完了");
 
             //位置情報
@@ -37,13 +27,13 @@ public class UIManager : MonoBehaviour
             spawonPos.x = gameObject.transform.position.x;
             spawonPos.y = gameObject.transform.position.y + 1.5f;
             spawonPos.z = gameObject.transform.position.z;
-            _spawonUI.transform.localPosition = spawonPos;
+            _spawonUI.transform.position = spawonPos;
+            _spawonUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
             Debug.Log(collision.gameObject.name + "が接触した");
 
             _newActiveUI = Instantiate(activeUI, _spawonUI.transform);
             _newActiveUI.transform.localPosition = new Vector3(0, 0.5f, 0); // 親の中心に配置
-            //_newActiveUI.transform.localScale = new Vector3(2f, 2f, 2f); // 親の中心に配置
 
 
             SpriteRenderer activeRenderer = _newActiveUI.GetComponent<SpriteRenderer>();
@@ -67,7 +57,6 @@ public class UIManager : MonoBehaviour
     {
         if (collision.gameObject.CompareTag("Player"))
         {
-            //activeUI.transform.SetParent(null);
             Destroy(_spawonUI);
             Destroy(_newActiveUI);
             Debug.Log(collision.gameObject.name + "が離れた");
