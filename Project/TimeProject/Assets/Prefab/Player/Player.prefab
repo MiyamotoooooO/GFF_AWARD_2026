@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 5877149552481984230}
   - component: {fileID: 8602654681825541361}
   - component: {fileID: 2033331082993322203}
+  - component: {fileID: -4040541747526425594}
   - component: {fileID: 7468940030275016797}
   m_Layer: 12
   m_Name: Player
@@ -136,6 +137,27 @@ Animator:
   m_AllowConstantClipSamplingOptimization: 1
   m_KeepAnimatorStateOnDisable: 0
   m_WriteDefaultValuesOnDisable: 0
+--- !u!114 &-4040541747526425594
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8163714493692205399}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5690ba319b4666e428812484bf5b7027, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  currentGoods: 0
+  goodsUIImage: {fileID: 0}
+  noneSprite: {fileID: 0}
+  speedShoesSprite: {fileID: 0}
+  axeSprite: {fileID: 0}
+  magicArmSprite: {fileID: 0}
+  speedVisual: {fileID: 0}
+  axeVisual: {fileID: 0}
+  armVisual: {fileID: 0}
 --- !u!136 &7468940030275016797
 CapsuleCollider:
   m_ObjectHideFlags: 0
