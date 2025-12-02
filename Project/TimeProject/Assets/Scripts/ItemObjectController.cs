@@ -47,10 +47,11 @@ public class ObjectController1 : MonoBehaviour
     [Header("カーソル表示設定")]
     [SerializeField] private Texture cursorSpriteDefault; //red
     [SerializeField] private Texture cursorSpriteActive;  //green
-    [SerializeField] private MeshRenderer cursorRenderer;
-    [SerializeField] private float cursorWaterHeight;
-    [SerializeField] private Color selectedColor;
-    [SerializeField] private Color savedColor;
+    [SerializeField] private MeshRenderer cursorRenderer; //カーソル表示mesh
+    [SerializeField] private float cursorWaterHeight;     //カーソル表示高さ
+    [Header("オブジェクト選択中設定")]
+    [SerializeField] private Color selectedColor;  //選んでいる最中の色
+    [SerializeField] private Color savedColor;     //選んでいるときの色の保存object
 
     [SerializeField] private GameObject deathCauseParent;
     [SerializeField] private GameObject gameOverRootPanel;
