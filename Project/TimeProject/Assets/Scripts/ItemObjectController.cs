@@ -7,13 +7,13 @@ public class ObjectController1 : MonoBehaviour
 {
     public static ObjectController1 Instance { get; private set; }
     [Header("Layers")]
-    [SerializeField] private LayerMask selectableLayer;
-    [SerializeField] private LayerMask itemLayer;
-    [SerializeField] private LayerMask waterLayer;
-    [SerializeField] private LayerMask raycastLayer;
-    [SerializeField] private LayerMask notRaycastLayer;
-    [SerializeField] private LayerMask defaultLayer;
-    [SerializeField] private LayerMask craftLayer;
+    [SerializeField] private LayerMask selectableLayer; //idou
+    [SerializeField] private LayerMask itemLayer;       //item
+    [SerializeField] private LayerMask waterLayer;      //water
+    [SerializeField] private LayerMask raycastLayer;    //rayCastMask
+    [SerializeField] private LayerMask notRaycastLayer; //rayCastMask以外
+    [SerializeField] private LayerMask defaultLayer;    //Default
+    [SerializeField] private LayerMask craftLayer;      //craft
 
     [Header("設定")]
     [Header("Object")]
@@ -27,8 +27,8 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private float DOWN = 1.25f;
     [SerializeField] private float setti = 0f;
 
-    private GameObject selectedObject;
-    private GameObject selectedItem;
+    private GameObject selectedObject; //オブジェクト格納
+    private GameObject selectedItem;   //アイテム格納
     private Vector3 offset;
     private int count = 0;
     private float objectZ;
@@ -61,6 +61,7 @@ public class ObjectController1 : MonoBehaviour
     //[SerializeField] private Vector3 checkPosition;
     //[SerializeField] private Transform checkObjectTransform;
 
+    //オブジェクトの押し出し
     private Vector3[] positionOffsets =
     {
         Vector3.zero,
