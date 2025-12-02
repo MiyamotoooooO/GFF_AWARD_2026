@@ -48,6 +48,7 @@ public class BlockTopBlocker : MonoBehaviour
         // 子オブジェクト作成
         GameObject top = new GameObject(blockerName);
         top.transform.parent = transform;
+        top.layer = 2;
 
         // ワールド空間での大きさを算出
         float sizeX = Mathf.Max(0.01f, blockBounds.size.x - inset.x * 2f);

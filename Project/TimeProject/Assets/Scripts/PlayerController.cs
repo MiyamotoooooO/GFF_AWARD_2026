@@ -14,6 +14,8 @@ public class PlayerController : MonoBehaviour
     [Tooltip("アニメーション用")]
     [SerializeField] private Animator animator;          // Animator コンポーネント
 
+    [SerializeField] private string waterObjectName;
+
 
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
@@ -130,7 +132,7 @@ public class PlayerController : MonoBehaviour
             Debug.Log("fallingに乗りました。");
             isOnfalling = true;
         }
-        else if (hitName == "Water")
+        else if (hitName == waterObjectName)
         {
             if (isOnfalling == true)
             {

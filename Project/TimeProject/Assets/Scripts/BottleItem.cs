@@ -15,7 +15,7 @@ public class BottleItem : MonoBehaviour
         //bottleUIManager = FindObjectOfType<BottleUIManager>();
         if (bottleUIManager == null)
         {
-            bottleUIManager = FindObjectOfType<BottleUIManager>();
+            bottleUIManager = FindFirstObjectByType<BottleUIManager>();
         }
 
         GameObject playerObject = GameObject.FindWithTag("Player");

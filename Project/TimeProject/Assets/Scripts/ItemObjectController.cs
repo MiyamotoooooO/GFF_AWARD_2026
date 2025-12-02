@@ -10,6 +10,8 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private LayerMask selectableLayer;
     [SerializeField] private LayerMask itemLayer;
     [SerializeField] private LayerMask waterLayer;
+    [SerializeField] private LayerMask raycastLayer;
+    [SerializeField] private LayerMask notRaycastLayer;
     [SerializeField] private LayerMask defaultLayer;
     [SerializeField] private LayerMask craftLayer;
 
@@ -25,8 +27,14 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private float DOWN = 1.25f;
     [SerializeField] private float setti = 0f;
 
-    [Header("管理対象")]
-    [SerializeField] private List<GameObject> managedObjects = new List<GameObject>();
+    private GameObject selectedObject;
+    private GameObject selectedItem;
+    private Vector3 offset;
+    private int count = 0;
+    private float objectZ;
+
+    //[Header("管理対象")]
+    //[SerializeField] private List<GameObject> managedObjects = new List<GameObject>();
 
     [Header("Tako追従設定")]
     [SerializeField] private MonoBehaviour takoControllerScript;
@@ -37,18 +45,33 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private Animator takoAnimator;
 
     [Header("カーソル表示設定")]
-    [SerializeField] private Sprite cursorSpriteDefault;
-    [SerializeField] private Sprite cursorSpriteActive;
-    [SerializeField] private SpriteRenderer cursorRenderer;
+    [SerializeField] private Texture cursorSpriteDefault; //red
+    [SerializeField] private Texture cursorSpriteActive;  //green
+    [SerializeField] private MeshRenderer cursorRenderer;
+    [SerializeField] private float cursorWaterHeight;
+    [SerializeField] private Color selectedColor;
+    [SerializeField] private Color savedColor;
 
     [SerializeField] private GameObject deathCauseParent;
     [SerializeField] private GameObject gameOverRootPanel;
-    private GameObject selectedObject;
-    private GameObject selectedItem;
-    private Vector3 offset;
-    private int count = 0;
-    private float objectZ;
     private BottleUIManager bottleUIManager;
+
+    [Header("Debug")]
+    //[SerializeField] private Vector3 checkPosition;
+    //[SerializeField] private Transform checkObjectTransform;
+
+    private Vector3[] positionOffsets =
+    {
+        Vector3.zero,
+        Vector3.back,
+        Vector3.left,
+        Vector3.forward,
+        Vector3.right,
+        Vector3.back + Vector3.left,
+        Vector3.forward + Vector3.left,
+        Vector3.back + Vector3.right,
+        Vector3.forward + Vector3.right,
+    };
 
     private void Awake()
     {
@@ -94,48 +117,105 @@ public class ObjectController1 : MonoBehaviour
         UpdateCursorSprite();
     }
 
+    //----------------- カーソル表示関連 ---------------
+    void ChangeMaterialColor(Renderer renderer, Color color)
+    {
+        MaterialPropertyBlock mpb = new();
+        mpb.SetColor("_Color", color);
+        renderer.SetPropertyBlock(mpb);
+    }
+
+    void ChangeMaterialTexture(Renderer renderer, Texture texture)
+    {
+        MaterialPropertyBlock mpb = new();
+        mpb.SetTexture("_MainTex", texture);
+        renderer.SetPropertyBlock(mpb);
+    }
+
     void UpdateCursorSprite()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
-        if (Physics.Raycast(ray, out RaycastHit hit, 100f))
+        if (Physics.Raycast(ray, out RaycastHit hit, 100f, notRaycastLayer))
         {
             Vector3 cursorPos;
+            LayerMask selectedLayer = new();
 
+            //checkObjectTransform.position = hit.point;
             // マウス先にオブジェクトがある場合
-            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0 ||
-                ((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
+            if ((hit.collider.gameObject.layer == selectableLayer) ||
+                (hit.collider.gameObject.layer == itemLayer))
             {
                 cursorPos = hit.collider.bounds.center;
-                cursorPos.y = hit.collider.bounds.max.y + 0f; // オブジェクトの上にカーソル
+                cursorPos.y = hit.collider.bounds.max.y; // オブジェクトの上にカーソル
             }
             else
             {
                 // 通常のグリッド位置
                 Vector3 gridPos = new Vector3(
-                    Mathf.Round(hit.point.x / gridSize) * gridSize,
-                    hit.point.y / gridSize,
-                    Mathf.Round(hit.point.z / gridSize) * gridSize
+                    Mathf.Round((hit.point.x - hit.normal.x * 0.1f) / gridSize) * gridSize,
+                    hit.point.y,
+                    Mathf.Round((hit.point.z - hit.normal.z * 0.1f) / gridSize) * gridSize
                 );
 
-                if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out RaycastHit groundHit, 10f, waterLayer))
-                    cursorPos = new Vector3(gridPos.x, Mathf.Max(groundHit.point.y, 1f), gridPos.z);
+
+                //Renderer renderer = checkObjectTransform.GetComponent<Renderer>();
+
+                if (selectedObject != null)
+                {
+                    cursorPos = selectedObject.transform.position + Vector3.up * 0.5f;
+                    selectedLayer = selectableLayer;
+                }
+                else if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out hit, 10f, defaultLayer))
+                {
+                    //ChangeMaterialColor(renderer, Color.green);
+                    cursorPos = new Vector3(gridPos.x, Mathf.Max(hit.point.y, 1f), gridPos.z);
+                    selectedLayer = defaultLayer;
+                }
+                else if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out hit, 10f, selectableLayer))
+                {
+                    //ChangeMaterialColor(renderer, Color.green);
+                    cursorPos = new Vector3(gridPos.x, Mathf.Max(hit.point.y, 1f), gridPos.z);
+                    selectedLayer = selectableLayer;
+                }
+                else if (Physics.Raycast(gridPos + Vector3.up * 4, Vector3.down, out hit, 10f, waterLayer))
+                {
+                    //ChangeMaterialColor(renderer, Color.blue);
+                    Physics.Raycast(ray, out hit, 100f, waterLayer);
+                    gridPos = new Vector3(
+                        Mathf.Round(hit.point.x / gridSize) * gridSize,
+                        cursorWaterHeight,
+                        Mathf.Round(hit.point.z / gridSize) * gridSize
+                    );
+                    cursorPos = gridPos;
+                    selectedLayer = waterLayer;
+                }
                 else
-                    cursorPos = hit.point;
+                {
+                    //ChangeMaterialColor(renderer, Color.white);
+                    cursorPos = gridPos;
+                }
             }
 
             // カーソル位置更新
             cursorRenderer.transform.position = cursorPos;
 
             // スプライト切り替え
-            if (((1 << hit.collider.gameObject.layer) & selectableLayer) != 0 ||
-                ((1 << hit.collider.gameObject.layer) & itemLayer) != 0)
-                cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+            if ((selectedLayer == selectableLayer) ||
+                (selectedLayer == itemLayer))
+            {
+                ChangeMaterialTexture(cursorRenderer, cursorSpriteActive);
+                //cursorRenderer.sprite = cursorSpriteActive; // 移動可能
+            }
             else
-                cursorRenderer.sprite = cursorSpriteDefault; // 通常
+            {
+                ChangeMaterialTexture(cursorRenderer, cursorSpriteDefault);
+                //cursorRenderer.sprite = cursorSpriteDefault; // 通常
+            }
         }
         else
         {
-            cursorRenderer.sprite = cursorSpriteDefault; // Rayが何も当たらない場合
+            ChangeMaterialTexture(cursorRenderer, cursorSpriteDefault);
+            //cursorRenderer.sprite = cursorSpriteDefault; // Rayが何も当たらない場合
         }
     }
 
@@ -157,6 +237,17 @@ public class ObjectController1 : MonoBehaviour
         if (Physics.Raycast(ray, out RaycastHit hit, 100f, selectableLayer))
         {
             selectedObject = hit.collider.gameObject;
+
+            Renderer renderer = selectedObject.GetComponent<Renderer>();
+            MaterialPropertyBlock mpb = new();
+            if (renderer.material.HasColor("_Color"))
+            {
+                savedColor = renderer.material.GetColor("_Color");
+                mpb.SetColor("_Color", selectedColor);
+                renderer.SetPropertyBlock(mpb);
+            }
+            
+            //pastSelectedObject = selectedObject;
             Collider col = selectedObject.GetComponent<Collider>();
             if (col != null) col.isTrigger = true;
 
@@ -165,56 +256,86 @@ public class ObjectController1 : MonoBehaviour
         }
     }
 
+
+    bool TryCollisionCheck(Vector3 position)
+    {
+        GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Selectable");
+        GameObject[] allObjectsIve = GameObject.FindGameObjectsWithTag("Ivent");
+        foreach (GameObject obj in allObjects)
+        {
+            if (obj == selectedObject) continue;
+            BoxCollider col = obj.GetComponent<BoxCollider>();
+            if (col == null) continue;
+            float distance = Vector3.Distance(position, col.bounds.center);
+            if (distance < minDistance)
+            {
+                Debug.Log("他のオブジェクトと近すぎるため移動できません");
+                return false;
+            }
+        }
+
+        foreach (GameObject objIve in allObjectsIve)
+        {
+            if (objIve == selectedObject) continue;
+            BoxCollider col = objIve.GetComponent<BoxCollider>();
+            if (col == null) continue;
+            float distance = Vector3.Distance(position, col.bounds.center);
+            if (distance < minDistance)
+            {
+                Debug.Log("他のオブジェクトと近すぎるため移動できません");
+                return false;
+            }
+        }
+
+        return true;
+    }
+
     void TryMoveSelectedObject()
     {
         Ray ray = Camera.main.ScreenPointToRay(Input.mousePosition);
         //object管理
 
-        if (!Physics.Raycast(ray, out RaycastHit hit, 100f, waterLayer)) return;
+        if (!Physics.Raycast(ray, out RaycastHit hit, 100f, raycastLayer)) return;
         Vector3 gridPos = new Vector3(
             Mathf.Round(hit.point.x / gridSize) * gridSize,
             0,
             Mathf.Round(hit.point.z / gridSize) * gridSize
         );
 
-        if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out RaycastHit groundHit, 10f, waterLayer))
+        //if (Physics.Raycast(gridPos + Vector3.up * 5f, Vector3.down, out  RaycastHit groundHit, 10f, defaultLayer))
+
+
+
+        //float heightDiff = hit.point.y - selectedObject.transform.position.y;
+        //if (heightDiff > maxStepHeight) return;
+
+        //Vector3 newCenter = groundHit.point + Vector3.up * (selectedObject.transform.localScale.y / 2f);
+        Vector3 newCenter = new Vector3(
+            Mathf.Round(hit.point.x / gridSize) * gridSize,
+            setti,
+            Mathf.Round(hit.point.z / gridSize) * gridSize
+        );
+        //checkPosition = newCenter;
+        //checkPosition.y = hit.point.y;
+        //checkObjectTransform.position = checkPosition;
+
+        // 他オブジェクトとの距離チェック
+
+
+        foreach (var offset in positionOffsets)
         {
-            float heightDiff = groundHit.point.y - selectedObject.transform.position.y;
-            if (heightDiff > maxStepHeight) return;
 
-            Vector3 newCenter = groundHit.point + Vector3.up * (selectedObject.transform.localScale.y / 2f);
-
-            // 他オブジェクトとの距離チェック
-            GameObject[] allObjects = GameObject.FindGameObjectsWithTag("Selectable");
-            GameObject[] allObjectsIve = GameObject.FindGameObjectsWithTag("Ivent");
-            foreach (GameObject obj in allObjects)
+            if (!TryCollisionCheck(newCenter + offset))
             {
-                if (obj == selectedObject) continue;
-                BoxCollider col = obj.GetComponent<BoxCollider>();
-                if (col == null) continue;
-                float distance = Vector3.Distance(newCenter, col.bounds.center);
-                if (distance < minDistance)
-                {
-                    Debug.Log("他のオブジェクトと近すぎるため移動できません");
-                    return;
-                }
+                continue;
             }
-
-            foreach (GameObject objIve in allObjectsIve)
-            {
-                if (objIve == selectedObject) continue;
-                BoxCollider col = objIve.GetComponent<BoxCollider>();
-                if (col == null) continue;
-                float distance = Vector3.Distance(newCenter, col.bounds.center);
-                if (distance < minDistance)
-                {
-                    Debug.Log("他のオブジェクトと近すぎるため移動できません");
-                    return;
-                }
-            }
-
-            Vector3 pos = new Vector3(gridPos.x, Mathf.Max(groundHit.point.y, setti), gridPos.z);
-            selectedObject.transform.position = pos;
+            //if (!Physics.Raycast(ray, out hit, 100f, waterLayer)) return;
+            //Vector3 gridPos = new Vector3(
+            //    Mathf.Round(hit.point.x / gridSize) * gridSize,
+            //    0,
+            //    Mathf.Round(hit.point.z / gridSize) * gridSize
+            //);
+            selectedObject.transform.position = newCenter + offset;
 
             // Tako追従
             if (takoTransform != null)
@@ -222,9 +343,56 @@ public class ObjectController1 : MonoBehaviour
                 Vector3 targetPos = selectedObject.transform.position + new Vector3(0, takoFollowYOffset, takoFollowZOffset);
                 takoTransform.position = Vector3.Lerp(takoTransform.position, targetPos, Time.deltaTime * takoFollowSpeed);
             }
+            break;
+        }
+    }
+    public void ConfirmObjectPlacement()
+    {
+        if (selectedObject != null)
+        {
+            int currentBottleCount = GetCurrentBottleCount();
+
+            Collider col = selectedObject.GetComponent<Collider>();
+            if (col != null) col.isTrigger = false;
+
+            if (takoControllerScript != null)
+                takoControllerScript.enabled = true;
+            if (takoAnimator != null)
+                takoAnimator.SetBool("isLifting", false);
+
+            Renderer renderer = selectedObject.GetComponent<Renderer>();
+            if (renderer.material.HasColor("_Color"))
+            {
+                MaterialPropertyBlock mpb = new();
+                mpb.SetColor("_Color", savedColor);
+                renderer.SetPropertyBlock(mpb);
+            }
+
+            selectedObject.tag = "Selectable";
+            selectedObject = null;
+
+            //count++;
+            Gauge[count].sprite = handGauge[1];
+
+            if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
+            {
+                Debug.Log("【タコ】ボトル消費の開始");
+
+                int bottleIndex = count;
+                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+                {
+                    // ボトルを取得済みとしてマーク
+                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+                    Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
+                }
+            }
+
+            count++;
+            SaveManager.Instance.SaveGame();
         }
     }
 
+    //--------------- その他 ------------------
     public void ShowGameOverScreen()
     {
         if (gameOverRootPanel != null)
@@ -289,6 +457,17 @@ public class ObjectController1 : MonoBehaviour
 
             Debug.Log($"ボトルの回収に伴い、countが {count + 1} から {count} に回復しました。");
         }
+
+        //if (count >= 0 && count < Gauge.Length)
+        //{
+        //    Gauge[count].sprite = handGauge[0];
+
+        //    Debug.Log($"ボトルを1つ回復しました。countは {count} → {count + 1} です。");
+
+        //    count++;
+        //}
+        //else Debug.Log("すでに全て回復しています。");
+
         SaveManager.Instance.SaveGame();
     }
 
@@ -307,43 +486,6 @@ public class ObjectController1 : MonoBehaviour
         Debug.Log($"【タコ制御】チェックポイントによりタコのcountを{count}に完全にリセットした。");
     }
 
-    public void ConfirmObjectPlacement()
-    {
-        if (selectedObject != null)
-        {
-            int currentBottleCount = GetCurrentBottleCount();
-
-            Collider col = selectedObject.GetComponent<Collider>();
-            if (col != null) col.isTrigger = false;
-
-            if (takoControllerScript != null)
-                takoControllerScript.enabled = true;
-            if (takoAnimator != null)
-                takoAnimator.SetBool("isLifting", false);
-
-            selectedObject.tag = "Selectable";
-            selectedObject = null;
-
-            //count++;
-            Gauge[count].sprite = handGauge[1];
-
-            if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
-            {
-                Debug.Log("【タコ】ボトル消費の開始");
-
-                int bottleIndex = count;
-                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
-                {
-                    // ボトルを取得済みとしてマーク
-                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
-                    Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
-                }
-            }
-
-            count++;
-            SaveManager.Instance.SaveGame();
-        }
-    }
 
     private int GetCurrentBottleCount()
     {
@@ -430,16 +572,6 @@ public class ObjectController1 : MonoBehaviour
 
             selectedItem.tag = "after";
             selectedItem = null;
-        }
-    }
-
-    // ---------------- 共通 ----------------
-    void FollowTako(Vector3 targetPos)
-    {
-        if (takoTransform != null)
-        {
-            Vector3 followPos = targetPos + new Vector3(0, takoFollowYOffset, takoFollowZOffset);
-            takoTransform.position = Vector3.Lerp(takoTransform.position, followPos, Time.deltaTime * takoFollowSpeed);
         }
     }
 }

@@ -20,7 +20,7 @@ public class UIManager : MonoBehaviour
             //UI生成
             _spawonUI = Instantiate(spaceUI);
             _spawonUI.transform.SetParent(this.transform); // 親をこのスクリプトのGameObjectに設定
-            Debug.Log("UI表示完了");
+           // Debug.Log("UI表示完了");
 
             //位置情報
             Vector3 spawonPos = _spawonUI.transform.position;
@@ -30,7 +30,7 @@ public class UIManager : MonoBehaviour
             _spawonUI.transform.position = spawonPos;
             _spawonUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
 
-            Debug.Log(collision.gameObject.name + "が接触した");
+            //Debug.Log(collision.gameObject.name + "が接触した");
 
             _newActiveUI = Instantiate(activeUI, _spawonUI.transform);
             _newActiveUI.transform.localPosition = new Vector3(0, 0.5f, 0); // 親の中心に配置
@@ -59,7 +59,7 @@ public class UIManager : MonoBehaviour
         {
             Destroy(_spawonUI);
             Destroy(_newActiveUI);
-            Debug.Log(collision.gameObject.name + "が離れた");
+            //Debug.Log(collision.gameObject.name + "が離れた");
         }
     }
 
