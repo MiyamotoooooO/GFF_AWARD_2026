@@ -554,6 +554,11 @@ public class OxygenGaugeController : MonoBehaviour
             mainCanvasGroup.blocksRaycasts = true; // 必要であれば入力を再度受け付ける
         }
 
+        if (SaveManager.Instance != null)
+        {
+            bottleUIManager.ResetBottlesToFull();
+        }
+
         // 現在のロードシーンを再ロード
         SceneManager.LoadScene(SceneManager.GetActiveScene().name);
     }

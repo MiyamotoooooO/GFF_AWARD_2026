@@ -142,23 +142,32 @@ public class BottleUIManager : MonoBehaviour
         //    }
         //}
 
-        int recoveredCount = 0;
+        int recoveredCount = 0; // 回復した数の変数を初期化
+
+        // 回復する数だけ
         for (int i = 0; i < count; i++)
         {
+            // 現在のボトルが最大以上の場合、ループから出る
             if (SaveManager.Instance.currentData.bottleStates >= SaveManager.Instance.currentData.maxBottleCount)
             {
                 break;
             }
+            // ボトルを１満タンにする
             SaveManager.Instance.currentData.bottleStates++;
+            // 回復した数を更新
             recoveredCount++;
         }
+        // 回復した数が 0 以上（0を含まない）の場合
         if (recoveredCount > 0)
         {
             Debug.Log($"{this.name} ボトルを{recoveredCount}個回復しました");
+            // UIを更新
             UpdateBottleUI();
+            // 回復した数を戻り値とする
             return recoveredCount;
         }
         Debug.Log($"{this.name} ボトルの回復に失敗しました");
+        // 回復した数(0)を戻り値とする
         return recoveredCount;
 
 
