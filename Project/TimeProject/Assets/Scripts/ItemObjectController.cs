@@ -53,6 +53,7 @@ public class ObjectController1 : MonoBehaviour
     [SerializeField] private Color selectedColor;  //選んでいる最中の色
     [SerializeField] private Color savedColor;     //選んでいるときの色の保存object
 
+    [Header("その他")]
     [SerializeField] private GameObject deathCauseParent;
     [SerializeField] private GameObject gameOverRootPanel;
     private BottleUIManager bottleUIManager;
@@ -98,23 +99,18 @@ public class ObjectController1 : MonoBehaviour
 
     void Update()
     {
-        bool mouseLeft = Input.GetMouseButton(0);
-        bool mouseRightDown = Input.GetMouseButtonDown(1);
-        bool mouseLeftDown = Input.GetMouseButtonDown(0);
-        bool mouseLeftUp = Input.GetMouseButtonUp(0);
-        // アイテム選択・移動・設置
-        if (mouseLeftDown && selectedObject == null) TrySelectItem();
+        if(Time.timeScale == 1)
+        {
+            // アイテム選択・移動・設置
+            if (Input.GetMouseButtonDown(0) && selectedObject == null) TrySelectItem();
+            if (Input.GetMouseButton(0) && selectedItem != null) TryMoveSelectedItem();
+            if (Input.GetMouseButtonUp(0) && selectedItem != null) ConfirmItemPlacement();
 
-        if (mouseLeft && selectedItem != null) TryMoveSelectedItem();
-
-        if (mouseLeftUp && selectedItem != null) ConfirmItemPlacement();
-
-        // オブジェクト選択・移動・設置
-        if (mouseLeftDown && selectedItem == null) TrySelectObject();
-
-        if (mouseLeft && selectedObject != null) TryMoveSelectedObject();
-
-        if (mouseRightDown && selectedObject != null) ConfirmObjectPlacement();
+            // オブジェクト選択・移動・設置
+            if (Input.GetMouseButtonDown(0) && selectedItem == null) TrySelectObject();
+            if (Input.GetMouseButton(0) && selectedObject != null) TryMoveSelectedObject();
+            if (Input.GetMouseButtonDown(1) && selectedObject != null) ConfirmObjectPlacement();
+        }
 
         UpdateCursorSprite();
     }

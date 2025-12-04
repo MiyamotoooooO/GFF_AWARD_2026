@@ -17437,12 +17437,10 @@ MonoBehaviour:
   cursorSpriteActive: {fileID: 2800000, guid: e5df47fdd2c683840b9a2592a15e3925, type: 3}
   cursorRenderer: {fileID: 1613113252}
   cursorWaterHeight: 0.75
-  selectedColor: {r: 1, g: 1, b: 1, a: 0.5019608}
+  selectedColor: {r: 1, g: 1, b: 1, a: 0.627451}
   savedColor: {r: 0, g: 0, b: 0, a: 0}
   deathCauseParent: {fileID: 72328185}
   gameOverRootPanel: {fileID: 72328185}
-  checkPosition: {x: 0, y: 0, z: 0}
-  checkObjectTransform: {fileID: 789715692}
 --- !u!82 &599578619
 AudioSource:
   m_ObjectHideFlags: 0
@@ -36490,7 +36488,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.2879956, y: -4.966028}
+  m_AnchoredPosition: {x: -1.23, y: -4.966028}
   m_SizeDelta: {x: 7, y: 16}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1289339611
