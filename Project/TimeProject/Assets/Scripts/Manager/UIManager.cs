@@ -7,6 +7,8 @@ public class UIManager : MonoBehaviour
     [Header("UI設定")]
     [Tooltip("スペースのUI")]
     [SerializeField] private GameObject spaceUI;
+    [Tooltip("UIの大きさ")]
+    [SerializeField] private float uiScale = 1;
     [Tooltip("オブジェクトごとのエフェクト")]
     [SerializeField] private GameObject activeUI;
 
@@ -15,7 +17,7 @@ public class UIManager : MonoBehaviour
 
     void OnCollisionEnter(Collision collision)
     {
-        if (collision.gameObject.CompareTag("Player"))
+        if (collision.gameObject.CompareTag("Player") && this.enabled)
         {
             //UI生成
             _spawonUI = Instantiate(spaceUI);
@@ -28,7 +30,12 @@ public class UIManager : MonoBehaviour
             spawonPos.y = gameObject.transform.position.y + 1.5f;
             spawonPos.z = gameObject.transform.position.z;
             _spawonUI.transform.position = spawonPos;
-            _spawonUI.transform.localScale = new Vector3(0.5f, 0.5f, 0.5f);
+            Vector3 scale = Vector3.one * uiScale;
+            Vector3 lossyScale = _spawonUI.transform.lossyScale;
+            scale.x /= lossyScale.x;
+            scale.y /= lossyScale.y;
+            scale.z /= lossyScale.z;
+            _spawonUI.transform.localScale = scale;
 
             //Debug.Log(collision.gameObject.name + "が接触した");
 

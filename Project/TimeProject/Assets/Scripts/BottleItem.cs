@@ -10,6 +10,7 @@ public class BottleItem : MonoBehaviour
 
     private Transform playerTransform;
     private const float PickupDistance = 1.5f;
+    [SerializeField] private int recoverCount = 1;
     void Awake()
     {
         //bottleUIManager = FindObjectOfType<BottleUIManager>();
@@ -52,57 +53,37 @@ public class BottleItem : MonoBehaviour
         Debug.Log("ボトルの獲得に試みる！");
 
 
-
+        // SaveManagerが存在しない場合
         if (SaveManager.Instance == null || SaveManager.Instance.currentData == null)
         {
             Debug.LogError("SaveManagerまたはcurrentDataがnullです。");
             return;
         }
 
+        // Savemanagerが存在する場合
 
 
         SaveManager.Instance.LoadGame();
         SaveData data = SaveManager.Instance.currentData;
-        bool[] states = data.bottleStates;
+        //bool[] states = data.bottleStates;
 
-        //【要件:複数本空だったら右から優先的に黄色のボトルに切り替わる】
-        //int indexToFull = -1; // ・Fill
-        bool wasEmpty = false;
-        for (int i = 0; i < states.Length; i++)
+        if (data.bottleStates < data.maxBottleCount)
         {
-            if (states[i] == false)
-            {
-                states[i] = true; // 右から最初に空のボトルのインデックス ・Fill
-                wasEmpty = true;
-                //break;
-            }
-        }
-
-        if (wasEmpty) // ・Fill
-        {
-            Debug.Log("ボトル回復処理を実行");
-
-
-
-            // 空のボトルを見つけたから満タンにする
-            //states[indexToFull] = true; // ・Fill
-            //Debug.Log($"ボトル[{indexToFull}]を補充しました。"); // ・Fill
+            //// ボトルを回復
+            //if (ObjectController1.Instance != null)
+            //{
+            //    ObjectController1.Instance.RecoverCountAndGauge();
+            //    // -> data.Instance.currentData.bottleStates++;
+            //}
 
             // UIを更新
             if (bottleUIManager != null)
             {
-                bottleUIManager.SignalBottleRecovered();
+                //bottleUIManager.SignalBottleRecovered();
+                // -> was empty
+                bottleUIManager.RecoverBottles(recoverCount);    // ボトルを回復
                 Debug.Log("【アイテム】count回復信号をUIマネージャーへ送信");
-            }
-
-            if (bottleUIManager != null)
-            {
-                bottleUIManager.UpdateBottleUI();
-            }
-
-            if (ObjectController1.Instance != null)
-            {
-                ObjectController1.Instance.RecoverCountAndGauge();
+                //bottleUIManager.UpdateBottleUI();   // ボトルの表示を更新
             }
 
             // セーブデータに変更を保存
@@ -111,13 +92,65 @@ public class BottleItem : MonoBehaviour
             // アイテムオブジェクトを削除
             Destroy(gameObject);
         }
-
-        //【要件:全部黄色のボトルで満タンになったらアイテムが拾えなくなる】
-        if (states.All(state => state == true))
+        else
         {
             Debug.Log("ボトルは満タンです。アイテムを獲得できません。");
             return; // 処理を終了
         }
+
+        ////【要件:複数本空だったら右から優先的に黄色のボトルに切り替わる】
+        ////int indexToFull = -1; // ・Fill
+        //bool wasEmpty = false;
+        //for (int i = 0; i < states.Length; i++)
+        //{
+        //    if (states[i] == false)
+        //    {
+        //        states[i] = true; // 右から最初に空のボトルのインデックス ・Fill
+        //        wasEmpty = true;
+        //        //break;
+        //    }
+        //}
+
+        //if (wasEmpty) // ・Fill
+        //{
+        //    Debug.Log("ボトル回復処理を実行");
+
+
+
+        //    // 空のボトルを見つけたから満タンにする
+        //    //states[indexToFull] = true; // ・Fill
+        //    //Debug.Log($"ボトル[{indexToFull}]を補充しました。"); // ・Fill
+
+        //    // UIを更新
+        //    if (bottleUIManager != null)
+        //    {
+        //        bottleUIManager.SignalBottleRecovered();
+        //        Debug.Log("【アイテム】count回復信号をUIマネージャーへ送信");
+        //    }
+
+        //    if (bottleUIManager != null)
+        //    {
+        //        bottleUIManager.UpdateBottleUI();
+        //    }
+
+        //    if (ObjectController1.Instance != null)
+        //    {
+        //        ObjectController1.Instance.RecoverCountAndGauge();
+        //    }
+
+        //    // セーブデータに変更を保存
+        //    SaveManager.Instance.SaveGame();
+
+        //    // アイテムオブジェクトを削除
+        //    Destroy(gameObject);
+        //}
+
+        ////【要件:全部黄色のボトルで満タンになったらアイテムが拾えなくなる】
+        //if (states.All(state => state == true))
+        //{
+        //    Debug.Log("ボトルは満タンです。アイテムを獲得できません。");
+        //    return; // 処理を終了
+        //}
     }
 }
 

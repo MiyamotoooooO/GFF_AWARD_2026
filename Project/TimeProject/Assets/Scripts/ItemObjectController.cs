@@ -220,7 +220,7 @@ public class ObjectController1 : MonoBehaviour
     // ---------------- オブジェクト関連 ----------------
     void TrySelectObject()
     {
-        if (count >= 4)
+        if (!BottleUIManager.Instance.TryConsumeBottle())
         {
             Debug.Log("これ以上オブジェクトを選択できません");
             return;
@@ -370,22 +370,41 @@ public class ObjectController1 : MonoBehaviour
             selectedObject = null;
 
             //count++;
-            Gauge[count].sprite = handGauge[1];
 
-            if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
+            if (BottleUIManager.Instance == null)
             {
-                Debug.Log("【タコ】ボトル消費の開始");
-
-                int bottleIndex = count;
-                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
-                {
-                    // ボトルを取得済みとしてマーク
-                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
-                    Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
-                }
+                Debug.LogError($"{this.name} : BottleUIManagerが存在しません。");
             }
 
-            count++;
+            BottleUIManager.Instance.ConsumeBottles(1);
+
+            //Gauge[count].sprite = handGauge[1];
+
+            //if (SaveManager.Instance != null && SaveManager.Instance.currentData != null)
+            //{
+            //    Debug.Log("【タコ】ボトル消費の開始");
+
+            //    Debug.Log($"ボトルが{SaveManager.Instance.currentData.bottleStates}個満タンです");
+            //    if (SaveManager.Instance.currentData.bottleStates > 0)
+            //    {
+            //        SaveManager.Instance.currentData.bottleStates--;
+            //        int c = SaveManager.Instance.currentData.bottleStates;
+            //        Debug.Log($"ボトルを１つ消費しました。{c + 1} -> {c}");
+            //    }
+
+
+            //    //int bottleIndex = count;
+            //    ////if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+            //    //if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates)
+            //    //{
+            //    //    // ボトルを取得済みとしてマーク
+            //    //    //SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+            //    //    SaveManager.Instance.currentData.bottleStates--;
+            //    //    Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
+            //    //}
+            //}
+
+            //count++;
             SaveManager.Instance.SaveGame();
         }
     }
@@ -441,20 +460,27 @@ public class ObjectController1 : MonoBehaviour
 
     public void RecoverCountAndGauge()
     {
-        if (count <= 0)
+        //if (count <= 0)
+        if (BottleUIManager.Instance.IsBottleMax())
         {
             return;
         }
-        count--;
+        //count--;
 
         //int gaugeIndexToReset = count;
 
-        if (count >= 0 && count < Gauge.Length)
-        {
-            Gauge[count].sprite = handGauge[0];
-
-            Debug.Log($"ボトルの回収に伴い、countが {count + 1} から {count} に回復しました。");
-        }
+        //if (count >= 0 && count < Gauge.Length)
+        //{
+        //    //Gauge[count].sprite = handGauge[0];
+        //    SaveManager.Instance.currentData.bottleStates++;
+        //    //Debug.Log($"ボトルの回収に伴い、countが {count + 1} から {count} に回復しました。");
+        //    int c = SaveManager.Instance.currentData.bottleStates;
+        //    Debug.Log($"ボトルの回収に伴い、bottleStatesが {c - 1} から {c} に回復しました。");
+        //}
+        int recoverCount = 1;
+        int past = SaveManager.Instance.currentData.bottleStates;
+        int c = BottleUIManager.Instance.RecoverBottles(recoverCount);
+        Debug.Log($"ボトルの回収に伴い、bottleStatesが {past} から {past + c} に回復しました。");
 
         //if (count >= 0 && count < Gauge.Length)
         //{
@@ -470,26 +496,27 @@ public class ObjectController1 : MonoBehaviour
     }
 
 
-    public void ResetTakoCountAndGauge()
-    {
-        // ゲージUIの見た目をすべて満タンにもどす
-        for (int i = 0; i < Gauge.Length; i++)
-        {
-            if (Gauge[i] != null)
-            {
-                Gauge[i].sprite = handGauge[0];
-            }
-        }
-        count = 0;
-        Debug.Log($"【タコ制御】チェックポイントによりタコのcountを{count}に完全にリセットした。");
-    }
+    //public void ResetTakoCountAndGauge()
+    //{
+    //    // ゲージUIの見た目をすべて満タンにもどす
+    //    for (int i = 0; i < Gauge.Length; i++)
+    //    {
+    //        if (Gauge[i] != null)
+    //        {
+    //            Gauge[i].sprite = handGauge[0];
+    //        }
+    //    }
+    //    count = 0;
+    //    Debug.Log($"【タコ制御】チェックポイントによりタコのcountを{count}に完全にリセットした。");
+    //}
 
 
     private int GetCurrentBottleCount()
     {
         if (bottleUIManager != null && SaveManager.Instance.currentData != null)
         {
-            SaveManager.Instance.currentData.bottleStates.Count(state => state);
+            //SaveManager.Instance.currentData.bottleStates.Count(state => state);
+            return SaveManager.Instance.currentData.bottleStates;
         }
         return 0;
     }

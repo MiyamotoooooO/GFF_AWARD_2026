@@ -71,7 +71,7 @@ public class SaveManager : MonoBehaviour
         currentData.checkpointReached = Enumerable.Repeat(false, 10).ToArray();
         currentData.respawnPosition = new float[3] { 0.8f, 0.5f, -1.67f };
         currentData.checkpointReached = new bool[10];
-        currentData.bottleStates = new bool[4] { true, true, true, true };
+        currentData.bottleStates = 4;// new bool[4] { true, true, true, true };
 
         Debug.Log("新規データを作成しました。");
     }

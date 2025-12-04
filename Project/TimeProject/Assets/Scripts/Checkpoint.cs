@@ -90,7 +90,7 @@ public class Checkpoint : MonoBehaviour
                 // ★ 酸素・ボトル・タコ回復
                 OxygenGaugeController.Instance?.RecoverFullOxygen();
                 BottleUIManager.Instance?.ResetBottlesToFull();
-                ObjectController1.Instance?.ResetTakoCountAndGauge();
+                //ObjectController1.Instance?.ResetTakoCountAndGauge();
 
                 save.SaveGame();
                 Debug.Log($"チェックポイント {checkpointID} を更新！");

@@ -24,6 +24,7 @@ public class SideBlockChecker : MonoBehaviour
 
     [Header("ONにするスクリプト（targetObject上のスクリプトコンポーネントを直接指定）")]
     public MonoBehaviour targetScript;
+    public MonoBehaviour targetScript2;
 
     [Header("見た目の変更設定（マテリアル指定）")]
     public Material offMaterial;
@@ -42,6 +43,14 @@ public class SideBlockChecker : MonoBehaviour
             targetRenderer = targetObject.GetComponent<Renderer>();
             if (targetRenderer != null && offMaterial != null)
                 targetRenderer.material = offMaterial;
+            if (targetScript != null)
+            {
+                targetScript.enabled = false;
+            }
+            if (targetScript2 != null)
+            {
+                targetScript2.enabled = false;
+            }
         }
     }
 
@@ -80,10 +89,15 @@ public class SideBlockChecker : MonoBehaviour
             Debug.Log("指定したブロックがくっつきました！");
 
             // スクリプトON
-            if (targetScript != null)
-            {
+            if (targetScript != null) {
                 targetScript.enabled = true;
                 Debug.Log($"'{targetObject.name}' の '{targetScript.GetType().Name}' を ON にしました。");
+            }
+
+            if (targetScript2 != null)
+            {
+                targetScript2.enabled = true;
+                Debug.Log($"'{targetObject.name}' の '{targetScript2.GetType().Name}' を ON にしました。");
             }
 
             // タグ変更

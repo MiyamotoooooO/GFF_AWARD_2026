@@ -223,10 +223,12 @@ public class ObjectManager : MonoBehaviour
                 Debug.Log("【タコ】ボトル消費の開始");
 
                 int bottleIndex = count;
-                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+                //if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates.Length)
+                if (bottleIndex >= 0 && bottleIndex < SaveManager.Instance.currentData.bottleStates)
                 {
                     // ボトルを取得済みとしてマーク
-                    SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+                    //SaveManager.Instance.currentData.bottleStates[bottleIndex] = false;
+                    SaveManager.Instance.currentData.bottleStates--;
                     Debug.Log($"【タコ消費】ボトル[{bottleIndex}]をfalseに設定しました。");
                 }
             }
@@ -250,7 +252,8 @@ public class ObjectManager : MonoBehaviour
     {
         if (bottleUIManager != null && SaveManager.Instance.currentData != null)
         {
-            SaveManager.Instance.currentData.bottleStates.Count(state => state);
+            //SaveManager.Instance.currentData.bottleStates.Count(state => state);
+            return SaveManager.Instance.currentData.bottleStates;
         }
         return 0;
     }
