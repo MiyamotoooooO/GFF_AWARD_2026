@@ -166,7 +166,7 @@ public class BottleUIManager : MonoBehaviour
             // 回復した数を戻り値とする
             return recoveredCount;
         }
-        Debug.Log($"{this.name} ボトルの回復に失敗しました");
+        Debug.Log($"{this.name} ボトルが満タンなので、ボトルの回復に失敗しました");
         // 回復した数(0)を戻り値とする
         return recoveredCount;
 

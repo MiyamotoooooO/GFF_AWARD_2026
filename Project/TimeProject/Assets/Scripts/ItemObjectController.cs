@@ -454,7 +454,8 @@ public class ObjectController1 : MonoBehaviour
             {
                 allChildrenNames += $"[{child.gameObject.name}], ";
             }
-            Debug.LogError($"表示失敗！{targetName}と一致するテキストが見つかりませんでした。");
+            //Debug.LogError($"表示失敗！{targetName}と一致するテキストが見つかりませんでした。");
+            Debug.LogWarning($"表示失敗！{targetName}と一致するテキストが見つかりませんでした。");
         }
     }
 

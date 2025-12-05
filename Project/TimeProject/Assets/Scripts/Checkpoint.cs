@@ -105,7 +105,7 @@ public class Checkpoint : MonoBehaviour
                 currentIndex++;
 
                 // 全チェックポイントに「表示更新」させる
-                Checkpoint[] cps = FindObjectsOfType<Checkpoint>();
+                Checkpoint[] cps = FindObjectsByType<Checkpoint>(FindObjectsSortMode.None);
                 foreach (var cp in cps)
                 {
                     cp.UpdateSpriteVisibility();

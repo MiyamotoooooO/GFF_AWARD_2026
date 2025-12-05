@@ -35265,7 +35265,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 7306513478841988472, guid: 7916763bbd0bcca46a1d3e640b65a6d7, type: 3}
       propertyPath: m_LocalPosition.z
-      value: 2.9895258
+      value: 3.26
       objectReference: {fileID: 0}
     - target: {fileID: 7306513478841988472, guid: 7916763bbd0bcca46a1d3e640b65a6d7, type: 3}
       propertyPath: m_LocalRotation.w
@@ -36071,17 +36071,21 @@ PrefabInstance:
     serializedVersion: 3
     m_TransformParent: {fileID: 571390392}
     m_Modifications:
+    - target: {fileID: 4871420121059592812, guid: 1e34dbf3c3c247d4496a5d6ae9f9b7df, type: 3}
+      propertyPath: recoverCount
+      value: 4
+      objectReference: {fileID: 0}
     - target: {fileID: 7191229109712158755, guid: 1e34dbf3c3c247d4496a5d6ae9f9b7df, type: 3}
       propertyPath: m_LocalPosition.x
       value: 7.69466
       objectReference: {fileID: 0}
     - target: {fileID: 7191229109712158755, guid: 1e34dbf3c3c247d4496a5d6ae9f9b7df, type: 3}
       propertyPath: m_LocalPosition.y
-      value: -12.477688
+      value: -12.563
       objectReference: {fileID: 0}
     - target: {fileID: 7191229109712158755, guid: 1e34dbf3c3c247d4496a5d6ae9f9b7df, type: 3}
       propertyPath: m_LocalPosition.z
-      value: -0.7296448
+      value: -0.111
       objectReference: {fileID: 0}
     - target: {fileID: 7191229109712158755, guid: 1e34dbf3c3c247d4496a5d6ae9f9b7df, type: 3}
       propertyPath: m_LocalRotation.w
@@ -53654,7 +53658,6 @@ MonoBehaviour:
   fallDistanceY: 1500
   playerTransform: {fileID: 1991808916}
   bgmAudioSource: {fileID: 63395846}
-  bottleUIManager: {fileID: 0}
 --- !u!114 &1930301184
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -60421,6 +60424,10 @@ PrefabInstance:
       objectReference: {fileID: -944492474, guid: 44ce5ab65f1a7a24cb253d4bf7a4d20d, type: 3}
     - target: {fileID: 5877149552481984230, guid: 1d1ef26ec8663b447a4f5bc7090f836e, type: 3}
       propertyPath: m_SortingLayer
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5877149552481984230, guid: 1d1ef26ec8663b447a4f5bc7090f836e, type: 3}
+      propertyPath: m_SortingOrder
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 5877149552481984230, guid: 1d1ef26ec8663b447a4f5bc7090f836e, type: 3}

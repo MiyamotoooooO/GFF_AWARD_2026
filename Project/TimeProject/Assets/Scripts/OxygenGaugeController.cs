@@ -68,7 +68,6 @@ public class OxygenGaugeController : MonoBehaviour
     public Transform playerTransform;
     [Header("BGMを参照")]
     public AudioSource bgmAudioSource;
-    public BottleUIManager bottleUIManager;
 
     // private参照
     private bool isWarningActive = false;
@@ -489,9 +488,9 @@ public class OxygenGaugeController : MonoBehaviour
         UpdateOxygenUI();
         Debug.Log($"【酸素ゲージ】チェックポイント到達、酸素ゲージ{maxOxygen}にリセットした！");
 
-        if (bottleUIManager != null)
+        if (BottleUIManager.Instance != null)
         {
-            bottleUIManager.SignalBottleRecovered();
+            BottleUIManager.Instance.SignalBottleRecovered();
         }
     }
 
@@ -554,9 +553,9 @@ public class OxygenGaugeController : MonoBehaviour
             mainCanvasGroup.blocksRaycasts = true; // 必要であれば入力を再度受け付ける
         }
 
-        if (SaveManager.Instance != null)
+        if (SaveManager.Instance != null && BottleUIManager.Instance != null)
         {
-            bottleUIManager.ResetBottlesToFull();
+            BottleUIManager.Instance.ResetBottlesToFull();
         }
 
         // 現在のロードシーンを再ロード
