@@ -227,13 +227,12 @@ public class OxygenGaugeController : MonoBehaviour
             // _‘f‚ª‚O‚É‚È‚Á‚½ê‡
             if (currentOxygen <= 0)
             {
-                PlayerController.SetNonContactDeathCause("OxygenGauge");
+                playerController.KillPlayer("OxygenGauge");
                 /*if(ObjectController1.Instance != null)
                 {
                     ObjectController1.Instance.ShowGameOverScreen();
                 }*/
 
-                GameOverUI();
                 return;
             }
 

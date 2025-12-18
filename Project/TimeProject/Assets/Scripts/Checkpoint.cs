@@ -5,7 +5,7 @@ using UnityEngine;
 public class Checkpoint : MonoBehaviour
 {
     // ★ 今どのチェックポイントが有効かを共通で管理する変数
-    public static int currentIndex = 0;
+    //private int currentIndex = 0;
 
     [Header("このチェックポイントの順番（0 から）")]
     public int checkpointID;
@@ -30,11 +30,16 @@ public class Checkpoint : MonoBehaviour
     [Header("次の足場を出すまでの時間")]
     public float interval = 1f;
 
+    private CheckPointManager checkPointManager;
 
-
-    private void Start()
+    public void InjectCheckPointManager(CheckPointManager checkPointManager)
     {
-        // ★ スプライト生成
+        this.checkPointManager = checkPointManager;
+        Initialize();
+    }
+
+    private void Initialize()
+    {
         if (spritePrefab != null)
         {
             spawnedSprite = Instantiate(
@@ -44,21 +49,40 @@ public class Checkpoint : MonoBehaviour
             );
 
             spawnedSprite.transform.SetParent(transform);
+            UpdateSpriteVisibility(checkpointID == checkPointManager.CheckpointIndex);
         }
+    }
+
+
+    private void Start()
+    {
+        // ★ スプライト生成
+        //if (spritePrefab != null)
+        //{
+        //    spawnedSprite = Instantiate(
+        //        spritePrefab,
+        //        transform.position + spriteOffset,
+        //        Quaternion.identity
+        //    );
+
+        //    spawnedSprite.transform.SetParent(transform);
+        //    UpdateSpriteVisibility(false);
+        //}
 
         // ★ currentIndex に応じてスプライトを表示・非表示
-        UpdateSpriteVisibility();
+        //UpdateSpriteVisibility();
     }
 
 
 
-    private void UpdateSpriteVisibility()
+    public void UpdateSpriteVisibility(bool isVisible)
     {
-        if (spawnedSprite != null)
-        {
-            // ★ 現在のチェックポイントIDなら表示、それ以外は非表示
-            spawnedSprite.SetActive(checkpointID == currentIndex);
-        }
+        spawnedSprite.SetActive(isVisible);
+        //if (spawnedSprite != null)
+        //{
+        //    // ★ 現在のチェックポイントIDなら表示、それ以外は非表示
+        //    spawnedSprite.SetActive(checkpointID == checkPointManager.CheckpointIndex);
+        //}
     }
 
 
@@ -75,42 +99,44 @@ public class Checkpoint : MonoBehaviour
         // プレイヤーオブジェクト名 "Player" のときにセーブ処理などを行う
         if (collision.gameObject.name == "Player")
         {
-            SaveManager save = SaveManager.Instance;
+            checkPointManager.OnCheckpointReached(checkpointID);
 
-            // ★ セーブデータ更新（初めて踏んだ時だけ）
-            if (!save.currentData.checkpointReached[checkpointID])
-            {
-                save.currentData.checkpointReached[checkpointID] = true;
+            //SaveManager save = SaveManager.Instance;
 
-                Vector3 pos = transform.position;
-                save.currentData.respawnPosition[0] = pos.x;
-                save.currentData.respawnPosition[1] = pos.y;
-                save.currentData.respawnPosition[2] = pos.z;
+            //// ★ セーブデータ更新（初めて踏んだ時だけ）
+            //if (!save.currentData.checkpointReached[checkpointID])
+            //{
+            //    save.currentData.checkpointReached[checkpointID] = true;
 
-                // ★ 酸素・ボトル・タコ回復
-                OxygenGaugeController.Instance?.RecoverFullOxygen();
-                BottleUIManager.Instance?.ResetBottlesToFull();
-                //ObjectController1.Instance?.ResetTakoCountAndGauge();
+            //    Vector3 pos = transform.position;
+            //    save.currentData.respawnPosition[0] = pos.x;
+            //    save.currentData.respawnPosition[1] = pos.y;
+            //    save.currentData.respawnPosition[2] = pos.z;
 
-                save.SaveGame();
-                Debug.Log($"チェックポイント {checkpointID} を更新！");
-            }
+            //    // ★ 酸素・ボトル・タコ回復
+            //    OxygenGaugeController.Instance?.RecoverFullOxygen();
+            //    BottleUIManager.Instance?.ResetBottlesToFull();
+            //    //ObjectController1.Instance?.ResetTakoCountAndGauge();
 
-            // ★ チェックポイントインデックスの更新（スプライト制御）
-            if (checkpointID == currentIndex)
-            {
-                if (spawnedSprite != null)
-                    spawnedSprite.SetActive(false);
+            //    save.SaveGame();
+            //    Debug.Log($"チェックポイント {checkpointID} を更新！");
+            //}
 
-                currentIndex++;
+            //// ★ チェックポイントインデックスの更新（スプライト制御）
+            //if (checkpointID == currentIndex)
+            //{
+            //    if (spawnedSprite != null)
+            //        spawnedSprite.SetActive(false);
 
-                // 全チェックポイントに「表示更新」させる
-                Checkpoint[] cps = FindObjectsByType<Checkpoint>(FindObjectsSortMode.None);
-                foreach (var cp in cps)
-                {
-                    cp.UpdateSpriteVisibility();
-                }
-            }
+            //    currentIndex++;
+
+            //    // 全チェックポイントに「表示更新」させる
+            //    Checkpoint[] cps = FindObjectsByType<Checkpoint>(FindObjectsSortMode.None);
+            //    foreach (var cp in cps)
+            //    {
+            //        cp.UpdateSpriteVisibility();
+            //    }
+            //}
         }
     }
 

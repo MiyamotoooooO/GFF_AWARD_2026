@@ -54,6 +54,12 @@ public class PlayerCannonLauncher : MonoBehaviour
     private bool isFlyingUp = false;
     private bool isFalling = false;
     private Vector3 targetPosition;
+    private CheckPointManager checkPointManager;
+
+    public void InjectCheckPointManager(CheckPointManager checkPointManager)
+    {
+        this.checkPointManager = checkPointManager;
+    }
 
     void Start()
     {
@@ -109,6 +115,7 @@ public class PlayerCannonLauncher : MonoBehaviour
 
     void LaunchUpward()
     {
+        checkPointManager.SetCannonState(true);
         playerrb.isKinematic = false;
         isInCannon = false;
         isFlyingUp = true;
@@ -207,6 +214,9 @@ public class PlayerCannonLauncher : MonoBehaviour
         if (cameraMoveScript) cameraMoveScript.enabled = true;
         if (playerMoveScript) playerMoveScript.enabled = true;
         if (takoMoveScript) takoMoveScript.enabled = true;
+
+        yield return new WaitForSeconds(0.5f);
+        checkPointManager.SetCannonState(false);
     }
 
     void OnCollisionEnter(Collision collision)

@@ -102,6 +102,7 @@ public class SaveManager : MonoBehaviour
             Debug.Log($"セーブファイル {savePath} を削除しました。");
         }
 
+        //Checkpoint.currentIndex = 0;
         CreatNewSaveData();
     }
 }

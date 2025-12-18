@@ -133,7 +133,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   checkpointID: 0
-  spritePrefab: {fileID: 9016969892714833053, guid: b2e2e0b7e42290444b18454191d1a8ff, type: 3}
+  spritePrefab: {fileID: 7544630095581223441, guid: 84529a89300ea72489a6554566603ad5, type: 3}
   spriteOffset: {x: 0, y: 1.5, z: 0}
   platformsToActivate: []
   activeTime: 3

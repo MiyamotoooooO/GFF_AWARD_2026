@@ -117,9 +117,7 @@ public class FallingItem : MonoBehaviour
 
             if (OxygenGaugeController.Instance != null)
             {
-                PlayerController.SetNonContactDeathCause("stone");
-                Debug.Log("stone‚ğæ“¾‚µ‚Ü‚µ‚½B");
-                OxygenGaugeController.Instance.GameOverUI();
+                collision.gameObject.GetComponent<PlayerController>().KillPlayer("stone");
             }
 
             /*if (oxygenGauge != null)

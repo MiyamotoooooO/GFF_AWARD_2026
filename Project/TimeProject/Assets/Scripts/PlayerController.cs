@@ -1,5 +1,4 @@
-using System.Diagnostics.CodeAnalysis;
-using UnityEditor.Experimental.GraphView;
+using System.Collections;
 using UnityEngine;
 
 [RequireComponent(typeof(Animator), typeof(Rigidbody), typeof(SpriteRenderer))]
@@ -16,7 +15,7 @@ public class PlayerController : MonoBehaviour
 
     [SerializeField] private string waterObjectName;
 
-
+    [SerializeField] private float fallingDelayTime = 2;
     private Rigidbody rb;             // 3D物理用 Rigidbody
     private SpriteRenderer sr;        // キャラの見た目（左右反転用）
     private AudioSource footstepAudio;   // ← 足音用
@@ -29,6 +28,7 @@ public class PlayerController : MonoBehaviour
     private bool hasTouchedfalling = false;
     private bool isOnfalling = false;
     private bool isGameEnded = false;
+    private Coroutine onFallingDelay;
 
     void Start()
     {
@@ -103,7 +103,6 @@ public class PlayerController : MonoBehaviour
             Physics.IgnoreCollision(GetComponent<Collider>(), collision.collider, true);
         }
 
-        if (isGameEnded == true) return;
         string hitName = collision.gameObject.name;
 
         FallingItem DeathCauser = collision.gameObject.GetComponent<FallingItem>();
@@ -122,41 +121,55 @@ public class PlayerController : MonoBehaviour
         {
             if (OxygenGaugeController.Instance != null)
             {
-                SetNonContactDeathCause("stone");
-                Debug.Log("stoneを取得しました。");
-                OxygenGaugeController.Instance.GameOverUI();
+                KillPlayer("stone");
             }
         }
         else if (hitName == "falling")
         {
             Debug.Log("fallingに乗りました。");
-            isOnfalling = true;
+            //落ちた判定　且　FallingDelayTime秒の間、falling.gameObjectに触れている判定
+            if(onFallingDelay != null)
+            {
+                StopCoroutine(onFallingDelay);
+            }
+            StartCoroutine(OnFallingDelay());
         }
-        else if (hitName == waterObjectName)
+        if (hitName == waterObjectName)
         {
             if (isOnfalling == true)
             {
                 isGameEnded = true;
-                SetNonContactDeathCause("falling");
-                Debug.Log("fallingに乗ってから落ちました。");
-                OxygenGaugeController.Instance.GameOverUI();
+                KillPlayer("falling");
                 return;
             }
             else if (oxygenGaugeController != null)
             {
                 isGameEnded = true;
-                if (LastTouchedObjectName == "falling") return;
-                Debug.Log("Waterが呼ばれました。");
-                SetNonContactDeathCause("Water");
-                oxygenGaugeController.GameOverUI();
+                KillPlayer("Water");
             }
         }
         else
         {
             LastTouchedObjectName = hitName;
+
         }
 
-                LastTouchedObjectName = collision.gameObject.name;
+            LastTouchedObjectName = collision.gameObject.name;
+    }
+
+    IEnumerator OnFallingDelay()
+    {
+        isOnfalling = true;
+        yield return new WaitForSeconds(fallingDelayTime);
+        isOnfalling = false;
+    }
+
+    public void KillPlayer(string cause)
+    {
+        Debug.Log(cause + "が呼ばれました。");
+        SetNonContactDeathCause(cause);
+        oxygenGaugeController.GameOverUI();
+        HandleFootsteps(0);
     }
 
     private void OnTriggerEnter(Collider other)
@@ -165,7 +178,7 @@ public class PlayerController : MonoBehaviour
 
     }
 
-    public static void SetNonContactDeathCause(string causeName)
+    public void SetNonContactDeathCause(string causeName)
     {
         LastTouchedObjectName = causeName;
     }
