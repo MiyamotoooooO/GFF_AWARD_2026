@@ -54,7 +54,7 @@ public class PlayerController : MonoBehaviour
         }
     }
 
-    void Update()
+    void FixedUpdate()
     {
         // 入力取得（左右＋前後）
         float moveX = Input.GetAxisRaw("Horizontal"); // A/Dキー, ←/→
@@ -64,7 +64,7 @@ public class PlayerController : MonoBehaviour
         Vector3 moveDir = new Vector3(moveX, 0, moveZ).normalized;
 
         // 移動処理
-        rb.MovePosition(transform.position + moveDir * moveSpeed * Time.deltaTime);
+        rb.MovePosition(transform.position + moveDir * moveSpeed * (1 / 60.0f));
 
         // アニメーション制御
         float speed = moveDir.magnitude;         // 入力の強さ
